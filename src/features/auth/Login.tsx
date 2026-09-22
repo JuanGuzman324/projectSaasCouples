@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { Button } from '../../ui/Button'
 import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
+import { ThemeToggle } from '../../ui/ThemeToggle'
 
 export function Login() {
   const { t } = useTranslation('auth')
@@ -28,7 +29,10 @@ export function Login() {
   }
 
   return (
-    <div className="auth-bg flex min-h-dvh flex-col justify-center px-6 py-10">
+    <div className="auth-bg relative flex min-h-dvh flex-col justify-center px-6 py-10">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <div className="mx-auto flex w-full max-w-sm flex-col gap-6">
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('login.title')}</h1>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">

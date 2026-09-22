@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../ui/Button'
+import { ThemeToggle } from '../../ui/ThemeToggle'
 import type { CoupleWithMembers } from './api'
 
 export function InviteScreen({ couple }: { couple: CoupleWithMembers }) {
@@ -14,7 +15,10 @@ export function InviteScreen({ couple }: { couple: CoupleWithMembers }) {
   }
 
   return (
-    <div className="auth-bg flex min-h-dvh flex-col items-center justify-center gap-6 px-6 py-10 text-center">
+    <div className="auth-bg relative flex min-h-dvh flex-col items-center justify-center gap-6 px-6 py-10 text-center">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6">
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('invite.title')}</h1>
         <p className="text-[var(--color-muted)]">{t('invite.explain')}</p>

@@ -13,6 +13,7 @@ import { DatesPage } from './features/dates/DatesPage'
 import { MomentsPage } from './features/moments/MomentsPage'
 import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
+import { ThemeToggle } from './ui/ThemeToggle'
 import { supabase } from './lib/supabase'
 import type { CoupleWithMembers } from './features/couple/api'
 
@@ -61,6 +62,7 @@ function Shell({ children }: { children: React.ReactNode }) {
         <div className="flex items-center justify-between gap-3">
           <span className="[font-family:var(--font-display)] text-xl">{t('app.name')}</span>
           <div className="flex items-center gap-3 sm:hidden">
+            <ThemeToggle />
             <LanguageSwitcher />
             <Button variant="ghost" onClick={() => supabase.auth.signOut()}>
               {t('action.logout')}
@@ -69,6 +71,7 @@ function Shell({ children }: { children: React.ReactNode }) {
         </div>
         <Nav />
         <div className="hidden items-center gap-3 sm:flex">
+          <ThemeToggle />
           <LanguageSwitcher />
           <Button variant="ghost" onClick={() => supabase.auth.signOut()}>
             {t('action.logout')}

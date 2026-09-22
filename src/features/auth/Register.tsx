@@ -6,6 +6,7 @@ import { Button } from '../../ui/Button'
 import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
 import { Card } from '../../ui/Card'
+import { ThemeToggle } from '../../ui/ThemeToggle'
 
 export function Register() {
   const { t, i18n } = useTranslation('auth')
@@ -39,7 +40,10 @@ export function Register() {
 
   if (done) {
     return (
-      <div className="auth-bg flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+      <div className="auth-bg relative flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+        <div className="absolute right-4 top-4">
+          <ThemeToggle />
+        </div>
         <Card className="max-w-sm">
           <p>{t('register.checkEmail')}</p>
         </Card>
@@ -48,7 +52,10 @@ export function Register() {
   }
 
   return (
-    <div className="auth-bg flex min-h-dvh flex-col justify-center px-6 py-10">
+    <div className="auth-bg relative flex min-h-dvh flex-col justify-center px-6 py-10">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <div className="mx-auto flex w-full max-w-sm flex-col gap-6">
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('register.title')}</h1>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">

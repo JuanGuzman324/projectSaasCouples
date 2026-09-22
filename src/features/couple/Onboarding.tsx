@@ -4,6 +4,7 @@ import { useCreateCouple, useJoinCouple } from './useCouple'
 import { Button } from '../../ui/Button'
 import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
+import { ThemeToggle } from '../../ui/ThemeToggle'
 
 // Los códigos P0001/P0002 son los que definimos a mano en las funciones SQL
 // (create_couple/join_couple). Cualquier otro código lo tratamos como error
@@ -49,7 +50,10 @@ export function Onboarding() {
   }
 
   return (
-    <div className="auth-bg flex min-h-dvh flex-col justify-center px-6 py-10">
+    <div className="auth-bg relative flex min-h-dvh flex-col justify-center px-6 py-10">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <div className="mx-auto flex w-full max-w-lg flex-col gap-8">
         <div>
           <h1 className="[font-family:var(--font-display)] text-3xl">{t('onboarding.title')}</h1>

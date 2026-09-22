@@ -20,6 +20,41 @@
   --font-body: "Hanken Grotesk", system-ui, sans-serif;
 }
 
+/* Modo oscuro: mismos nombres de variable, valores distintos. Se activa
+   por preferencia del sistema (prefers-color-scheme) o a mano con
+   data-theme="dark"/"light" en <html> (ver src/lib/theme.ts); el color
+   de marca (gold) casi no cambia, lo que cambia es el fondo/superficie/
+   texto para mantener el contraste. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #15111F;
+    --color-surface: #1E1832;
+    --color-surface-2: #2A2242;
+    --color-ink: #EEEAF9;
+    --color-muted: #A79EC7;
+    --color-line: #372E52;
+    --color-rose: #EC6D93;
+    --color-sage: #55C09B;
+    --color-danger: #FF7A70;
+    --color-hero: #14102B;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #15111F;
+  --color-surface: #1E1832;
+  --color-surface-2: #2A2242;
+  --color-ink: #EEEAF9;
+  --color-muted: #A79EC7;
+  --color-line: #372E52;
+  --color-rose: #EC6D93;
+  --color-sage: #55C09B;
+  --color-danger: #FF7A70;
+  --color-hero: #14102B;
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -28,6 +63,12 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
 }
 
 ::selection {
