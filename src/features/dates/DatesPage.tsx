@@ -70,13 +70,13 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-[var(--font-display)] text-3xl">{t('nav')}</h1>
+        <h1 className="[font-family:var(--font-display)] text-3xl">{t('nav')}</h1>
         <Button onClick={() => setShowForm((s) => !s)}>{t('action.new')}</Button>
       </div>
 
       {showForm && (
         <Card>
-          <h2 className="mb-4 font-[var(--font-display)] text-xl">{t('new.title')}</h2>
+          <h2 className="mb-4 [font-family:var(--font-display)] text-xl">{t('new.title')}</h2>
           <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextField
               label={t('field.title')}
@@ -136,7 +136,7 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
 
       {!isLoading && withCountdown.length === 0 && (
         <Card className="text-center">
-          <h2 className="font-[var(--font-display)] text-xl">{t('empty.title')}</h2>
+          <h2 className="[font-family:var(--font-display)] text-xl">{t('empty.title')}</h2>
           <p className="mt-1 text-[var(--color-muted)]">{t('empty.subtitle')}</p>
         </Card>
       )}
@@ -149,7 +149,7 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
                 <span className="text-xs font-semibold text-[var(--color-muted)]">
                   {t(`kind.${date.kind}`)}
                 </span>
-                <h3 className="font-[var(--font-display)] text-xl">{date.title}</h3>
+                <h3 className="[font-family:var(--font-display)] text-xl">{date.title}</h3>
                 <p className="text-sm text-[var(--color-muted)]">
                   {new Intl.DateTimeFormat(i18n.resolvedLanguage, {
                     day: 'numeric',

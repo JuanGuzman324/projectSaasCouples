@@ -176,7 +176,7 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
         </div>
 
         <div>
-          <h3 className="mb-2 font-[var(--font-display)] text-lg">{t('field.palette')}</h3>
+          <h3 className="mb-2 [font-family:var(--font-display)] text-lg">{t('field.palette')}</h3>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {(['bg1', 'bg2', 'ink', 'accent'] as const).map((key) => (
               <label key={key} className="flex flex-col gap-1.5 text-sm font-semibold">
@@ -217,7 +217,7 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
         />
 
         <div>
-          <h3 className="mb-2 font-[var(--font-display)] text-lg">{t('field.plan')}</h3>
+          <h3 className="mb-2 [font-family:var(--font-display)] text-lg">{t('field.plan')}</h3>
           <div className="flex gap-2">
             <input
               value={planText}

@@ -47,7 +47,7 @@ export function Scene({ data, compact = false, children }: { data: SceneData; co
       <div className="relative z-10 flex flex-col items-center gap-3">
         <p className={`font-semibold opacity-85 ${compact ? 'text-xs' : 'text-sm'}`}>{data.name}</p>
         <h2
-          className="max-w-[18ch] font-[var(--font-display)] leading-tight text-balance"
+          className="max-w-[18ch] [font-family:var(--font-display)] leading-tight text-balance"
           style={{ fontSize: compact ? 22 : 'clamp(30px, 6vw, 56px)', fontFamily: FONT_STACK[data.font] }}
         >
           {data.tagline || data.name}

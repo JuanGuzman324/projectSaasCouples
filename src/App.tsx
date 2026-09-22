@@ -59,7 +59,7 @@ function Shell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh">
       <header className="flex flex-col gap-3 px-6 py-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <div className="flex items-center justify-between gap-3">
-          <span className="font-[var(--font-display)] text-xl">{t('app.name')}</span>
+          <span className="[font-family:var(--font-display)] text-xl">{t('app.name')}</span>
           <div className="flex items-center gap-3 sm:hidden">
             <LanguageSwitcher />
             <Button variant="ghost" onClick={() => supabase.auth.signOut()}>

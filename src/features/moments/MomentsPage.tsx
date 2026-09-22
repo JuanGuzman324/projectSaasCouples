@@ -53,13 +53,13 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-[var(--font-display)] text-3xl">{t('nav')}</h1>
+        <h1 className="[font-family:var(--font-display)] text-3xl">{t('nav')}</h1>
         <Button onClick={() => setCreating(true)}>{t('action.new')}</Button>
       </div>
 
       {!isLoading && moments?.length === 0 && (
         <Card className="text-center">
-          <h2 className="font-[var(--font-display)] text-xl">{t('empty.title')}</h2>
+          <h2 className="[font-family:var(--font-display)] text-xl">{t('empty.title')}</h2>
           <p className="mt-1 text-[var(--color-muted)]">{t('empty.subtitle')}</p>
         </Card>
       )}
@@ -77,7 +77,7 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
               <span aria-hidden className="text-3xl">
                 {MOTIF_EMOJI[(m.motif as Motif) ?? 'destellos'] ?? m.emoji}
               </span>
-              <h3 className="font-[var(--font-display)] text-xl">{m.name}</h3>
+              <h3 className="[font-family:var(--font-display)] text-xl">{m.name}</h3>
               {m.tagline && <p className="opacity-90">{m.tagline}</p>}
               <Photo path={m.photo_path} alt="" className="mt-2 aspect-square w-full rounded-xl object-cover" />
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2">

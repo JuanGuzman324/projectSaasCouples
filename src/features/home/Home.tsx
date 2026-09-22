@@ -16,7 +16,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
   if (!couple.start_date) {
     return (
       <section className="rounded-3xl bg-[var(--color-hero)] p-8 text-[var(--color-hero-ink)]">
-        <h1 className="font-[var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
+        <h1 className="[font-family:var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
       </section>
     )
   }
@@ -33,7 +33,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
 
   return (
     <section className="rounded-3xl bg-[var(--color-hero)] p-8 text-[var(--color-hero-ink)]">
-      <p className="font-[var(--font-display)] text-6xl tabular-nums">{formattedDays}</p>
+      <p className="[font-family:var(--font-display)] text-6xl tabular-nums">{formattedDays}</p>
       <p className="mt-1 text-lg">
         <Trans i18nKey="hero.daysTogether" ns="home" count={days} values={{ count: days }}>
           days together

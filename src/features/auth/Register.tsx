@@ -45,7 +45,7 @@ export function Register() {
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center gap-6 px-6 py-10">
-      <h1 className="font-[var(--font-display)] text-3xl">{t('register.title')}</h1>
+      <h1 className="[font-family:var(--font-display)] text-3xl">{t('register.title')}</h1>
       <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <TextField
           label={t('login.email')}

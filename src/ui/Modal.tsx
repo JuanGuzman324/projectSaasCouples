@@ -29,7 +29,7 @@ export function Modal({
         className={`mx-auto my-6 rounded-2xl bg-[var(--color-surface)] p-6 shadow-xl ${wide ? 'max-w-4xl' : 'max-w-lg'}`}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-[var(--font-display)] text-2xl">{title}</h2>
+          <h2 className="[font-family:var(--font-display)] text-2xl">{title}</h2>
           <button type="button" onClick={onClose} aria-label="Close" className="text-2xl leading-none">
             ×
           </button>

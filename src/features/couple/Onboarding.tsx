@@ -50,7 +50,7 @@ export function Onboarding() {
   return (
     <div className="mx-auto flex min-h-dvh max-w-lg flex-col justify-center gap-8 px-6 py-10">
       <div>
-        <h1 className="font-[var(--font-display)] text-3xl">{t('onboarding.title')}</h1>
+        <h1 className="[font-family:var(--font-display)] text-3xl">{t('onboarding.title')}</h1>
         <p className="mt-2 text-[var(--color-muted)]">{t('onboarding.subtitle')}</p>
       </div>
 
@@ -58,7 +58,7 @@ export function Onboarding() {
         onSubmit={onCreate}
         className="flex flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5"
       >
-        <h2 className="font-[var(--font-display)] text-xl">{t('onboarding.create.title')}</h2>
+        <h2 className="[font-family:var(--font-display)] text-xl">{t('onboarding.create.title')}</h2>
         <TextField
           label={t('onboarding.create.startDate')}
           type="date"
@@ -78,7 +78,7 @@ export function Onboarding() {
         onSubmit={onJoin}
         className="flex flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5"
       >
-        <h2 className="font-[var(--font-display)] text-xl">{t('onboarding.join.title')}</h2>
+        <h2 className="[font-family:var(--font-display)] text-xl">{t('onboarding.join.title')}</h2>
         <TextField
           label={t('onboarding.join.code')}
           name="code"
