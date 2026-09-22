@@ -26,7 +26,7 @@ Ordenado por cuánto se nota su ausencia en el uso diario de la app.
 
 Todo esto es "la app deja de sentirse fina" si falta, pero no bloquea usar las funciones principales.
 
-- [ ] **PWA instalable (S)** Falta `manifest.webmanifest` y los íconos (`public/` solo tiene `favicon.svg`/`icons.svg`). El prototipo ya tenía esto resuelto. Hecho cuando: Chrome/Safari ofrecen "Instalar app" y abre a pantalla completa, con ícono propio.
+- [x] **PWA instalable (S)** Falta `manifest.webmanifest` y los íconos (`public/` solo tiene `favicon.svg`/`icons.svg`). El prototipo ya tenía esto resuelto. Hecho cuando: Chrome/Safari ofrecen "Instalar app" y abre a pantalla completa, con ícono propio.
 - [ ] **Exportar / importar copia de seguridad en JSON (S)** Botón en Ajustes para descargar todo el contenido de la pareja como JSON, y restaurarlo. Es la red de seguridad más barata de construir mientras no exista backup automático del lado de Supabase. Hecho cuando: el archivo descargado incluye recuerdos, fechas y momentos, y "importar" los vuelve a crear vía las mismas funciones de `api.ts` de cada feature (no un insert directo a la tabla).
 - [ ] **Modo sin conexión con cola de sincronización (L)** La app depende 100% de que Supabase responda; sin red no carga nada. Es el ítem más grande de este backlog — requiere una capa de caché local (IndexedDB, por ejemplo con Dexie) y una cola de cambios pendientes que se reintenta al volver la conexión. Hecho cuando: con el wifi apagado, la app sigue mostrando el último estado conocido, y los cambios hechos offline se sincronizan solos al reconectar.
 

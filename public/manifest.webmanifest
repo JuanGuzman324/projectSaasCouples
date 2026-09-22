@@ -1,0 +1,16 @@
+{
+  "name": "Nuestra historia",
+  "short_name": "Nuestra historia",
+  "description": "El espacio privado de una pareja: recuerdos, fechas y momentos especiales.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F3F0F8",
+  "theme_color": "#2A2052",
+  "lang": "es",
+  "icons": [
+    { "src": "/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/pwa-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
