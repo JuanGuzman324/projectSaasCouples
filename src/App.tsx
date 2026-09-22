@@ -11,6 +11,7 @@ import { Home } from './features/home/Home'
 import { MemoriesPage } from './features/memories/MemoriesPage'
 import { DatesPage } from './features/dates/DatesPage'
 import { MomentsPage } from './features/moments/MomentsPage'
+import { SettingsPage } from './features/couple/SettingsPage'
 import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
 import { ThemeToggle } from './ui/ThemeToggle'
@@ -22,15 +23,17 @@ const TABS = [
   { to: '/memories', end: false, key: 'memories' as const },
   { to: '/dates', end: false, key: 'dates' as const },
   { to: '/moments', end: false, key: 'moments' as const },
+  { to: '/settings', end: false, key: 'settings' as const },
 ]
 
 function Nav() {
-  const { t } = useTranslation(['common', 'memories', 'dates', 'moments'])
+  const { t } = useTranslation(['common', 'memories', 'dates', 'moments', 'couple'])
   const labels: Record<(typeof TABS)[number]['key'], string> = {
     home: t('app.name', { ns: 'common' }),
     memories: t('nav', { ns: 'memories' }),
     dates: t('nav', { ns: 'dates' }),
     moments: t('nav', { ns: 'moments' }),
+    settings: t('settings.nav', { ns: 'couple' }),
   }
   return (
     <nav className="tab-scroll flex gap-1 overflow-x-auto">
@@ -94,6 +97,7 @@ function CoupleRoutes({ couple }: { couple: CoupleWithMembers }) {
         <Route path="/memories" element={<MemoriesPage coupleId={couple.id} />} />
         <Route path="/dates" element={<DatesPage coupleId={couple.id} />} />
         <Route path="/moments" element={<MomentsPage coupleId={couple.id} />} />
+        <Route path="/settings" element={<SettingsPage couple={couple} />} />
       </Routes>
     </Shell>
   )

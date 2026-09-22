@@ -13,5 +13,18 @@
   "invite.title": "Invita a tu pareja",
   "invite.explain": "Comparte este código para que se una a tu espacio.",
   "invite.code": "Código",
-  "invite.waiting": "Esperando a que se una la otra persona…"
+  "invite.waiting": "Esperando a que se una la otra persona…",
+  "settings.title": "Ajustes",
+  "settings.profile.title": "Tu perfil",
+  "settings.field.displayName": "Tu nombre",
+  "settings.field.city": "Tu ciudad",
+  "settings.field.lat": "Latitud",
+  "settings.field.lon": "Longitud",
+  "settings.field.latLonHint": "Opcional, para la futura tarjeta de distancia entre ciudades.",
+  "settings.couple.title": "Sobre la pareja",
+  "settings.field.startDate": "¿Cuándo empezó todo?",
+  "settings.action.save": "Guardar cambios",
+  "settings.saved": "Guardado.",
+  "settings.error.save": "No se pudo guardar. Intenta de nuevo.",
+  "settings.nav": "Ajustes"
 }

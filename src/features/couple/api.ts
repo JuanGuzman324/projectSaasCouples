@@ -52,3 +52,39 @@ export async function leaveCouple(coupleId: string) {
   const { error } = await supabase.rpc('leave_couple', { p_couple_id: coupleId })
   if (error) throw error
 }
+
+export interface CoupleUpdate {
+  startDate: string | null
+}
+
+export async function updateCouple(coupleId: string, patch: CoupleUpdate) {
+  const { error } = await supabase
+    .from('couples')
+    .update({ start_date: patch.startDate })
+    .eq('id', coupleId)
+  if (error) throw error
+}
+
+export interface MemberUpdate {
+  displayName: string | null
+  city: string | null
+  lat: number | null
+  lon: number | null
+}
+
+// Cada miembro solo puede editar su propia fila (lo exige la política RLS
+// de couple_members); por eso siempre hace falta el userId además del
+// coupleId, aunque el .eq('couple_id', ...) ya lo acote a la pareja.
+export async function updateMyMember(coupleId: string, userId: string, patch: MemberUpdate) {
+  const { error } = await supabase
+    .from('couple_members')
+    .update({
+      display_name: patch.displayName,
+      city: patch.city,
+      lat: patch.lat,
+      lon: patch.lon,
+    })
+    .eq('couple_id', coupleId)
+    .eq('user_id', userId)
+  if (error) throw error
+}

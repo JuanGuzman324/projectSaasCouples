@@ -13,5 +13,18 @@
   "invite.title": "Lade deine Partnerin/deinen Partner ein",
   "invite.explain": "Teile diesen Code, damit die andere Person beitreten kann.",
   "invite.code": "Code",
-  "invite.waiting": "Warten, bis die andere Person beitritt …"
+  "invite.waiting": "Warten, bis die andere Person beitritt …",
+  "settings.title": "Einstellungen",
+  "settings.profile.title": "Dein Profil",
+  "settings.field.displayName": "Dein Name",
+  "settings.field.city": "Deine Stadt",
+  "settings.field.lat": "Breitengrad",
+  "settings.field.lon": "Längengrad",
+  "settings.field.latLonHint": "Optional, für die geplante Entfernungskarte zwischen Städten.",
+  "settings.couple.title": "Über das Paar",
+  "settings.field.startDate": "Wann hat alles angefangen?",
+  "settings.action.save": "Änderungen speichern",
+  "settings.saved": "Gespeichert.",
+  "settings.error.save": "Konnte nicht gespeichert werden. Versuch es noch einmal.",
+  "settings.nav": "Einstellungen"
 }

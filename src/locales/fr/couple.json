@@ -13,5 +13,18 @@
   "invite.title": "Invitez votre partenaire",
   "invite.explain": "Partagez ce code pour qu'iel puisse rejoindre votre espace.",
   "invite.code": "Code",
-  "invite.waiting": "En attente que l'autre personne rejoigne…"
+  "invite.waiting": "En attente que l'autre personne rejoigne…",
+  "settings.title": "Paramètres",
+  "settings.profile.title": "Votre profil",
+  "settings.field.displayName": "Votre nom",
+  "settings.field.city": "Votre ville",
+  "settings.field.lat": "Latitude",
+  "settings.field.lon": "Longitude",
+  "settings.field.latLonHint": "Facultatif, pour la future carte de distance entre villes.",
+  "settings.couple.title": "À propos du couple",
+  "settings.field.startDate": "Quand tout a-t-il commencé ?",
+  "settings.action.save": "Enregistrer les modifications",
+  "settings.saved": "Enregistré.",
+  "settings.error.save": "Impossible d'enregistrer. Réessayez.",
+  "settings.nav": "Paramètres"
 }
