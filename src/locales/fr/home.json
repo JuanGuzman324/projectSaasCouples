@@ -14,5 +14,9 @@
   "distance.title": "Distance entre vous",
   "distance.flight": "En avion, env.",
   "distance.drive": "En voiture, env.",
-  "distance.hint": "Estimation à vol d'oiseau, pas un itinéraire réel."
+  "distance.hint": "Estimation à vol d'oiseau, pas un itinéraire réel.",
+  "randomMemory.title": "Un souvenir au hasard",
+  "randomMemory.shuffle": "Un autre au hasard",
+  "randomMemory.onThisDay_one": "Il y a {{count}} an, un jour comme aujourd'hui",
+  "randomMemory.onThisDay_other": "Il y a {{count}} ans, un jour comme aujourd'hui"
 }

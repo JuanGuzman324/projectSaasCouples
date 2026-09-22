@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Trans } from 'react-i18next'
 import { Card } from '../../ui/Card'
+import { Button } from '../../ui/Button'
+import { Photo } from '../../ui/Photo'
 import { nextMilestones, daysUntil } from './milestones'
 import { haversineKm, estimateHours, AVG_FLIGHT_KMH, AVG_DRIVE_KMH, type CityPoint } from './distance'
+import { pickMemoryId, isOnThisDay, yearsAgo } from './random-memory'
+import { useMemories } from '../memories/useMemories'
 import type { CoupleWithMembers } from '../couple/api'
 
 function daysTogether(startDate: string): number {
@@ -156,6 +161,67 @@ function DistanceCard({ couple }: { couple: CoupleWithMembers }) {
   )
 }
 
+function RandomMemoryCard() {
+  const { t, i18n } = useTranslation(['home', 'memories'])
+  const { data: memories } = useMemories()
+  const [pickedId, setPickedId] = useState<string | null>(null)
+  // Elegimos el primero apenas llegan los recuerdos, derivándolo durante el
+  // render (no en un efecto) para no disparar un ciclo extra de render.
+  const [seenMemories, setSeenMemories] = useState<typeof memories>(undefined)
+  if (memories && memories !== seenMemories && pickedId == null) {
+    setPickedId(pickMemoryId(memories, new Date(), null))
+    setSeenMemories(memories)
+  }
+
+  if (!memories || memories.length === 0) return null
+  const current = memories.find((m) => m.id === pickedId) ?? memories[0]
+  const today = new Date()
+
+  const formattedDate = new Intl.DateTimeFormat(i18n.resolvedLanguage, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(current.happened_on + 'T00:00:00'))
+
+  return (
+    <Card className="mt-6">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="[font-family:var(--font-display)] text-xl">{t('randomMemory.title')}</h2>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => setPickedId(pickMemoryId(memories, today, current.id))}
+        >
+          {t('randomMemory.shuffle')}
+        </Button>
+      </div>
+      {isOnThisDay(current.happened_on, today) && (
+        <p className="mt-2 inline-block rounded-full bg-[var(--color-gold)] px-3 py-1 text-xs font-bold text-[var(--color-on-gold)]">
+          {t('randomMemory.onThisDay', { count: yearsAgo(current.happened_on, today) })}
+        </p>
+      )}
+      <div className="mt-3 flex gap-3">
+        <Photo
+          path={current.photo_path}
+          alt=""
+          className="h-20 w-20 flex-none rounded-xl object-cover"
+        />
+        <div>
+          <span className="text-xs font-semibold text-[var(--color-muted)]">
+            {t(`tag.${current.tag}`, { ns: 'memories' })}
+          </span>
+          <h3 className="[font-family:var(--font-display)] text-xl">{current.title}</h3>
+          <p className="text-sm text-[var(--color-muted)]">
+            {formattedDate}
+            {current.place ? ` · ${current.place}` : ''}
+          </p>
+        </div>
+      </div>
+      {current.body && <p className="mt-3 whitespace-pre-line">{current.body}</p>}
+    </Card>
+  )
+}
+
 export function Home({ couple }: { couple: CoupleWithMembers }) {
   const { t, i18n } = useTranslation('home')
 
@@ -166,6 +232,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
           <h1 className="[font-family:var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
         </section>
         <DistanceCard couple={couple} />
+        <RandomMemoryCard />
       </>
     )
   }
@@ -193,6 +260,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
       </section>
       <MilestonesCard startDate={couple.start_date} />
       <DistanceCard couple={couple} />
+      <RandomMemoryCard />
     </>
   )
 }

@@ -14,5 +14,9 @@
   "distance.title": "Entfernung zwischen euch",
   "distance.flight": "Mit dem Flugzeug, ca.",
   "distance.drive": "Mit dem Auto, ca.",
-  "distance.hint": "Luftlinie geschätzt, keine echte Route."
+  "distance.hint": "Luftlinie geschätzt, keine echte Route.",
+  "randomMemory.title": "Eine zufällige Erinnerung",
+  "randomMemory.shuffle": "Neu mischen",
+  "randomMemory.onThisDay_one": "Vor {{count}} Jahr, heute auf den Tag genau",
+  "randomMemory.onThisDay_other": "Vor {{count}} Jahren, heute auf den Tag genau"
 }
