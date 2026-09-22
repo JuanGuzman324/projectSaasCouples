@@ -3,6 +3,7 @@
   "hero.daysTogether_other": "{{count}} días juntos",
   "hero.empty.title": "Empieza con la fecha en que todo comenzó",
   "hero.empty.action": "Configurar",
+  "hero.liveClock": "y contando… {{time}}",
   "milestones.title": "Próximos hitos",
   "milestones.day_one": "Día {{count}}",
   "milestones.day_other": "Día {{count}}",
@@ -18,5 +19,8 @@
   "randomMemory.title": "Un recuerdo al azar",
   "randomMemory.shuffle": "Otro al azar",
   "randomMemory.onThisDay_one": "Hace {{count}} año, un día como hoy",
-  "randomMemory.onThisDay_other": "Hace {{count}} años, un día como hoy"
+  "randomMemory.onThisDay_other": "Hace {{count}} años, un día como hoy",
+  "thread.title": "El hilo entre ustedes",
+  "thread.nextEncounter": "Faltan para el próximo encuentro",
+  "thread.hint": "El punto se acerca a medida que se acerca la fecha (no es una medición exacta)."
 }

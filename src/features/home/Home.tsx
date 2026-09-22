@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Trans } from 'react-i18next'
 import { Card } from '../../ui/Card'
@@ -7,8 +7,23 @@ import { Photo } from '../../ui/Photo'
 import { nextMilestones, daysUntil } from './milestones'
 import { haversineKm, estimateHours, AVG_FLIGHT_KMH, AVG_DRIVE_KMH, type CityPoint } from './distance'
 import { pickMemoryId, isOnThisDay, yearsAgo } from './random-memory'
+import { progressFraction, quadraticPoint } from './thread'
 import { useMemories } from '../memories/useMemories'
+import { useDates } from '../dates/useDates'
+import { nextOccurrence } from '../dates/date-utils'
 import type { CoupleWithMembers } from '../couple/api'
+
+// Reloj que se actualiza cada segundo, para el contador en vivo del hero
+// y la cuenta regresiva del hilo. Un solo intervalo compartido por Home.
+function useNow(enabled: boolean): Date {
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
+    if (!enabled) return
+    const id = setInterval(() => setNow(new Date()), 1000)
+    return () => clearInterval(id)
+  }, [enabled])
+  return now
+}
 
 function daysTogether(startDate: string): number {
   const start = new Date(startDate + 'T00:00:00')
@@ -16,6 +31,22 @@ function daysTogether(startDate: string): number {
   const ms = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) -
     Date.UTC(start.getFullYear(), start.getMonth(), start.getDate())
   return Math.max(0, Math.round(ms / 86_400_000) + 1)
+}
+
+function LiveClock({ startDate }: { startDate: string }) {
+  const { t } = useTranslation('home')
+  const now = useNow(true)
+  const start = new Date(startDate + 'T00:00:00')
+  const totalSeconds = Math.max(0, Math.floor((now.getTime() - start.getTime()) / 1000))
+  const hh = Math.floor((totalSeconds % 86_400) / 3600)
+  const mm = Math.floor((totalSeconds % 3600) / 60)
+  const ss = totalSeconds % 60
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return (
+    <p className="mt-2 font-mono text-sm tabular-nums text-[var(--color-hero-muted,#BDB4DE)]">
+      {t('hero.liveClock', { time: `${pad(hh)}:${pad(mm)}:${pad(ss)}` })}
+    </p>
+  )
 }
 
 function MilestonesCard({ startDate }: { startDate: string }) {
@@ -161,6 +192,69 @@ function DistanceCard({ couple }: { couple: CoupleWithMembers }) {
   )
 }
 
+function ThreadCard({ couple }: { couple: CoupleWithMembers }) {
+  const { t, i18n } = useTranslation('home')
+  const { data: dates } = useDates()
+  const now = useNow(true)
+
+  const withCoords = couple.members.filter(
+    (m): m is typeof m & { lat: number; lon: number } => m.lat != null && m.lon != null
+  )
+  const nextEncounter = (dates ?? [])
+    .filter((d) => d.kind === 'encuentro')
+    .map((d) => nextOccurrence(d, now))
+    .filter((d): d is Date => d !== null)
+    .sort((a, b) => a.getTime() - b.getTime())[0]
+
+  if (withCoords.length < 2 || !nextEncounter) return null
+  const [ma, mb] = withCoords
+
+  const msLeft = Math.max(0, nextEncounter.getTime() - now.getTime())
+  const totalSeconds = Math.floor(msLeft / 1000)
+  const daysLeft = Math.floor(totalSeconds / 86_400)
+  const hoursLeft = Math.floor((totalSeconds % 86_400) / 3600)
+  const minutesLeft = Math.floor((totalSeconds % 3600) / 60)
+  const secondsLeft = totalSeconds % 60
+  const pad = (n: number) => String(n).padStart(2, '0')
+
+  const W = 320
+  const H = 140
+  const pa = project(ma, W, H)
+  const pb = project(mb, W, H)
+  const midX = (pa.x + pb.x) / 2
+  const midY = Math.min(pa.y, pb.y) - 16
+  const progress = progressFraction(daysLeft)
+  const dotPos = quadraticPoint(pa, { x: midX, y: midY }, pb, progress)
+
+  return (
+    <Card className="mt-6">
+      <h2 className="[font-family:var(--font-display)] text-xl">{t('thread.title')}</h2>
+      <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 h-auto w-full" aria-hidden>
+        <rect x={0} y={0} width={W} height={H} rx={12} fill="var(--color-surface-2)" />
+        <path
+          d={`M ${pa.x} ${pa.y} Q ${midX} ${midY} ${pb.x} ${pb.y}`}
+          fill="none"
+          stroke="var(--color-rose)"
+          strokeWidth={2}
+          strokeDasharray="5 4"
+        />
+        <circle cx={pa.x} cy={pa.y} r={5} fill="var(--color-gold)" />
+        <circle cx={pb.x} cy={pb.y} r={5} fill="var(--color-gold)" />
+        <circle cx={dotPos.x} cy={dotPos.y} r={6} fill="var(--color-sage)">
+          <animate attributeName="r" values="5;7;5" dur="1.6s" repeatCount="indefinite" />
+        </circle>
+      </svg>
+      <p className="mt-3 text-sm text-[var(--color-muted)]">{t('thread.nextEncounter')}</p>
+      <p className="[font-family:var(--font-display)] text-3xl tabular-nums">
+        {daysLeft > 0
+          ? `${new Intl.NumberFormat(i18n.resolvedLanguage).format(daysLeft)}d ${pad(hoursLeft)}:${pad(minutesLeft)}:${pad(secondsLeft)}`
+          : `${pad(hoursLeft)}:${pad(minutesLeft)}:${pad(secondsLeft)}`}
+      </p>
+      <p className="mt-1 text-xs text-[var(--color-muted)]">{t('thread.hint')}</p>
+    </Card>
+  )
+}
+
 function RandomMemoryCard() {
   const { t, i18n } = useTranslation(['home', 'memories'])
   const { data: memories } = useMemories()
@@ -232,6 +326,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
           <h1 className="[font-family:var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
         </section>
         <DistanceCard couple={couple} />
+        <ThreadCard couple={couple} />
         <RandomMemoryCard />
       </>
     )
@@ -257,9 +352,11 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
           </Trans>
         </p>
         <p className="mt-4 text-[var(--color-hero-muted,#BDB4DE)]">{formattedDate}</p>
+        <LiveClock startDate={couple.start_date} />
       </section>
       <MilestonesCard startDate={couple.start_date} />
       <DistanceCard couple={couple} />
+      <ThreadCard couple={couple} />
       <RandomMemoryCard />
     </>
   )

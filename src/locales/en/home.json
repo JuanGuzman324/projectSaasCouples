@@ -3,6 +3,7 @@
   "hero.daysTogether_other": "{{count}} days together",
   "hero.empty.title": "Start with the date it all began",
   "hero.empty.action": "Set it up",
+  "hero.liveClock": "and counting… {{time}}",
   "milestones.title": "Upcoming milestones",
   "milestones.day_one": "Day {{count}}",
   "milestones.day_other": "Day {{count}}",
@@ -18,5 +19,8 @@
   "randomMemory.title": "A random memory",
   "randomMemory.shuffle": "Shuffle",
   "randomMemory.onThisDay_one": "{{count}} year ago, on this day",
-  "randomMemory.onThisDay_other": "{{count}} years ago, on this day"
+  "randomMemory.onThisDay_other": "{{count}} years ago, on this day",
+  "thread.title": "The thread between you",
+  "thread.nextEncounter": "Until your next time together",
+  "thread.hint": "The dot gets closer as the date approaches (not an exact measurement)."
 }
