@@ -23,6 +23,38 @@ supabase gen types typescript --project-id TU-PROYECTO > src/types/database.ts
 
 o cópialo desde el panel: **Project Settings → API → Generate types**.
 
+## Esquema de base de datos y pruebas de aislamiento (RLS)
+
+El esquema real (tablas, políticas RLS, funciones `create_couple`/
+`join_couple`/etc., bucket `photos`) está versionado en
+`supabase/migrations/`. Para levantarlo en local (necesita
+[Docker](https://www.docker.com/) corriendo):
+
+```bash
+supabase start          # levanta Postgres + el resto del stack en Docker
+supabase db reset       # aplica supabase/migrations/*.sql desde cero
+```
+
+`supabase/tests/database/rls_isolation.sql` son 24 pruebas pgTAP que
+confirman que una pareja no puede leer, insertar, editar ni borrar nada de
+otra (couples, couple_members, couple_dates, memories, moments, fotos).
+Córrelas así, contra el stack local:
+
+```bash
+supabase test db --local
+```
+
+Si cambias cualquier política RLS, corre esto antes de comitear — si algo
+se rompe, alguna de las 24 pruebas debería fallar.
+
+Para comparar el estado local contra el proyecto real (por ejemplo, antes
+de traer un cambio hecho a mano en el dashboard):
+
+```bash
+supabase link --project-ref TU-PROYECTO
+supabase db diff --linked --schema public,storage
+```
+
 ## Qué hay hecho
 
 - **Auth:** registro y login por correo/contraseña (`src/features/auth/`).
