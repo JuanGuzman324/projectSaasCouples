@@ -20,11 +20,19 @@
   "settings.field.city": "Votre ville",
   "settings.field.lat": "Latitude",
   "settings.field.lon": "Longitude",
-  "settings.field.latLonHint": "Facultatif, pour la future carte de distance entre villes.",
+  "settings.field.latLonHint": "Facultatif, pour la carte de distance entre villes sur l'accueil.",
   "settings.couple.title": "À propos du couple",
   "settings.field.startDate": "Quand tout a-t-il commencé ?",
   "settings.action.save": "Enregistrer les modifications",
   "settings.saved": "Enregistré.",
   "settings.error.save": "Impossible d'enregistrer. Réessayez.",
-  "settings.nav": "Paramètres"
+  "settings.nav": "Paramètres",
+  "settings.backup.title": "Sauvegarde",
+  "settings.backup.hint": "Téléchargez tous vos souvenirs, dates et moments sous forme de fichier JSON, ou restaurez-en un. Les photos ne sont pas incluses ; les éléments restaurés n'ont plus de photo, il faudra la réimporter.",
+  "settings.backup.export": "Télécharger la sauvegarde",
+  "settings.backup.import": "Restaurer une sauvegarde",
+  "settings.backup.confirmImport": "Cela ajoutera {{count}} éléments à votre espace (rien n'est remplacé). Continuer ?",
+  "settings.backup.result": "Terminé : {{memories}} souvenirs, {{dates}} dates et {{moments}} moments ajoutés.",
+  "settings.backup.error.export": "Impossible de générer la sauvegarde.",
+  "settings.backup.error.import": "Ce fichier n'est pas une sauvegarde valide, ou une erreur est survenue lors de la restauration."
 }

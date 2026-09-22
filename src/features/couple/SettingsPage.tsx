@@ -6,6 +6,7 @@ import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
 import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
+import { BackupCard } from '../backup/BackupCard'
 import type { CoupleWithMembers } from './api'
 
 export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
@@ -119,6 +120,8 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
           {t('settings.action.save')}
         </Button>
       </form>
+
+      <BackupCard coupleId={couple.id} />
     </div>
   )
 }

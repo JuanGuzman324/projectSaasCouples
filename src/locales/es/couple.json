@@ -20,11 +20,19 @@
   "settings.field.city": "Tu ciudad",
   "settings.field.lat": "Latitud",
   "settings.field.lon": "Longitud",
-  "settings.field.latLonHint": "Opcional, para la futura tarjeta de distancia entre ciudades.",
+  "settings.field.latLonHint": "Opcional, para la tarjeta de distancia entre ciudades en Inicio.",
   "settings.couple.title": "Sobre la pareja",
   "settings.field.startDate": "¿Cuándo empezó todo?",
   "settings.action.save": "Guardar cambios",
   "settings.saved": "Guardado.",
   "settings.error.save": "No se pudo guardar. Intenta de nuevo.",
-  "settings.nav": "Ajustes"
+  "settings.nav": "Ajustes",
+  "settings.backup.title": "Copia de seguridad",
+  "settings.backup.hint": "Descarga todos tus recuerdos, fechas y momentos como un archivo JSON, o restaura uno. Las fotos no se incluyen; quedan sin foto y hay que volver a subirlas.",
+  "settings.backup.export": "Descargar copia",
+  "settings.backup.import": "Restaurar copia",
+  "settings.backup.confirmImport": "Esto va a agregar {{count}} elementos a tu espacio (no reemplaza nada). ¿Continuar?",
+  "settings.backup.result": "Listo: {{memories}} recuerdos, {{dates}} fechas y {{moments}} momentos agregados.",
+  "settings.backup.error.export": "No se pudo generar la copia de seguridad.",
+  "settings.backup.error.import": "Ese archivo no es una copia de seguridad válida, o algo falló al restaurarla."
 }

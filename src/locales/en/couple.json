@@ -20,11 +20,19 @@
   "settings.field.city": "Your city",
   "settings.field.lat": "Latitude",
   "settings.field.lon": "Longitude",
-  "settings.field.latLonHint": "Optional, for the upcoming city-distance card.",
+  "settings.field.latLonHint": "Optional, for the city-distance card on Home.",
   "settings.couple.title": "About the couple",
   "settings.field.startDate": "When did it all begin?",
   "settings.action.save": "Save changes",
   "settings.saved": "Saved.",
   "settings.error.save": "Couldn't save. Try again.",
-  "settings.nav": "Settings"
+  "settings.nav": "Settings",
+  "settings.backup.title": "Backup",
+  "settings.backup.hint": "Download all your memories, dates and moments as a JSON file, or restore one. Photos aren't included; restored items come back without a photo and you'll need to re-upload it.",
+  "settings.backup.export": "Download backup",
+  "settings.backup.import": "Restore backup",
+  "settings.backup.confirmImport": "This will add {{count}} items to your space (it won't replace anything). Continue?",
+  "settings.backup.result": "Done: added {{memories}} memories, {{dates}} dates and {{moments}} moments.",
+  "settings.backup.error.export": "Couldn't build the backup.",
+  "settings.backup.error.import": "That file isn't a valid backup, or something failed while restoring it."
 }

@@ -20,11 +20,19 @@
   "settings.field.city": "Deine Stadt",
   "settings.field.lat": "Breitengrad",
   "settings.field.lon": "Längengrad",
-  "settings.field.latLonHint": "Optional, für die geplante Entfernungskarte zwischen Städten.",
+  "settings.field.latLonHint": "Optional, für die Entfernungskarte zwischen Städten auf der Startseite.",
   "settings.couple.title": "Über das Paar",
   "settings.field.startDate": "Wann hat alles angefangen?",
   "settings.action.save": "Änderungen speichern",
   "settings.saved": "Gespeichert.",
   "settings.error.save": "Konnte nicht gespeichert werden. Versuch es noch einmal.",
-  "settings.nav": "Einstellungen"
+  "settings.nav": "Einstellungen",
+  "settings.backup.title": "Sicherungskopie",
+  "settings.backup.hint": "Lade alle deine Erinnerungen, Termine und Momente als JSON-Datei herunter oder stelle eine wieder her. Fotos sind nicht enthalten; wiederhergestellte Einträge haben kein Foto mehr und müssen neu hochgeladen werden.",
+  "settings.backup.export": "Sicherung herunterladen",
+  "settings.backup.import": "Sicherung wiederherstellen",
+  "settings.backup.confirmImport": "Dadurch werden {{count}} Einträge zu eurem Bereich hinzugefügt (nichts wird ersetzt). Fortfahren?",
+  "settings.backup.result": "Fertig: {{memories}} Erinnerungen, {{dates}} Termine und {{moments}} Momente hinzugefügt.",
+  "settings.backup.error.export": "Die Sicherung konnte nicht erstellt werden.",
+  "settings.backup.error.import": "Diese Datei ist keine gültige Sicherung, oder beim Wiederherstellen ist etwas schiefgelaufen."
 }
