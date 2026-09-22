@@ -10,5 +10,9 @@
   "milestones.anniversary_other": "{{count}} ans ensemble",
   "milestones.today": "Aujourd'hui !",
   "milestones.in_one": "Dans {{count}} jour",
-  "milestones.in_other": "Dans {{count}} jours"
+  "milestones.in_other": "Dans {{count}} jours",
+  "distance.title": "Distance entre vous",
+  "distance.flight": "En avion, env.",
+  "distance.drive": "En voiture, env.",
+  "distance.hint": "Estimation à vol d'oiseau, pas un itinéraire réel."
 }

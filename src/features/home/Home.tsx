@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Trans } from 'react-i18next'
 import { Card } from '../../ui/Card'
 import { nextMilestones, daysUntil } from './milestones'
+import { haversineKm, estimateHours, AVG_FLIGHT_KMH, AVG_DRIVE_KMH, type CityPoint } from './distance'
 import type { CoupleWithMembers } from '../couple/api'
 
 function daysTogether(startDate: string): number {
@@ -53,14 +54,119 @@ function MilestonesCard({ startDate }: { startDate: string }) {
   )
 }
 
+function project(p: CityPoint, w: number, h: number): { x: number; y: number } {
+  return { x: ((p.lon + 180) / 360) * w, y: ((90 - p.lat) / 180) * h }
+}
+
+function MiniMap({ a, b }: { a: CityPoint; b: CityPoint }) {
+  const W = 320
+  const H = 140
+  const pa = project(a, W, H)
+  const pb = project(b, W, H)
+  const midX = (pa.x + pb.x) / 2
+  const midY = Math.min(pa.y, pb.y) - 16
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" aria-hidden>
+      <rect x={0} y={0} width={W} height={H} rx={12} fill="var(--color-surface-2)" />
+      {Array.from({ length: 7 }, (_, i) => (
+        <line
+          key={`v${i}`}
+          x1={(i * W) / 6}
+          y1={0}
+          x2={(i * W) / 6}
+          y2={H}
+          stroke="var(--color-line)"
+          strokeWidth={1}
+        />
+      ))}
+      {Array.from({ length: 4 }, (_, i) => (
+        <line
+          key={`h${i}`}
+          x1={0}
+          y1={(i * H) / 3}
+          x2={W}
+          y2={(i * H) / 3}
+          stroke="var(--color-line)"
+          strokeWidth={1}
+        />
+      ))}
+      <path
+        d={`M ${pa.x} ${pa.y} Q ${midX} ${midY} ${pb.x} ${pb.y}`}
+        fill="none"
+        stroke="var(--color-rose)"
+        strokeWidth={2}
+        strokeDasharray="5 4"
+      />
+      <circle cx={pa.x} cy={pa.y} r={5} fill="var(--color-gold)" />
+      <circle cx={pb.x} cy={pb.y} r={5} fill="var(--color-gold)" />
+    </svg>
+  )
+}
+
+function DistanceCard({ couple }: { couple: CoupleWithMembers }) {
+  const { t, i18n } = useTranslation('home')
+  const withCoords = couple.members.filter(
+    (m): m is typeof m & { lat: number; lon: number } => m.lat != null && m.lon != null
+  )
+  if (withCoords.length < 2) return null
+  const [ma, mb] = withCoords
+
+  const km = haversineKm(ma.lat, ma.lon, mb.lat, mb.lon)
+  const flightHours = estimateHours(km, AVG_FLIGHT_KMH)
+  const driveHours = estimateHours(km, AVG_DRIVE_KMH)
+
+  const formattedKm = new Intl.NumberFormat(i18n.resolvedLanguage, {
+    style: 'unit',
+    unit: 'kilometer',
+    unitDisplay: 'short',
+    maximumFractionDigits: 0,
+  }).format(km)
+  const formattedFlight = new Intl.NumberFormat(i18n.resolvedLanguage, {
+    style: 'unit',
+    unit: 'hour',
+    unitDisplay: 'short',
+    maximumFractionDigits: 1,
+  }).format(flightHours)
+  const formattedDrive = new Intl.NumberFormat(i18n.resolvedLanguage, {
+    style: 'unit',
+    unit: 'hour',
+    unitDisplay: 'short',
+    maximumFractionDigits: 1,
+  }).format(driveHours)
+
+  return (
+    <Card className="mt-6">
+      <h2 className="[font-family:var(--font-display)] text-xl">{t('distance.title')}</h2>
+      <p className="mt-1 [font-family:var(--font-display)] text-3xl">{formattedKm}</p>
+      <div className="mt-3">
+        <MiniMap a={ma} b={mb} />
+      </div>
+      <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
+        <div>
+          <dt className="text-[var(--color-muted)]">{t('distance.flight')}</dt>
+          <dd className="font-semibold">{formattedFlight}</dd>
+        </div>
+        <div>
+          <dt className="text-[var(--color-muted)]">{t('distance.drive')}</dt>
+          <dd className="font-semibold">{formattedDrive}</dd>
+        </div>
+      </dl>
+      <p className="mt-2 text-xs text-[var(--color-muted)]">{t('distance.hint')}</p>
+    </Card>
+  )
+}
+
 export function Home({ couple }: { couple: CoupleWithMembers }) {
   const { t, i18n } = useTranslation('home')
 
   if (!couple.start_date) {
     return (
-      <section className="rounded-3xl bg-[var(--color-hero)] p-8 text-[var(--color-hero-ink)]">
-        <h1 className="[font-family:var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
-      </section>
+      <>
+        <section className="rounded-3xl bg-[var(--color-hero)] p-8 text-[var(--color-hero-ink)]">
+          <h1 className="[font-family:var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
+        </section>
+        <DistanceCard couple={couple} />
+      </>
     )
   }
 
@@ -86,6 +192,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
         <p className="mt-4 text-[var(--color-hero-muted,#BDB4DE)]">{formattedDate}</p>
       </section>
       <MilestonesCard startDate={couple.start_date} />
+      <DistanceCard couple={couple} />
     </>
   )
 }
