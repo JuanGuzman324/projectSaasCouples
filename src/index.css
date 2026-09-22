@@ -73,3 +73,15 @@ body {
     animation: modal-in 0.18s ease-out;
   }
 }
+
+/* Fondo suave para las pantallas de "antes de la pareja completa"
+   (login, registro, onboarding, invitación): dos manchas de color de
+   marca muy tenues, para que no se sientan tan desnudas como una página
+   en blanco sin llegar a competir con el contenido. */
+.auth-bg {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 15% 15%, color-mix(in srgb, var(--color-rose) 12%, transparent), transparent 45%),
+    radial-gradient(circle at 85% 85%, color-mix(in srgb, var(--color-gold) 16%, transparent), transparent 45%);
+  background-attachment: fixed;
+}

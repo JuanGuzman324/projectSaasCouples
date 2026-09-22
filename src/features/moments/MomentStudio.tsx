@@ -5,6 +5,7 @@ import { TextField } from '../../ui/TextField'
 import { Textarea } from '../../ui/Textarea'
 import { Select } from '../../ui/Select'
 import { PhotoPicker } from '../../ui/PhotoPicker'
+import { Alert } from '../../ui/Alert'
 import { Scene } from './Scene'
 import { MOTIFS, FONTS, TEMPLATES, TEMPLATE_ORDER, MOTIF_EMOJI, type PlanItem } from './constants'
 import type { MomentDesign } from './api'
@@ -257,7 +258,7 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
           )}
         </div>
 
-        {error && <p className="text-sm font-medium text-[var(--color-danger)]">{error}</p>}
+        {error && <Alert>{error}</Alert>}
         <div className="flex gap-3">
           <Button type="button" variant="ghost" onClick={onCancel}>
             {t('action.cancel', { ns: 'common' })}

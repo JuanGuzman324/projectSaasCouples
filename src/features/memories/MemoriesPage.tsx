@@ -7,6 +7,7 @@ import { Textarea } from '../../ui/Textarea'
 import { Select } from '../../ui/Select'
 import { PhotoPicker } from '../../ui/PhotoPicker'
 import { Photo } from '../../ui/Photo'
+import { Alert } from '../../ui/Alert'
 import { useCreateMemory, useDeleteMemory, useMemories, useToggleFavorite } from './useMemories'
 import type { MemoryTag } from './api'
 
@@ -109,7 +110,7 @@ export function MemoriesPage({ coupleId }: { coupleId: string }) {
               value={photoPath}
               onChange={setPhotoPath}
             />
-            {error && <p className="text-sm font-medium text-[var(--color-danger)] sm:col-span-2">{error}</p>}
+            {error && <Alert className="sm:col-span-2">{error}</Alert>}
             <Button type="submit" disabled={createMemory.isPending} className="sm:col-span-2">
               {t('action.save')}
             </Button>
@@ -157,7 +158,7 @@ export function MemoriesPage({ coupleId }: { coupleId: string }) {
                     aria-pressed={m.is_favorite}
                     aria-label={t('action.favorite')}
                     onClick={() => toggleFavorite.mutate({ id: m.id, isFavorite: !m.is_favorite })}
-                    className={m.is_favorite ? 'text-[var(--color-gold)]' : 'text-[var(--color-muted)]'}
+                    className={`rounded-full p-1.5 transition-colors hover:bg-[var(--color-gold)]/10 ${m.is_favorite ? 'text-[var(--color-gold)]' : 'text-[var(--color-muted)]'}`}
                   >
                     ★
                   </button>
@@ -167,7 +168,7 @@ export function MemoriesPage({ coupleId }: { coupleId: string }) {
                     onClick={() => {
                       if (confirm(t('confirm.delete'))) deleteMemory.mutate(m.id)
                     }}
-                    className="text-[var(--color-muted)]"
+                    className="rounded-full p-1.5 text-[var(--color-muted)] transition-colors hover:bg-[var(--color-danger)]/10 hover:text-[var(--color-danger)]"
                   >
                     🗑
                   </button>

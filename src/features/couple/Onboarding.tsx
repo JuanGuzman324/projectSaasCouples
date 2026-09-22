@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useCreateCouple, useJoinCouple } from './useCouple'
 import { Button } from '../../ui/Button'
 import { TextField } from '../../ui/TextField'
+import { Alert } from '../../ui/Alert'
 
 // Los códigos P0001/P0002 son los que definimos a mano en las funciones SQL
 // (create_couple/join_couple). Cualquier otro código lo tratamos como error
@@ -48,50 +49,50 @@ export function Onboarding() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-lg flex-col justify-center gap-8 px-6 py-10">
-      <div>
-        <h1 className="[font-family:var(--font-display)] text-3xl">{t('onboarding.title')}</h1>
-        <p className="mt-2 text-[var(--color-muted)]">{t('onboarding.subtitle')}</p>
+    <div className="auth-bg flex min-h-dvh flex-col justify-center px-6 py-10">
+      <div className="mx-auto flex w-full max-w-lg flex-col gap-8">
+        <div>
+          <h1 className="[font-family:var(--font-display)] text-3xl">{t('onboarding.title')}</h1>
+          <p className="mt-2 text-[var(--color-muted)]">{t('onboarding.subtitle')}</p>
+        </div>
+
+        <form
+          onSubmit={onCreate}
+          className="flex flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-sm"
+        >
+          <h2 className="[font-family:var(--font-display)] text-xl">{t('onboarding.create.title')}</h2>
+          <TextField
+            label={t('onboarding.create.startDate')}
+            type="date"
+            name="startDate"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          {createError && <Alert>{createError}</Alert>}
+          <Button type="submit" disabled={createCouple.isPending}>
+            {t('onboarding.create.submit')}
+          </Button>
+        </form>
+
+        <form
+          onSubmit={onJoin}
+          className="flex flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-sm"
+        >
+          <h2 className="[font-family:var(--font-display)] text-xl">{t('onboarding.join.title')}</h2>
+          <TextField
+            label={t('onboarding.join.code')}
+            name="code"
+            required
+            value={code}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
+            className="uppercase tracking-widest"
+          />
+          {joinError && <Alert>{joinError}</Alert>}
+          <Button type="submit" variant="ghost" disabled={joinCouple.isPending}>
+            {t('onboarding.join.submit')}
+          </Button>
+        </form>
       </div>
-
-      <form
-        onSubmit={onCreate}
-        className="flex flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5"
-      >
-        <h2 className="[font-family:var(--font-display)] text-xl">{t('onboarding.create.title')}</h2>
-        <TextField
-          label={t('onboarding.create.startDate')}
-          type="date"
-          name="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        {createError && (
-          <p className="text-sm font-medium text-[var(--color-danger)]">{createError}</p>
-        )}
-        <Button type="submit" disabled={createCouple.isPending}>
-          {t('onboarding.create.submit')}
-        </Button>
-      </form>
-
-      <form
-        onSubmit={onJoin}
-        className="flex flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5"
-      >
-        <h2 className="[font-family:var(--font-display)] text-xl">{t('onboarding.join.title')}</h2>
-        <TextField
-          label={t('onboarding.join.code')}
-          name="code"
-          required
-          value={code}
-          onChange={(e) => setCode(e.target.value.toUpperCase())}
-          className="uppercase tracking-widest"
-        />
-        {joinError && <p className="text-sm font-medium text-[var(--color-danger)]">{joinError}</p>}
-        <Button type="submit" variant="ghost" disabled={joinCouple.isPending}>
-          {t('onboarding.join.submit')}
-        </Button>
-      </form>
     </div>
   )
 }

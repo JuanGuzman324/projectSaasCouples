@@ -4,6 +4,7 @@ import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
 import { TextField } from '../../ui/TextField'
 import { Select } from '../../ui/Select'
+import { Alert } from '../../ui/Alert'
 import { useCreateDate, useDates, useDeleteDate } from './useDates'
 import { daysUntil, nextOccurrence } from './date-utils'
 import type { DateKind, DateRepeat } from './api'
@@ -126,7 +127,7 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
               onChange={(e) => setNote(e.target.value)}
               className="sm:col-span-2"
             />
-            {error && <p className="text-sm font-medium text-[var(--color-danger)] sm:col-span-2">{error}</p>}
+            {error && <Alert className="sm:col-span-2">{error}</Alert>}
             <Button type="submit" disabled={createDate.isPending} className="sm:col-span-2">
               {t('action.save')}
             </Button>
@@ -169,7 +170,7 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
                   onClick={() => {
                     if (confirm(t('confirm.delete'))) deleteDate.mutate(date.id)
                   }}
-                  className="text-[var(--color-muted)]"
+                  className="rounded-full p-1.5 text-[var(--color-muted)] transition-colors hover:bg-[var(--color-danger)]/10 hover:text-[var(--color-danger)]"
                 >
                   🗑
                 </button>

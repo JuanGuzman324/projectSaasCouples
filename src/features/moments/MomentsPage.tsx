@@ -68,7 +68,7 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
         {moments?.map((m) => (
           <li key={m.id}>
             <Card
-              className="cursor-pointer text-[var(--color-hero-ink)] transition hover:brightness-105"
+              className="cursor-pointer border-transparent text-[var(--color-hero-ink)] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:brightness-110"
               style={{
                 background: `linear-gradient(160deg, ${(m.palette as { bg1?: string })?.bg1 ?? '#2A2052'}, ${(m.palette as { bg2?: string })?.bg2 ?? '#5B3FA8'})`,
               }}
@@ -82,9 +82,10 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
               <Photo path={m.photo_path} alt="" className="mt-2 aspect-square w-full rounded-xl object-cover" />
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                 <Countdown moment={m} t={t} />
-                <div className="flex gap-3 text-sm underline opacity-90">
+                <div className="flex gap-3 text-sm">
                   <button
                     type="button"
+                    className="underline opacity-90 transition-opacity hover:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation()
                       setEditing({ id: m.id, design: momentToDesign(m) })
@@ -94,6 +95,7 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
                   </button>
                   <button
                     type="button"
+                    className="underline opacity-90 transition-opacity hover:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation()
                       if (confirm(t('confirm.delete'))) deleteMoment.mutate(m.id)
