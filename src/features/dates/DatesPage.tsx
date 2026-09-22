@@ -7,6 +7,9 @@ import { Select } from '../../ui/Select'
 import { Alert } from '../../ui/Alert'
 import { useCreateDate, useDates, useDeleteDate } from './useDates'
 import { daysUntil, nextOccurrence } from './date-utils'
+import { Calendar, type CalendarEntry } from './Calendar'
+import { useMemories } from '../memories/useMemories'
+import { useMoments } from '../moments/useMoments'
 import type { DateKind, DateRepeat } from './api'
 
 const KINDS: DateKind[] = ['encuentro', 'aniversario', 'cumple', 'especial', 'otro']
@@ -22,6 +25,8 @@ function Countdown({ days, t }: { days: number; t: (k: string, o?: Record<string
 export function DatesPage({ coupleId }: { coupleId: string }) {
   const { t, i18n } = useTranslation('dates')
   const { data: dates, isLoading } = useDates()
+  const { data: memories } = useMemories()
+  const { data: moments } = useMoments()
   const createDate = useCreateDate()
   const deleteDate = useDeleteDate()
 
@@ -58,6 +63,32 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
       setError(t('error.save'))
     }
   }
+
+  const calendarEntries: CalendarEntry[] = [
+    ...(dates ?? []).map((d) => ({
+      id: d.id,
+      title: d.title,
+      happensOn: d.happens_on,
+      repeat: d.repeat,
+      kind: 'date' as const,
+    })),
+    ...(memories ?? []).map((m) => ({
+      id: m.id,
+      title: m.title,
+      happensOn: m.happened_on,
+      repeat: 'none' as const,
+      kind: 'memory' as const,
+    })),
+    ...(moments ?? [])
+      .filter((m) => m.happens_on != null)
+      .map((m) => ({
+        id: m.id,
+        title: m.name,
+        happensOn: m.happens_on as string,
+        repeat: m.repeat,
+        kind: 'moment' as const,
+      })),
+  ]
 
   const today = new Date()
   const withCountdown = (dates ?? [])
@@ -134,6 +165,8 @@ export function DatesPage({ coupleId }: { coupleId: string }) {
           </form>
         </Card>
       )}
+
+      <Calendar entries={calendarEntries} />
 
       {!isLoading && withCountdown.length === 0 && (
         <Card className="text-center">

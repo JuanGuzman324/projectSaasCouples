@@ -27,5 +27,8 @@
   "countdown.in_other": "In {{count}} days",
   "countdown.past_one": "{{count}} day ago",
   "countdown.past_other": "{{count}} days ago",
-  "error.save": "Couldn't save the date."
+  "error.save": "Couldn't save the date.",
+  "calendar.prevMonth": "Previous month",
+  "calendar.nextMonth": "Next month",
+  "calendar.empty": "Nothing saved for this day."
 }

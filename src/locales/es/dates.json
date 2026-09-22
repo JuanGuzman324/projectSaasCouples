@@ -27,5 +27,8 @@
   "countdown.in_other": "En {{count}} días",
   "countdown.past_one": "Hace {{count}} día",
   "countdown.past_other": "Hace {{count}} días",
-  "error.save": "No se pudo guardar la fecha."
+  "error.save": "No se pudo guardar la fecha.",
+  "calendar.prevMonth": "Mes anterior",
+  "calendar.nextMonth": "Mes siguiente",
+  "calendar.empty": "Nada guardado este día."
 }

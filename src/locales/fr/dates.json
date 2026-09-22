@@ -27,5 +27,8 @@
   "countdown.in_other": "Dans {{count}} jours",
   "countdown.past_one": "Il y a {{count}} jour",
   "countdown.past_other": "Il y a {{count}} jours",
-  "error.save": "Impossible d'enregistrer la date."
+  "error.save": "Impossible d'enregistrer la date.",
+  "calendar.prevMonth": "Mois précédent",
+  "calendar.nextMonth": "Mois suivant",
+  "calendar.empty": "Rien d'enregistré ce jour-là."
 }

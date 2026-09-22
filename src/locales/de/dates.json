@@ -27,5 +27,8 @@
   "countdown.in_other": "In {{count}} Tagen",
   "countdown.past_one": "Vor {{count}} Tag",
   "countdown.past_other": "Vor {{count}} Tagen",
-  "error.save": "Termin konnte nicht gespeichert werden."
+  "error.save": "Termin konnte nicht gespeichert werden.",
+  "calendar.prevMonth": "Vorheriger Monat",
+  "calendar.nextMonth": "Nächster Monat",
+  "calendar.empty": "An diesem Tag nichts gespeichert."
 }
