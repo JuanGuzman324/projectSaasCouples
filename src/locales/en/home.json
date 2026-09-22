@@ -1,0 +1,6 @@
+{
+  "hero.daysTogether_one": "{{count}} day together",
+  "hero.daysTogether_other": "{{count}} days together",
+  "hero.empty.title": "Start with the date it all began",
+  "hero.empty.action": "Set it up"
+}

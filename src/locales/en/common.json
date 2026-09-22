@@ -1,0 +1,18 @@
+{
+  "app.name": "Our Story",
+  "action.save": "Save",
+  "action.cancel": "Cancel",
+  "action.continue": "Continue",
+  "action.back": "Back",
+  "action.logout": "Log out",
+  "action.copy": "Copy",
+  "action.copied": "Copied",
+  "language.select": "Language",
+  "photo.none": "No photo",
+  "photo.choose": "Choose photo",
+  "photo.remove": "Remove",
+  "photo.uploading": "Uploading…",
+  "photo.error.tooLarge": "That photo is too large (15 MB max).",
+  "photo.error.decode": "Couldn't read that image.",
+  "photo.error.upload": "Couldn't upload the photo."
+}

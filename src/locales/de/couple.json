@@ -1,0 +1,17 @@
+{
+  "onboarding.title": "Los geht's",
+  "onboarding.subtitle": "Erstelle einen Bereich für euch beide oder tritt mit einem Einladungscode bei.",
+  "onboarding.create.title": "Neuen Bereich erstellen",
+  "onboarding.create.startDate": "Wann hat alles angefangen?",
+  "onboarding.create.submit": "Erstellen",
+  "onboarding.join.title": "Mit Code beitreten",
+  "onboarding.join.code": "Einladungscode",
+  "onboarding.join.submit": "Beitreten",
+  "onboarding.error.alreadyInCouple": "Du gehörst bereits zu einem Paar-Bereich.",
+  "onboarding.error.invalidCode": "Dieser Code ist ungültig.",
+  "onboarding.error.full": "Dieser Bereich hat schon zwei Mitglieder.",
+  "invite.title": "Lade deine Partnerin/deinen Partner ein",
+  "invite.explain": "Teile diesen Code, damit die andere Person beitreten kann.",
+  "invite.code": "Code",
+  "invite.waiting": "Warten, bis die andere Person beitritt …"
+}

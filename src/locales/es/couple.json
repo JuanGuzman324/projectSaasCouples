@@ -1,0 +1,17 @@
+{
+  "onboarding.title": "Empecemos",
+  "onboarding.subtitle": "Crea un espacio para tu pareja o únete con un código de invitación.",
+  "onboarding.create.title": "Crear un espacio nuevo",
+  "onboarding.create.startDate": "¿Cuándo empezó todo?",
+  "onboarding.create.submit": "Crear",
+  "onboarding.join.title": "Unirme con un código",
+  "onboarding.join.code": "Código de invitación",
+  "onboarding.join.submit": "Unirme",
+  "onboarding.error.alreadyInCouple": "Ya perteneces a un espacio de pareja.",
+  "onboarding.error.invalidCode": "Ese código no es válido.",
+  "onboarding.error.full": "Ese espacio ya tiene dos integrantes.",
+  "invite.title": "Invita a tu pareja",
+  "invite.explain": "Comparte este código para que se una a tu espacio.",
+  "invite.code": "Código",
+  "invite.waiting": "Esperando a que se una la otra persona…"
+}

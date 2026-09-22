@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  /* Misma paleta que usamos en el prototipo HTML: dorado, índigo, rosa. */
+  --color-bg: #F3F0F8;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #ECE8F5;
+  --color-ink: #221A3D;
+  --color-muted: #666086;
+  --color-line: #DCD6EA;
+  --color-gold: #F6B800;
+  --color-on-gold: #2A1D00;
+  --color-rose: #C93A67;
+  --color-sage: #2E7A63;
+  --color-danger: #B3261E;
+  --color-hero: #2A2052;
+  --color-hero-ink: #F7F2FF;
+
+  --font-display: "Young Serif", Georgia, serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}

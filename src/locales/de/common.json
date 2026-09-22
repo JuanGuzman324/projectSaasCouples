@@ -1,0 +1,18 @@
+{
+  "app.name": "Unsere Geschichte",
+  "action.save": "Speichern",
+  "action.cancel": "Abbrechen",
+  "action.continue": "Weiter",
+  "action.back": "Zurück",
+  "action.logout": "Abmelden",
+  "action.copy": "Kopieren",
+  "action.copied": "Kopiert",
+  "language.select": "Sprache",
+  "photo.none": "Kein Foto",
+  "photo.choose": "Foto auswählen",
+  "photo.remove": "Entfernen",
+  "photo.uploading": "Wird hochgeladen…",
+  "photo.error.tooLarge": "Das Foto ist zu groß (maximal 15 MB).",
+  "photo.error.decode": "Dieses Bild konnte nicht gelesen werden.",
+  "photo.error.upload": "Das Foto konnte nicht hochgeladen werden."
+}

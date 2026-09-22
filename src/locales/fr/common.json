@@ -1,0 +1,18 @@
+{
+  "app.name": "Notre histoire",
+  "action.save": "Enregistrer",
+  "action.cancel": "Annuler",
+  "action.continue": "Continuer",
+  "action.back": "Retour",
+  "action.logout": "Se déconnecter",
+  "action.copy": "Copier",
+  "action.copied": "Copié",
+  "language.select": "Langue",
+  "photo.none": "Aucune photo",
+  "photo.choose": "Choisir une photo",
+  "photo.remove": "Retirer",
+  "photo.uploading": "Envoi en cours…",
+  "photo.error.tooLarge": "Cette photo est trop lourde (15 Mo maximum).",
+  "photo.error.decode": "Impossible de lire cette image.",
+  "photo.error.upload": "Impossible d'envoyer la photo."
+}
