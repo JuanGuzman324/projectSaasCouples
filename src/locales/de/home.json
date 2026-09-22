@@ -2,5 +2,13 @@
   "hero.daysTogether_one": "{{count}} Tag zusammen",
   "hero.daysTogether_other": "{{count}} Tage zusammen",
   "hero.empty.title": "Beginnt mit dem Datum, an dem alles anfing",
-  "hero.empty.action": "Einrichten"
+  "hero.empty.action": "Einrichten",
+  "milestones.title": "Nächste Meilensteine",
+  "milestones.day_one": "Tag {{count}}",
+  "milestones.day_other": "Tag {{count}}",
+  "milestones.anniversary_one": "{{count}} Jahr zusammen",
+  "milestones.anniversary_other": "{{count}} Jahre zusammen",
+  "milestones.today": "Heute!",
+  "milestones.in_one": "In {{count}} Tag",
+  "milestones.in_other": "In {{count}} Tagen"
 }

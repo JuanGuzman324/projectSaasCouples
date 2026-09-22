@@ -2,5 +2,13 @@
   "hero.daysTogether_one": "{{count}} jour ensemble",
   "hero.daysTogether_other": "{{count}} jours ensemble",
   "hero.empty.title": "Commencez par la date où tout a débuté",
-  "hero.empty.action": "Configurer"
+  "hero.empty.action": "Configurer",
+  "milestones.title": "Prochains jalons",
+  "milestones.day_one": "Jour {{count}}",
+  "milestones.day_other": "Jour {{count}}",
+  "milestones.anniversary_one": "{{count}} an ensemble",
+  "milestones.anniversary_other": "{{count}} ans ensemble",
+  "milestones.today": "Aujourd'hui !",
+  "milestones.in_one": "Dans {{count}} jour",
+  "milestones.in_other": "Dans {{count}} jours"
 }
