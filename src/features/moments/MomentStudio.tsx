@@ -185,16 +185,16 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
                   type="color"
                   value={design.palette[key]}
                   onChange={(e) => patchPalette(key, e.target.value)}
-                  className="h-11 w-full cursor-pointer rounded-lg border border-[var(--color-line)] p-1"
+                  className="h-11 w-full cursor-pointer rounded-lg border border-[var(--color-line)] p-1 transition-transform hover:scale-[1.03] hover:border-[var(--color-gold)]"
                 />
               </label>
             ))}
           </div>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {FONTS.map((f) => (
               <label
                 key={f}
-                className="flex items-center gap-2 rounded-full border border-[var(--color-line)] px-3 py-1.5 text-sm font-semibold"
+                className="flex cursor-pointer items-center gap-2 rounded-full border border-[var(--color-line)] px-3 py-1.5 text-sm font-semibold transition-colors has-[:checked]:border-[var(--color-gold)] has-[:checked]:bg-[var(--color-gold)]/10"
               >
                 <input
                   type="radio"
@@ -229,7 +229,7 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
                 }
               }}
               placeholder={t('plan.placeholder')}
-              className="flex-1 rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] px-3 py-2.5"
+              className="min-w-0 flex-1 rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] px-3 py-2.5 transition-colors focus:border-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]/20"
             />
             <Button type="button" variant="ghost" onClick={addPlanItem}>
               {t('plan.add')}
@@ -240,10 +240,15 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
               {design.plan.map((item, i) => (
                 <li
                   key={i}
-                  className="flex items-center justify-between gap-2 rounded-lg bg-[var(--color-surface-2)] px-3 py-1.5 text-sm"
+                  className="flex items-center justify-between gap-2 rounded-lg bg-[var(--color-surface-2)] px-3 py-1.5 text-sm transition-colors"
                 >
                   <span>{item.t}</span>
-                  <button type="button" onClick={() => removePlanItem(i)} aria-label={t('plan.remove')}>
+                  <button
+                    type="button"
+                    onClick={() => removePlanItem(i)}
+                    aria-label={t('plan.remove')}
+                    className="rounded-full px-1.5 text-[var(--color-muted)] transition-colors hover:bg-[var(--color-danger)]/10 hover:text-[var(--color-danger)]"
+                  >
                     ✕
                   </button>
                 </li>

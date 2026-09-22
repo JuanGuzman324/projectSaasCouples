@@ -26,11 +26,16 @@ export function Modal({
         aria-modal
         aria-label={title}
         onClick={(e) => e.stopPropagation()}
-        className={`mx-auto my-6 rounded-2xl bg-[var(--color-surface)] p-6 shadow-xl ${wide ? 'max-w-4xl' : 'max-w-lg'}`}
+        className={`modal-panel mx-auto my-6 rounded-2xl bg-[var(--color-surface)] p-6 shadow-xl ${wide ? 'max-w-4xl' : 'max-w-lg'}`}
       >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="[font-family:var(--font-display)] text-2xl">{title}</h2>
-          <button type="button" onClick={onClose} aria-label="Close" className="text-2xl leading-none">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-2xl leading-none text-[var(--color-muted)] transition-colors hover:bg-[var(--color-surface-2)] hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)]"
+          >
             ×
           </button>
         </div>

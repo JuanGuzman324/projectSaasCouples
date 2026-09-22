@@ -32,17 +32,17 @@ function Nav() {
     moments: t('nav', { ns: 'moments' }),
   }
   return (
-    <nav className="flex gap-1 overflow-x-auto">
+    <nav className="tab-scroll flex gap-1 overflow-x-auto">
       {TABS.map((tab) => (
         <NavLink
           key={tab.to}
           to={tab.to}
           end={tab.end}
           className={({ isActive }) =>
-            `whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold ${
+            `whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-150 ${
               isActive
                 ? 'bg-[var(--color-surface-2)] text-[var(--color-ink)]'
-                : 'text-[var(--color-muted)]'
+                : 'text-[var(--color-muted)] hover:bg-[var(--color-surface-2)]/60 hover:text-[var(--color-ink)]'
             }`
           }
         >
