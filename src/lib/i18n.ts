@@ -9,6 +9,7 @@ import esHome from '../locales/es/home.json'
 import esMemories from '../locales/es/memories.json'
 import esDates from '../locales/es/dates.json'
 import esMoments from '../locales/es/moments.json'
+import esTimecapsules from '../locales/es/timecapsules.json'
 
 import enCommon from '../locales/en/common.json'
 import enAuth from '../locales/en/auth.json'
@@ -17,6 +18,7 @@ import enHome from '../locales/en/home.json'
 import enMemories from '../locales/en/memories.json'
 import enDates from '../locales/en/dates.json'
 import enMoments from '../locales/en/moments.json'
+import enTimecapsules from '../locales/en/timecapsules.json'
 
 import deCommon from '../locales/de/common.json'
 import deAuth from '../locales/de/auth.json'
@@ -25,6 +27,7 @@ import deHome from '../locales/de/home.json'
 import deMemories from '../locales/de/memories.json'
 import deDates from '../locales/de/dates.json'
 import deMoments from '../locales/de/moments.json'
+import deTimecapsules from '../locales/de/timecapsules.json'
 
 import frCommon from '../locales/fr/common.json'
 import frAuth from '../locales/fr/auth.json'
@@ -33,6 +36,7 @@ import frHome from '../locales/fr/home.json'
 import frMemories from '../locales/fr/memories.json'
 import frDates from '../locales/fr/dates.json'
 import frMoments from '../locales/fr/moments.json'
+import frTimecapsules from '../locales/fr/timecapsules.json'
 
 // Idiomas de lanzamiento, en el orden del plan de producto.
 export const SUPPORTED_LANGS = ['es', 'en', 'de', 'fr'] as const
@@ -45,24 +49,24 @@ i18n
     resources: {
       es: {
         common: esCommon, auth: esAuth, couple: esCouple, home: esHome,
-        memories: esMemories, dates: esDates, moments: esMoments,
+        memories: esMemories, dates: esDates, moments: esMoments, timecapsules: esTimecapsules,
       },
       en: {
         common: enCommon, auth: enAuth, couple: enCouple, home: enHome,
-        memories: enMemories, dates: enDates, moments: enMoments,
+        memories: enMemories, dates: enDates, moments: enMoments, timecapsules: enTimecapsules,
       },
       de: {
         common: deCommon, auth: deAuth, couple: deCouple, home: deHome,
-        memories: deMemories, dates: deDates, moments: deMoments,
+        memories: deMemories, dates: deDates, moments: deMoments, timecapsules: deTimecapsules,
       },
       fr: {
         common: frCommon, auth: frAuth, couple: frCouple, home: frHome,
-        memories: frMemories, dates: frDates, moments: frMoments,
+        memories: frMemories, dates: frDates, moments: frMoments, timecapsules: frTimecapsules,
       },
     },
     supportedLngs: SUPPORTED_LANGS as unknown as string[],
     fallbackLng: 'es',
-    ns: ['common', 'auth', 'couple', 'home', 'memories', 'dates', 'moments'],
+    ns: ['common', 'auth', 'couple', 'home', 'memories', 'dates', 'moments', 'timecapsules'],
     defaultNS: 'common',
     interpolation: { escapeValue: false }, // React ya escapa por su cuenta
     detection: {

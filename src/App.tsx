@@ -11,6 +11,7 @@ import { Home } from './features/home/Home'
 import { MemoriesPage } from './features/memories/MemoriesPage'
 import { DatesPage } from './features/dates/DatesPage'
 import { MomentsPage } from './features/moments/MomentsPage'
+import { TimeCapsulesPage } from './features/timecapsules/TimeCapsulesPage'
 import { SettingsPage } from './features/couple/SettingsPage'
 import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
@@ -24,16 +25,18 @@ const TABS = [
   { to: '/memories', end: false, key: 'memories' as const },
   { to: '/dates', end: false, key: 'dates' as const },
   { to: '/moments', end: false, key: 'moments' as const },
+  { to: '/capsules', end: false, key: 'capsules' as const },
   { to: '/settings', end: false, key: 'settings' as const },
 ]
 
 function Nav() {
-  const { t } = useTranslation(['common', 'memories', 'dates', 'moments', 'couple'])
+  const { t } = useTranslation(['common', 'memories', 'dates', 'moments', 'timecapsules', 'couple'])
   const labels: Record<(typeof TABS)[number]['key'], string> = {
     home: t('app.name', { ns: 'common' }),
     memories: t('nav', { ns: 'memories' }),
     dates: t('nav', { ns: 'dates' }),
     moments: t('nav', { ns: 'moments' }),
+    capsules: t('nav', { ns: 'timecapsules' }),
     settings: t('settings.nav', { ns: 'couple' }),
   }
   return (
@@ -99,6 +102,7 @@ function CoupleRoutes({ couple }: { couple: CoupleWithMembers }) {
         <Route path="/memories" element={<MemoriesPage coupleId={couple.id} />} />
         <Route path="/dates" element={<DatesPage coupleId={couple.id} />} />
         <Route path="/moments" element={<MomentsPage coupleId={couple.id} />} />
+        <Route path="/capsules" element={<TimeCapsulesPage coupleId={couple.id} />} />
         <Route path="/settings" element={<SettingsPage couple={couple} />} />
       </Routes>
     </Shell>

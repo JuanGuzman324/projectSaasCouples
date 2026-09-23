@@ -1,0 +1,19 @@
+{
+  "nav": "Zeitkapseln",
+  "intro": "Schreib heute eine Nachricht und wähle, wann sie enthüllt wird. Bis dahin siehst nur du sie.",
+  "action.new": "Neue Zeitkapsel",
+  "action.save": "Kapsel versiegeln",
+  "action.delete": "Löschen",
+  "new.title": "Neue Zeitkapsel",
+  "field.title": "Titel",
+  "field.openOn": "Wird enthüllt am",
+  "field.body": "Deine Nachricht",
+  "status.sealed": "Versiegelt",
+  "status.open": "Enthüllt",
+  "hint.onlyYouSeeIt": "Nur du siehst sie, bis das Datum erreicht ist.",
+  "sealed.hint": "Versiegelt bis zum {{date}}.",
+  "empty.title": "Noch keine Zeitkapseln",
+  "empty.subtitle": "Schreib etwas für dein zukünftiges Ich oder für deine Partnerin/deinen Partner zu einem besonderen Datum.",
+  "confirm.delete": "Diese Kapsel löschen?",
+  "error.save": "Konnte nicht gespeichert werden. Versuch es noch einmal."
+}

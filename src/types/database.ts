@@ -156,6 +156,35 @@ export interface Database {
           },
         ]
       }
+      time_capsules: {
+        Row: {
+          id: string
+          couple_id: string
+          created_by: string | null
+          title: string
+          body: string
+          open_on: string
+          deleted_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['time_capsules']['Row']> & {
+          couple_id: string
+          title: string
+          body: string
+          open_on: string
+        }
+        Update: Partial<Database['public']['Tables']['time_capsules']['Row']>
+        Relationships: [
+          {
+            foreignKeyName: 'time_capsules_couple_id_fkey'
+            columns: ['couple_id']
+            isOneToOne: false
+            referencedRelation: 'couples'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
     Views: Record<string, never>
     Functions: {

@@ -4,6 +4,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { createMemory, toggleFavorite, softDeleteMemory } from '../features/memories/api'
 import { createDate, softDeleteDate } from '../features/dates/api'
 import { createMoment, updateMoment, togglePlanItem, softDeleteMoment } from '../features/moments/api'
+import { createTimeCapsule, softDeleteTimeCapsule } from '../features/timecapsules/api'
 
 export const idbPersister = createAsyncStoragePersister({
   storage: {
@@ -36,4 +37,9 @@ export function registerOfflineMutations(queryClient: QueryClient) {
       togglePlanItem(vars.id, vars.plan),
   })
   queryClient.setMutationDefaults(['moments', 'delete'], { mutationFn: (id: string) => softDeleteMoment(id) })
+
+  queryClient.setMutationDefaults(['timeCapsules', 'create'], { mutationFn: createTimeCapsule })
+  queryClient.setMutationDefaults(['timeCapsules', 'delete'], {
+    mutationFn: (id: string) => softDeleteTimeCapsule(id),
+  })
 }

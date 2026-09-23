@@ -1,0 +1,19 @@
+{
+  "nav": "Cápsulas",
+  "intro": "Escribe un mensaje hoy y elige cuándo se revela. Hasta esa fecha, solo tú puedes verlo.",
+  "action.new": "Nueva cápsula",
+  "action.save": "Sellar cápsula",
+  "action.delete": "Eliminar",
+  "new.title": "Nueva cápsula del tiempo",
+  "field.title": "Título",
+  "field.openOn": "Se revela el",
+  "field.body": "Tu mensaje",
+  "status.sealed": "Sellada",
+  "status.open": "Revelada",
+  "hint.onlyYouSeeIt": "Solo tú la ves hasta que llegue la fecha.",
+  "sealed.hint": "Cápsula sellada hasta el {{date}}.",
+  "empty.title": "Todavía no hay cápsulas",
+  "empty.subtitle": "Escribe algo para tu futuro yo, o para tu pareja en una fecha especial.",
+  "confirm.delete": "¿Eliminar esta cápsula?",
+  "error.save": "No se pudo guardar. Intenta de nuevo."
+}

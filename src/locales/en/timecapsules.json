@@ -1,0 +1,19 @@
+{
+  "nav": "Capsules",
+  "intro": "Write a message today and choose when it's revealed. Until then, only you can see it.",
+  "action.new": "New capsule",
+  "action.save": "Seal capsule",
+  "action.delete": "Delete",
+  "new.title": "New time capsule",
+  "field.title": "Title",
+  "field.openOn": "Reveals on",
+  "field.body": "Your message",
+  "status.sealed": "Sealed",
+  "status.open": "Revealed",
+  "hint.onlyYouSeeIt": "Only you can see it until the date arrives.",
+  "sealed.hint": "Sealed until {{date}}.",
+  "empty.title": "No capsules yet",
+  "empty.subtitle": "Write something for your future self, or for your partner on a special date.",
+  "confirm.delete": "Delete this capsule?",
+  "error.save": "Couldn't save. Try again."
+}

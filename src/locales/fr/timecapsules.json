@@ -1,0 +1,19 @@
+{
+  "nav": "Capsules",
+  "intro": "Écrivez un message aujourd'hui et choisissez quand il sera révélé. Jusque-là, vous seul·e pouvez le voir.",
+  "action.new": "Nouvelle capsule",
+  "action.save": "Sceller la capsule",
+  "action.delete": "Supprimer",
+  "new.title": "Nouvelle capsule temporelle",
+  "field.title": "Titre",
+  "field.openOn": "Révélée le",
+  "field.body": "Votre message",
+  "status.sealed": "Scellée",
+  "status.open": "Révélée",
+  "hint.onlyYouSeeIt": "Vous seul·e la voyez jusqu'à la date choisie.",
+  "sealed.hint": "Scellée jusqu'au {{date}}.",
+  "empty.title": "Pas encore de capsules",
+  "empty.subtitle": "Écrivez quelque chose pour votre futur vous, ou pour votre partenaire à une date spéciale.",
+  "confirm.delete": "Supprimer cette capsule ?",
+  "error.save": "Impossible d'enregistrer. Réessayez."
+}
