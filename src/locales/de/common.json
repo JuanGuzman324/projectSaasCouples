@@ -17,5 +17,10 @@
   "photo.uploading": "Wird hochgeladen…",
   "photo.error.tooLarge": "Das Foto ist zu groß (maximal 15 MB).",
   "photo.error.decode": "Dieses Bild konnte nicht gelesen werden.",
-  "photo.error.upload": "Das Foto konnte nicht hochgeladen werden."
+  "photo.error.upload": "Das Foto konnte nicht hochgeladen werden.",
+  "offline.offline": "Du bist offline. Das ist der zuletzt gespeicherte Stand.",
+  "offline.offlinePending_one": "Du bist offline. {{count}} Änderung wird synchronisiert, sobald du wieder online bist.",
+  "offline.offlinePending_other": "Du bist offline. {{count}} Änderungen werden synchronisiert, sobald du wieder online bist.",
+  "offline.syncing_one": "Synchronisiere {{count}} ausstehende Änderung…",
+  "offline.syncing_other": "Synchronisiere {{count}} ausstehende Änderungen…"
 }

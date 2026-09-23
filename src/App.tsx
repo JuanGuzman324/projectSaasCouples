@@ -15,6 +15,7 @@ import { SettingsPage } from './features/couple/SettingsPage'
 import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
 import { ThemeToggle } from './ui/ThemeToggle'
+import { OfflineBanner } from './ui/OfflineBanner'
 import { supabase } from './lib/supabase'
 import type { CoupleWithMembers } from './features/couple/api'
 
@@ -81,6 +82,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           </Button>
         </div>
       </header>
+      <OfflineBanner />
       <main className="mx-auto max-w-3xl px-6 pb-16">{children}</main>
     </div>
   )

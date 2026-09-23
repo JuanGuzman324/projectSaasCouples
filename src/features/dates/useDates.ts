@@ -10,6 +10,7 @@ export function useDates() {
 export function useCreateDate() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['dates', 'create'],
     mutationFn: (input: DateInput) => createDate(input),
     onSuccess: () => qc.invalidateQueries({ queryKey: DATES_QUERY_KEY }),
   })
@@ -18,6 +19,7 @@ export function useCreateDate() {
 export function useDeleteDate() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['dates', 'delete'],
     mutationFn: (id: string) => softDeleteDate(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: DATES_QUERY_KEY }),
   })

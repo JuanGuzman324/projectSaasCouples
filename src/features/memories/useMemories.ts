@@ -16,6 +16,7 @@ export function useMemories() {
 export function useCreateMemory() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['memories', 'create'],
     mutationFn: (input: MemoryInput) => createMemory(input),
     onSuccess: () => qc.invalidateQueries({ queryKey: MEMORIES_QUERY_KEY }),
   })
@@ -24,6 +25,7 @@ export function useCreateMemory() {
 export function useToggleFavorite() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['memories', 'toggleFavorite'],
     mutationFn: ({ id, isFavorite }: { id: string; isFavorite: boolean }) =>
       toggleFavorite(id, isFavorite),
     onSuccess: () => qc.invalidateQueries({ queryKey: MEMORIES_QUERY_KEY }),
@@ -33,6 +35,7 @@ export function useToggleFavorite() {
 export function useDeleteMemory() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['memories', 'delete'],
     mutationFn: (id: string) => softDeleteMemory(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: MEMORIES_QUERY_KEY }),
   })

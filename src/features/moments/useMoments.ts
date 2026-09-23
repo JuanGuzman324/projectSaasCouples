@@ -19,6 +19,7 @@ export function useMoments() {
 export function useCreateMoment() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['moments', 'create'],
     mutationFn: (input: MomentInput) => createMoment(input),
     onSuccess: () => qc.invalidateQueries({ queryKey: MOMENTS_QUERY_KEY }),
   })
@@ -27,6 +28,7 @@ export function useCreateMoment() {
 export function useUpdateMoment() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['moments', 'update'],
     mutationFn: ({ id, design }: { id: string; design: MomentDesign }) => updateMoment(id, design),
     onSuccess: () => qc.invalidateQueries({ queryKey: MOMENTS_QUERY_KEY }),
   })
@@ -35,6 +37,7 @@ export function useUpdateMoment() {
 export function useTogglePlanItem() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['moments', 'togglePlanItem'],
     mutationFn: ({ id, plan }: { id: string; plan: PlanItem[] }) => togglePlanItem(id, plan),
     onSuccess: () => qc.invalidateQueries({ queryKey: MOMENTS_QUERY_KEY }),
   })
@@ -43,6 +46,7 @@ export function useTogglePlanItem() {
 export function useDeleteMoment() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['moments', 'delete'],
     mutationFn: (id: string) => softDeleteMoment(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: MOMENTS_QUERY_KEY }),
   })

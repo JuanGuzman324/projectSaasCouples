@@ -17,5 +17,10 @@
   "photo.uploading": "Uploading…",
   "photo.error.tooLarge": "That photo is too large (15 MB max).",
   "photo.error.decode": "Couldn't read that image.",
-  "photo.error.upload": "Couldn't upload the photo."
+  "photo.error.upload": "Couldn't upload the photo.",
+  "offline.offline": "You're offline. Showing the last saved version.",
+  "offline.offlinePending_one": "You're offline. {{count}} change will sync once you're back online.",
+  "offline.offlinePending_other": "You're offline. {{count}} changes will sync once you're back online.",
+  "offline.syncing_one": "Syncing {{count}} pending change…",
+  "offline.syncing_other": "Syncing {{count}} pending changes…"
 }

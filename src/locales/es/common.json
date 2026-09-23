@@ -17,5 +17,10 @@
   "photo.uploading": "Subiendo…",
   "photo.error.tooLarge": "La foto pesa demasiado (máximo 15 MB).",
   "photo.error.decode": "No se pudo leer esa imagen.",
-  "photo.error.upload": "No se pudo subir la foto."
+  "photo.error.upload": "No se pudo subir la foto.",
+  "offline.offline": "Sin conexión. Estás viendo la última versión guardada.",
+  "offline.offlinePending_one": "Sin conexión. {{count}} cambio se sincronizará al volver la señal.",
+  "offline.offlinePending_other": "Sin conexión. {{count}} cambios se sincronizarán al volver la señal.",
+  "offline.syncing_one": "Sincronizando {{count}} cambio pendiente…",
+  "offline.syncing_other": "Sincronizando {{count}} cambios pendientes…"
 }

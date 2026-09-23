@@ -17,5 +17,10 @@
   "photo.uploading": "Envoi en cours…",
   "photo.error.tooLarge": "Cette photo est trop lourde (15 Mo maximum).",
   "photo.error.decode": "Impossible de lire cette image.",
-  "photo.error.upload": "Impossible d'envoyer la photo."
+  "photo.error.upload": "Impossible d'envoyer la photo.",
+  "offline.offline": "Vous êtes hors ligne. Voici la dernière version enregistrée.",
+  "offline.offlinePending_one": "Vous êtes hors ligne. {{count}} modification sera synchronisée au retour du réseau.",
+  "offline.offlinePending_other": "Vous êtes hors ligne. {{count}} modifications seront synchronisées au retour du réseau.",
+  "offline.syncing_one": "Synchronisation de {{count}} modification en attente…",
+  "offline.syncing_other": "Synchronisation de {{count}} modifications en attente…"
 }
