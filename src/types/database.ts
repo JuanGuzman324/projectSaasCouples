@@ -157,6 +157,34 @@ export interface Database {
           },
         ]
       }
+      push_subscriptions: {
+        Row: {
+          id: string
+          couple_id: string
+          user_id: string
+          endpoint: string
+          p256dh: string
+          auth: string
+          created_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['push_subscriptions']['Row']> & {
+          couple_id: string
+          user_id: string
+          endpoint: string
+          p256dh: string
+          auth: string
+        }
+        Update: Partial<Database['public']['Tables']['push_subscriptions']['Row']>
+        Relationships: [
+          {
+            foreignKeyName: 'push_subscriptions_couple_id_fkey'
+            columns: ['couple_id']
+            isOneToOne: false
+            referencedRelation: 'couples'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       moment_templates: {
         Row: {
           id: string

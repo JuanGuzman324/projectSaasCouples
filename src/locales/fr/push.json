@@ -1,0 +1,8 @@
+{
+  "title": "Notifications",
+  "hint": "Recevez un rappel la veille d'une date spéciale ou d'un Moment programmé.",
+  "action.enable": "Activer les notifications",
+  "action.disable": "Désactiver les notifications",
+  "error.permissionDenied": "Vous avez bloqué les autorisations de notification dans le navigateur. Vous pouvez les réactiver depuis les paramètres du site.",
+  "error.generic": "Impossible d'activer. Réessayez."
+}

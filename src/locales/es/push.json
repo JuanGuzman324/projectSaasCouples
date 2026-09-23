@@ -1,0 +1,8 @@
+{
+  "title": "Notificaciones",
+  "hint": "Recibe un aviso el día antes de una fecha especial o un momento programado.",
+  "action.enable": "Activar notificaciones",
+  "action.disable": "Desactivar notificaciones",
+  "error.permissionDenied": "Bloqueaste los permisos de notificación en el navegador. Puedes habilitarlos desde la configuración del sitio.",
+  "error.generic": "No se pudo activar. Intenta de nuevo."
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Benachrichtigungen",
+  "hint": "Erhalte einen Hinweis am Tag vor einem besonderen Datum oder einem geplanten Moment.",
+  "action.enable": "Benachrichtigungen aktivieren",
+  "action.disable": "Benachrichtigungen deaktivieren",
+  "error.permissionDenied": "Du hast Benachrichtigungen im Browser blockiert. Du kannst sie in den Website-Einstellungen wieder erlauben.",
+  "error.generic": "Konnte nicht aktiviert werden. Versuch es noch einmal."
+}

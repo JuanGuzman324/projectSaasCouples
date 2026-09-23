@@ -1,0 +1,8 @@
+{
+  "title": "Notifications",
+  "hint": "Get a heads-up the day before a special date or a scheduled Moment.",
+  "action.enable": "Enable notifications",
+  "action.disable": "Disable notifications",
+  "error.permissionDenied": "You've blocked notification permissions in the browser. You can re-enable them from the site settings.",
+  "error.generic": "Couldn't turn this on. Try again."
+}

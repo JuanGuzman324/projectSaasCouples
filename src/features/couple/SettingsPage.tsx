@@ -9,6 +9,7 @@ import { TextField } from '../../ui/TextField'
 import { Select } from '../../ui/Select'
 import { Alert } from '../../ui/Alert'
 import { BackupCard } from '../backup/BackupCard'
+import { PushToggle } from '../push/PushToggle'
 import { isPremium } from '../premium/limits'
 import type { CoupleWithMembers } from './api'
 
@@ -159,6 +160,8 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
           {t('settings.action.save')}
         </Button>
       </form>
+
+      <PushToggle coupleId={couple.id} userId={userId} />
 
       <BackupCard coupleId={couple.id} />
 
