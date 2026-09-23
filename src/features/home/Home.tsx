@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Trans } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { Card } from '../../ui/Card'
 import { Button } from '../../ui/Button'
 import { Photo } from '../../ui/Photo'
@@ -400,6 +401,14 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
         <LiveClock startDate={couple.start_date} />
       </section>
       <MilestonesCard startDate={couple.start_date} />
+      <p className="mt-4 text-center">
+        <Link
+          to="/year-review"
+          className="text-sm font-semibold text-[var(--color-rose)] underline-offset-4 hover:underline"
+        >
+          {t('yearReview.link')}
+        </Link>
+      </p>
       <DistanceCard couple={couple} />
       <TimezoneCard couple={couple} />
       <ThreadCard couple={couple} />

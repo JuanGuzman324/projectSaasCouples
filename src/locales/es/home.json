@@ -18,6 +18,7 @@
   "distance.hint": "Estimado en línea recta, no una ruta real.",
   "timezone.title": "Hora de cada uno",
   "timezone.someone": "Tu pareja",
+  "yearReview.link": "Ver el resumen anual →",
   "randomMemory.title": "Un recuerdo al azar",
   "randomMemory.shuffle": "Otro al azar",
   "randomMemory.onThisDay_one": "Hace {{count}} año, un día como hoy",

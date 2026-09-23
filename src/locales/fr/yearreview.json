@@ -1,0 +1,17 @@
+{
+  "appName": "Notre histoire",
+  "title": "Résumé de l'année",
+  "yearSelect": "Année",
+  "daysTogether": "jours ensemble",
+  "noDaysYet": "Votre histoire n'avait pas encore commencé cette année-là.",
+  "stat.memories_one": "souvenir enregistré",
+  "stat.memories_other": "souvenirs enregistrés",
+  "stat.encounters_one": "rencontre",
+  "stat.encounters_other": "rencontres",
+  "stat.moments_one": "moment vécu",
+  "stat.moments_other": "moments vécus",
+  "stat.dates_one": "date spéciale",
+  "stat.dates_other": "dates spéciales",
+  "topTag": "Ce que vous avez le plus enregistré : {{tag}}",
+  "action.download": "Télécharger en image"
+}

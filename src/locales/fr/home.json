@@ -18,6 +18,7 @@
   "distance.hint": "Estimation à vol d'oiseau, pas un itinéraire réel.",
   "timezone.title": "L'heure de chacun",
   "timezone.someone": "Votre partenaire",
+  "yearReview.link": "Voir le résumé de l'année →",
   "randomMemory.title": "Un souvenir au hasard",
   "randomMemory.shuffle": "Un autre au hasard",
   "randomMemory.onThisDay_one": "Il y a {{count}} an, un jour comme aujourd'hui",

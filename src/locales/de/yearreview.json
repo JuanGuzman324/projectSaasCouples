@@ -1,0 +1,17 @@
+{
+  "appName": "Unsere Geschichte",
+  "title": "Jahresrückblick",
+  "yearSelect": "Jahr",
+  "daysTogether": "Tage zusammen",
+  "noDaysYet": "In diesem Jahr hatte eure Geschichte noch nicht begonnen.",
+  "stat.memories_one": "gespeicherte Erinnerung",
+  "stat.memories_other": "gespeicherte Erinnerungen",
+  "stat.encounters_one": "Treffen",
+  "stat.encounters_other": "Treffen",
+  "stat.moments_one": "erlebter Moment",
+  "stat.moments_other": "erlebte Momente",
+  "stat.dates_one": "besonderes Datum",
+  "stat.dates_other": "besondere Daten",
+  "topTag": "Am häufigsten gespeichert: {{tag}}",
+  "action.download": "Als Bild herunterladen"
+}

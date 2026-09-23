@@ -1,0 +1,17 @@
+{
+  "appName": "Our Story",
+  "title": "Year in review",
+  "yearSelect": "Year",
+  "daysTogether": "days together",
+  "noDaysYet": "Your story hadn't started yet in this year.",
+  "stat.memories_one": "memory saved",
+  "stat.memories_other": "memories saved",
+  "stat.encounters_one": "time together",
+  "stat.encounters_other": "times together",
+  "stat.moments_one": "moment lived",
+  "stat.moments_other": "moments lived",
+  "stat.dates_one": "special date",
+  "stat.dates_other": "special dates",
+  "topTag": "What you saved the most: {{tag}}",
+  "action.download": "Download as image"
+}
