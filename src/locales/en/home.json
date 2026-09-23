@@ -16,6 +16,8 @@
   "distance.flight": "By plane, approx.",
   "distance.drive": "By car, approx.",
   "distance.hint": "Straight-line estimate, not a real route.",
+  "timezone.title": "Each other's time",
+  "timezone.someone": "Your partner",
   "randomMemory.title": "A random memory",
   "randomMemory.shuffle": "Shuffle",
   "randomMemory.onThisDay_one": "{{count}} year ago, on this day",

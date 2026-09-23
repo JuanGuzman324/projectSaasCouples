@@ -5,9 +5,13 @@ import { useUpdateCouple, useUpdateMyMember } from './useCouple'
 import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
 import { TextField } from '../../ui/TextField'
+import { Select } from '../../ui/Select'
 import { Alert } from '../../ui/Alert'
 import { BackupCard } from '../backup/BackupCard'
 import type { CoupleWithMembers } from './api'
+
+const TIMEZONES: string[] =
+  typeof Intl.supportedValuesOf === 'function' ? Intl.supportedValuesOf('timeZone') : []
 
 export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
   const { t } = useTranslation('couple')
@@ -21,6 +25,7 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
   const [city, setCity] = useState(me?.city ?? '')
   const [lat, setLat] = useState(me?.lat != null ? String(me.lat) : '')
   const [lon, setLon] = useState(me?.lon != null ? String(me.lon) : '')
+  const [tz, setTz] = useState(me?.tz ?? Intl.DateTimeFormat().resolvedOptions().timeZone)
   const [startDate, setStartDate] = useState(couple.start_date ?? '')
 
   const [saved, setSaved] = useState(false)
@@ -50,6 +55,7 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
             city: city.trim() || null,
             lat: parseCoord(lat),
             lon: parseCoord(lon),
+            tz: tz || null,
           },
         }),
       ])
@@ -101,6 +107,14 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
             />
           </div>
           <p className="text-xs text-[var(--color-muted)] sm:col-span-2">{t('settings.field.latLonHint')}</p>
+          <Select label={t('settings.field.tz')} value={tz} onChange={(e) => setTz(e.target.value)}>
+            {!TIMEZONES.includes(tz) && <option value={tz}>{tz}</option>}
+            {TIMEZONES.map((z) => (
+              <option key={z} value={z}>
+                {z}
+              </option>
+            ))}
+          </Select>
         </Card>
 
         <Card className="flex flex-col gap-4">

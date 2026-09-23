@@ -21,6 +21,7 @@
   "settings.field.lat": "Latitud",
   "settings.field.lon": "Longitud",
   "settings.field.latLonHint": "Opcional, para la tarjeta de distancia entre ciudades en Inicio.",
+  "settings.field.tz": "Tu zona horaria",
   "settings.couple.title": "Sobre la pareja",
   "settings.field.startDate": "¿Cuándo empezó todo?",
   "settings.action.save": "Guardar cambios",

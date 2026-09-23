@@ -21,6 +21,7 @@
   "settings.field.lat": "Latitude",
   "settings.field.lon": "Longitude",
   "settings.field.latLonHint": "Optional, for the city-distance card on Home.",
+  "settings.field.tz": "Your time zone",
   "settings.couple.title": "About the couple",
   "settings.field.startDate": "When did it all begin?",
   "settings.action.save": "Save changes",

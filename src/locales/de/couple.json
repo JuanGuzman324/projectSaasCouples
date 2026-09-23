@@ -21,6 +21,7 @@
   "settings.field.lat": "Breitengrad",
   "settings.field.lon": "Längengrad",
   "settings.field.latLonHint": "Optional, für die Entfernungskarte zwischen Städten auf der Startseite.",
+  "settings.field.tz": "Deine Zeitzone",
   "settings.couple.title": "Über das Paar",
   "settings.field.startDate": "Wann hat alles angefangen?",
   "settings.action.save": "Änderungen speichern",

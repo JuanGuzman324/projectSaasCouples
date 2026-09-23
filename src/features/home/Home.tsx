@@ -192,6 +192,50 @@ function DistanceCard({ couple }: { couple: CoupleWithMembers }) {
   )
 }
 
+// Hora local de cada integrante, si ambos guardaron su zona horaria en
+// Ajustes. No se deriva de lat/lon: mapear coordenadas a zona horaria
+// requiere una base de datos geográfica que no tenemos; en cambio se pide
+// la zona (IANA) directamente, con la del navegador como valor por defecto.
+function TimezoneCard({ couple }: { couple: CoupleWithMembers }) {
+  const { t, i18n } = useTranslation('home')
+  const now = useNow(true)
+
+  const withTz = couple.members.filter(
+    (m): m is typeof m & { tz: string } => !!m.tz
+  )
+  if (withTz.length < 2) return null
+
+  const formatted = withTz.map((m) => ({
+    name: m.display_name || t('timezone.someone'),
+    time: new Intl.DateTimeFormat(i18n.resolvedLanguage, {
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZone: m.tz,
+    }).format(now),
+    date: new Intl.DateTimeFormat(i18n.resolvedLanguage, {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      timeZone: m.tz,
+    }).format(now),
+  }))
+
+  return (
+    <Card className="mt-6">
+      <h2 className="[font-family:var(--font-display)] text-xl">{t('timezone.title')}</h2>
+      <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
+        {formatted.map((f) => (
+          <div key={f.name}>
+            <dt className="text-[var(--color-muted)]">{f.name}</dt>
+            <dd className="font-mono text-lg font-semibold tabular-nums">{f.time}</dd>
+            <dd className="text-xs text-[var(--color-muted)]">{f.date}</dd>
+          </div>
+        ))}
+      </dl>
+    </Card>
+  )
+}
+
 function ThreadCard({ couple }: { couple: CoupleWithMembers }) {
   const { t, i18n } = useTranslation('home')
   const { data: dates } = useDates()
@@ -326,6 +370,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
           <h1 className="[font-family:var(--font-display)] text-2xl">{t('hero.empty.title')}</h1>
         </section>
         <DistanceCard couple={couple} />
+        <TimezoneCard couple={couple} />
         <ThreadCard couple={couple} />
         <RandomMemoryCard />
       </>
@@ -356,6 +401,7 @@ export function Home({ couple }: { couple: CoupleWithMembers }) {
       </section>
       <MilestonesCard startDate={couple.start_date} />
       <DistanceCard couple={couple} />
+      <TimezoneCard couple={couple} />
       <ThreadCard couple={couple} />
       <RandomMemoryCard />
     </>

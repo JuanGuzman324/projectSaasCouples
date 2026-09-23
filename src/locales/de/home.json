@@ -16,6 +16,8 @@
   "distance.flight": "Mit dem Flugzeug, ca.",
   "distance.drive": "Mit dem Auto, ca.",
   "distance.hint": "Luftlinie geschätzt, keine echte Route.",
+  "timezone.title": "Uhrzeit von euch beiden",
+  "timezone.someone": "Dein Partner/deine Partnerin",
   "randomMemory.title": "Eine zufällige Erinnerung",
   "randomMemory.shuffle": "Neu mischen",
   "randomMemory.onThisDay_one": "Vor {{count}} Jahr, heute auf den Tag genau",
