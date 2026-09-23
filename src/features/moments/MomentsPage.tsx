@@ -11,6 +11,7 @@ import { MomentView } from './MomentView'
 import { momentToDesign, type Moment, type MomentDesign } from './api'
 import { nextMomentOccurrence, daysBetween } from './moment-utils'
 import { MOTIF_EMOJI, type Motif } from './constants'
+import { PublishTemplateModal } from '../momenttemplates/PublishTemplateModal'
 
 function Countdown({ moment, t }: { moment: Moment; t: (k: string, o?: Record<string, unknown>) => string }) {
   const next = nextMomentOccurrence(moment.happens_on, moment.repeat, new Date())
@@ -40,6 +41,7 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
   const [editing, setEditing] = useState<{ id: string; design: MomentDesign } | null>(null)
   const [creating, setCreating] = useState(false)
   const [viewing, setViewing] = useState<Moment | null>(null)
+  const [publishing, setPublishing] = useState<Moment | null>(null)
 
   async function handleCreate(design: MomentDesign) {
     await createMoment.mutateAsync({ coupleId, ...design })
@@ -58,12 +60,18 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
         <Button onClick={() => setCreating(true)}>{t('action.new')}</Button>
       </div>
 
-      <p className="text-center">
+      <p className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-center">
         <Link
           to="/cultural-dates"
           className="text-sm font-semibold text-[var(--color-rose)] underline-offset-4 hover:underline"
         >
           {t('culturalDates.link')}
+        </Link>
+        <Link
+          to="/templates"
+          className="text-sm font-semibold text-[var(--color-rose)] underline-offset-4 hover:underline"
+        >
+          {t('templates.link')}
         </Link>
       </p>
 
@@ -108,6 +116,16 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
                     className="underline opacity-90 transition-opacity hover:opacity-100"
                     onClick={(e) => {
                       e.stopPropagation()
+                      setPublishing(m)
+                    }}
+                  >
+                    {t('action.share')}
+                  </button>
+                  <button
+                    type="button"
+                    className="underline opacity-90 transition-opacity hover:opacity-100"
+                    onClick={(e) => {
+                      e.stopPropagation()
                       if (confirm(t('confirm.delete'))) deleteMoment.mutate(m.id)
                     }}
                   >
@@ -144,6 +162,10 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
       )}
 
       {viewing && <MomentView moment={viewing} onClose={() => setViewing(null)} />}
+
+      {publishing && (
+        <PublishTemplateModal coupleId={coupleId} moment={publishing} onClose={() => setPublishing(null)} />
+      )}
     </div>
   )
 }

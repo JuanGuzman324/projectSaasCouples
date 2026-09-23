@@ -157,6 +157,40 @@ export interface Database {
           },
         ]
       }
+      moment_templates: {
+        Row: {
+          id: string
+          couple_id: string
+          created_by: string | null
+          title: string
+          tagline: string | null
+          message: string | null
+          motif: string
+          emoji: string
+          font: string
+          density: number
+          speed: number
+          palette: Json
+          deleted_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['moment_templates']['Row']> & {
+          couple_id: string
+          title: string
+          palette: Json
+        }
+        Update: Partial<Database['public']['Tables']['moment_templates']['Row']>
+        Relationships: [
+          {
+            foreignKeyName: 'moment_templates_couple_id_fkey'
+            columns: ['couple_id']
+            isOneToOne: false
+            referencedRelation: 'couples'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       time_capsules: {
         Row: {
           id: string

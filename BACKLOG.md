@@ -36,7 +36,7 @@ Aprovechan que ahora es multi-pareja; no tiene sentido antes de que P0/P1 estén
 
 - [ ] **Notificaciones push (L)** Recordatorio de fecha próxima, aniversario, o de un momento especial. Es el punto que más sube la retención según el plan de producto original — requiere Edge Functions + un proveedor de push (FCM o Web Push).
 - [x] **Biblioteca de fechas culturales por país (M)** San Valentín, Amor y Amistad (Colombia), Día de las flores amarillas, White Day, Qixi... sugeridas automáticamente según el país de cada miembro, con un botón para agregarlas como Momento.
-- [ ] **Plantillas de Momentos compartibles entre parejas (M)** Que una pareja publique el diseño de un Momento (paleta, motivo, mensaje-plantilla sin datos personales) y otras lo usen como punto de partida. Funciona también como gancho de crecimiento.
+- [x] **Plantillas de Momentos compartibles entre parejas (M)** Que una pareja publique el diseño de un Momento (paleta, motivo, mensaje-plantilla sin datos personales) y otras lo usen como punto de partida. Funciona también como gancho de crecimiento.
 - [x] **Resumen anual (M)** Un "resumen del año" de la relación (días juntos, recuerdos guardados, momentos vividos) exportable como imagen o PDF para compartir.
 - [x] **Zonas horarias (S)** Mostrar la hora local del otro miembro en Home — relevante para parejas a distancia real (usa el mismo `city/lat/lon` que ya existe).
 - [x] **Cápsulas del tiempo (M)** Mensajes que se escriben ahora y se revelan en una fecha futura elegida.

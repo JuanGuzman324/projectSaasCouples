@@ -1,0 +1,19 @@
+{
+  "title": "Modèles de la communauté",
+  "intro": "Des designs que d'autres couples ont partagés. Utilisez-les comme point de départ pour votre propre Moment ; la date et la photo restent toujours votre choix.",
+  "empty.title": "Pas encore de modèles",
+  "empty.subtitle": "Soyez le premier couple à partager un design depuis Moments.",
+  "action.use": "Utiliser ce modèle",
+  "action.unpublish": "Ne plus partager",
+  "confirm.delete": "Ne plus partager ce modèle ? Il n'apparaîtra plus pour les autres couples.",
+  "modal.title": "Utiliser le modèle",
+  "publish.title": "Partager comme modèle",
+  "publish.hint": "Ceci est partagé avec d'autres couples : le titre, la phrase et le message que vous écrivez ici seront publics. N'incluez ni noms, ni dates, ni rien de personnel.",
+  "publish.field.title": "Titre public",
+  "publish.field.tagline": "Phrase courte",
+  "publish.field.message": "Message d'exemple",
+  "publish.action": "Publier le modèle",
+  "publish.success": "Publié. Il apparaît maintenant dans Modèles pour tous les couples.",
+  "publish.close": "Fermer",
+  "publish.error": "Impossible de publier. Réessayez."
+}

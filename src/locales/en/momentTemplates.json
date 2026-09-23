@@ -1,0 +1,19 @@
+{
+  "title": "Community templates",
+  "intro": "Designs other couples have shared. Use them as a starting point for your own Moment; the date and photo are always yours to choose.",
+  "empty.title": "No templates yet",
+  "empty.subtitle": "Be the first couple to share a design from Moments.",
+  "action.use": "Use this template",
+  "action.unpublish": "Stop sharing",
+  "confirm.delete": "Stop sharing this template? It'll no longer show up for other couples.",
+  "modal.title": "Use template",
+  "publish.title": "Share as a template",
+  "publish.hint": "This gets shared with other couples: the title, tagline and message you write here will be public. Don't include names, dates, or anything personal.",
+  "publish.field.title": "Public title",
+  "publish.field.tagline": "Short tagline",
+  "publish.field.message": "Sample message",
+  "publish.action": "Publish template",
+  "publish.success": "Published. It now shows up in Templates for any couple.",
+  "publish.close": "Close",
+  "publish.error": "Couldn't publish. Try again."
+}

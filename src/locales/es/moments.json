@@ -1,6 +1,8 @@
 {
   "nav": "Momentos",
   "culturalDates.link": "Ver fechas culturales sugeridas →",
+  "templates.link": "Ver plantillas de la comunidad →",
+  "action.share": "Compartir como plantilla",
   "empty.title": "Todavía no hay momentos especiales",
   "empty.subtitle": "Diseña un día solo de ustedes, como el Día de las flores amarillas.",
   "new.title": "Diseñar un momento",

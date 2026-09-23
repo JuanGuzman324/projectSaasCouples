@@ -1,6 +1,8 @@
 {
   "nav": "Moments",
   "culturalDates.link": "See suggested cultural dates →",
+  "templates.link": "See community templates →",
+  "action.share": "Share as template",
   "empty.title": "No special moments yet",
   "empty.subtitle": "Design a day just for the two of you, like the Yellow Flowers Day.",
   "new.title": "Design a moment",

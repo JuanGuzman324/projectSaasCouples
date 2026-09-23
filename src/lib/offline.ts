@@ -5,6 +5,7 @@ import { createMemory, toggleFavorite, softDeleteMemory } from '../features/memo
 import { createDate, softDeleteDate } from '../features/dates/api'
 import { createMoment, updateMoment, togglePlanItem, softDeleteMoment } from '../features/moments/api'
 import { createTimeCapsule, softDeleteTimeCapsule } from '../features/timecapsules/api'
+import { publishTemplate, deleteTemplate } from '../features/momenttemplates/api'
 
 export const idbPersister = createAsyncStoragePersister({
   storage: {
@@ -42,4 +43,7 @@ export function registerOfflineMutations(queryClient: QueryClient) {
   queryClient.setMutationDefaults(['timeCapsules', 'delete'], {
     mutationFn: (id: string) => softDeleteTimeCapsule(id),
   })
+
+  queryClient.setMutationDefaults(['momentTemplates', 'publish'], { mutationFn: publishTemplate })
+  queryClient.setMutationDefaults(['momentTemplates', 'delete'], { mutationFn: (id: string) => deleteTemplate(id) })
 }

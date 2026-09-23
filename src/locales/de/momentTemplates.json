@@ -1,0 +1,19 @@
+{
+  "title": "Vorlagen der Community",
+  "intro": "Designs, die andere Paare geteilt haben. Nutze sie als Ausgangspunkt für euren eigenen Moment; Datum und Foto wählt ihr immer selbst.",
+  "empty.title": "Noch keine Vorlagen",
+  "empty.subtitle": "Sei das erste Paar, das ein Design aus Momenten teilt.",
+  "action.use": "Diese Vorlage nutzen",
+  "action.unpublish": "Nicht mehr teilen",
+  "confirm.delete": "Diese Vorlage nicht mehr teilen? Sie erscheint dann nicht mehr bei anderen Paaren.",
+  "modal.title": "Vorlage nutzen",
+  "publish.title": "Als Vorlage teilen",
+  "publish.hint": "Das wird mit anderen Paaren geteilt: Titel, Kurztext und Nachricht, die du hier schreibst, sind öffentlich. Keine Namen, Daten oder Persönliches angeben.",
+  "publish.field.title": "Öffentlicher Titel",
+  "publish.field.tagline": "Kurztext",
+  "publish.field.message": "Beispielnachricht",
+  "publish.action": "Vorlage veröffentlichen",
+  "publish.success": "Veröffentlicht. Sie erscheint jetzt bei Vorlagen für jedes Paar.",
+  "publish.close": "Schließen",
+  "publish.error": "Konnte nicht veröffentlicht werden. Versuch es noch einmal."
+}

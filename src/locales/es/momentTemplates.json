@@ -1,0 +1,19 @@
+{
+  "title": "Plantillas de la comunidad",
+  "intro": "Diseños que otras parejas compartieron. Úsalos como punto de partida para su propio Momento; la fecha y la foto siempre las eligen ustedes.",
+  "empty.title": "Todavía no hay plantillas",
+  "empty.subtitle": "Sé la primera pareja en compartir un diseño desde Momentos.",
+  "action.use": "Usar esta plantilla",
+  "action.unpublish": "Dejar de compartir",
+  "confirm.delete": "¿Dejar de compartir esta plantilla? Ya no aparecerá para otras parejas.",
+  "modal.title": "Usar plantilla",
+  "publish.title": "Compartir como plantilla",
+  "publish.hint": "Se comparte con otras parejas: el título, el texto y el mensaje que pongas aquí serán públicos. No incluyas nombres, fechas ni nada personal.",
+  "publish.field.title": "Título público",
+  "publish.field.tagline": "Frase corta",
+  "publish.field.message": "Mensaje de ejemplo",
+  "publish.action": "Publicar plantilla",
+  "publish.success": "Publicada. Ya aparece en Plantillas para cualquier pareja.",
+  "publish.close": "Cerrar",
+  "publish.error": "No se pudo publicar. Intenta de nuevo."
+}
