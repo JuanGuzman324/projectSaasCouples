@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
       networkMode: 'offlineFirst',
     },
     mutations: {
-      networkMode: 'offlineFirst',
+      networkMode: 'online',
     },
   },
 })
