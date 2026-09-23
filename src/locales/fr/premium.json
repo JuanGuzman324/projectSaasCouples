@@ -1,0 +1,22 @@
+{
+  "title": "Notre histoire Premium",
+  "currentPlan": "Forfait actuel",
+  "plan.free": "Gratuit",
+  "plan.premium": "Premium",
+  "feature.moments": "Moments enregistrés",
+  "feature.timeCapsules": "Capsules temporelles",
+  "feature.photos": "Photos (souvenirs + moments)",
+  "feature.freeLimit_one": "{{count}} dans le forfait gratuit",
+  "feature.freeLimit_other": "{{count}} dans le forfait gratuit",
+  "feature.unlimited": "illimité avec Premium",
+  "billing.hint": "Les paiements par carte ne sont pas encore connectés. En attendant, vous pouvez activer Premium manuellement ci-dessous pour l'essayer.",
+  "devToggle.activate": "Activer Premium (mode test)",
+  "devToggle.deactivate": "Revenir au forfait gratuit",
+  "upsell.cta": "Voir Premium",
+  "limit.moments_one": "Vous avez atteint la limite de {{count}} moment du forfait gratuit. Passez à Premium pour des moments illimités.",
+  "limit.moments_other": "Vous avez atteint la limite de {{count}} moments du forfait gratuit. Passez à Premium pour des moments illimités.",
+  "limit.timeCapsules_one": "Vous avez atteint la limite de {{count}} capsule temporelle du forfait gratuit. Passez à Premium pour des capsules illimitées.",
+  "limit.timeCapsules_other": "Vous avez atteint la limite de {{count}} capsules temporelles du forfait gratuit. Passez à Premium pour des capsules illimitées.",
+  "limit.photos_one": "Vous avez atteint la limite de {{count}} photo du forfait gratuit. Passez à Premium pour des photos illimitées.",
+  "limit.photos_other": "Vous avez atteint la limite de {{count}} photos du forfait gratuit. Passez à Premium pour des photos illimitées."
+}

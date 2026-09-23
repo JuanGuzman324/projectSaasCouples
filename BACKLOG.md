@@ -40,7 +40,7 @@ Aprovechan que ahora es multi-pareja; no tiene sentido antes de que P0/P1 estén
 - [x] **Resumen anual (M)** Un "resumen del año" de la relación (días juntos, recuerdos guardados, momentos vividos) exportable como imagen o PDF para compartir.
 - [x] **Zonas horarias (S)** Mostrar la hora local del otro miembro en Home — relevante para parejas a distancia real (usa el mismo `city/lat/lon` que ya existe).
 - [x] **Cápsulas del tiempo (M)** Mensajes que se escriben ahora y se revelan en una fecha futura elegida.
-- [ ] **Plan Premium (L)** La columna `plan` en `couples` ya existe (`free`/`premium`) pero no se usa todavía. Definir qué queda detrás del muro (más fotos, momentos ilimitados, cifrado extremo a extremo) e integrar Stripe o RevenueCat.
+- [x] **Plan Premium (L)** La columna `plan` en `couples` ya existe (`free`/`premium`) pero no se usa todavía. Definir qué queda detrás del muro (más fotos, momentos ilimitados, cifrado extremo a extremo) e integrar Stripe o RevenueCat. *(Alcance de esta sesión: lógica de límites + UI de venta, sin Stripe todavía — ver commit para detalle.)*
 - [ ] **Widget de pantalla de inicio (L)** Solo tiene sentido una vez exista la app empaquetada con Capacitor (fase de publicación en tiendas del plan original, todavía no arrancada).
 
 ## Cómo usar esto con Claude Code

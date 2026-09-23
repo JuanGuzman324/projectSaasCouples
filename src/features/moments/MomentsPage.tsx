@@ -12,6 +12,10 @@ import { momentToDesign, type Moment, type MomentDesign } from './api'
 import { nextMomentOccurrence, daysBetween } from './moment-utils'
 import { MOTIF_EMOJI, type Motif } from './constants'
 import { PublishTemplateModal } from '../momenttemplates/PublishTemplateModal'
+import { useMyCouple } from '../couple/useCouple'
+import { isPremium, FREE_LIMITS } from '../premium/limits'
+import { usePhotoUsage } from '../premium/usePhotoUsage'
+import { UpsellCard } from '../premium/UpsellCard'
 
 function Countdown({ moment, t }: { moment: Moment; t: (k: string, o?: Record<string, unknown>) => string }) {
   const next = nextMomentOccurrence(moment.happens_on, moment.repeat, new Date())
@@ -32,16 +36,22 @@ function Countdown({ moment, t }: { moment: Moment; t: (k: string, o?: Record<st
 }
 
 export function MomentsPage({ coupleId }: { coupleId: string }) {
-  const { t } = useTranslation('moments')
+  const { t } = useTranslation(['moments', 'premium'])
   const { data: moments, isLoading } = useMoments()
+  const { data: couple } = useMyCouple()
   const createMoment = useCreateMoment()
   const updateMoment = useUpdateMoment()
   const deleteMoment = useDeleteMoment()
+  const photoUsage = usePhotoUsage()
 
   const [editing, setEditing] = useState<{ id: string; design: MomentDesign } | null>(null)
   const [creating, setCreating] = useState(false)
   const [viewing, setViewing] = useState<Moment | null>(null)
   const [publishing, setPublishing] = useState<Moment | null>(null)
+
+  const premium = isPremium(couple)
+  const momentsLimitReached = !premium && (moments?.length ?? 0) >= FREE_LIMITS.moments
+  const photoLimitReached = !premium && photoUsage >= FREE_LIMITS.photos
 
   async function handleCreate(design: MomentDesign) {
     await createMoment.mutateAsync({ coupleId, ...design })
@@ -57,8 +67,14 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('nav')}</h1>
-        <Button onClick={() => setCreating(true)}>{t('action.new')}</Button>
+        <Button onClick={() => setCreating(true)} disabled={momentsLimitReached}>
+          {t('action.new')}
+        </Button>
       </div>
+
+      {momentsLimitReached && (
+        <UpsellCard message={t('limit.moments', { ns: 'premium', count: FREE_LIMITS.moments })} />
+      )}
 
       <p className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-center">
         <Link
@@ -145,6 +161,8 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
             onCancel={() => setCreating(false)}
             onSave={handleCreate}
             saving={createMoment.isPending}
+            photoLimitReached={photoLimitReached}
+            photoLimitHint={t('limit.photos', { ns: 'premium', count: FREE_LIMITS.photos })}
           />
         </Modal>
       )}

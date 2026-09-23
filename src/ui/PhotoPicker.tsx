@@ -11,22 +11,28 @@ interface Props {
   /** Ruta guardada en la fila (memories.photo_path / moments.photo_path). */
   value: string | null
   onChange: (path: string | null) => void
+  /** Límite del plan gratuito alcanzado: bloquea subir una foto NUEVA, pero
+   * sigue dejando quitar o reemplazar la que ya hubiera (no suma al total). */
+  limitReached?: boolean
+  limitReachedHint?: string
 }
 
 // Sube directo al elegir el archivo (no espera al "Guardar" del formulario
 // que lo contiene), así el usuario ve antes si algo salió mal con la foto
 // en concreto, en vez de descubrirlo al guardar todo el resto del formulario.
-export function PhotoPicker({ coupleId, label, value, onChange }: Props) {
+export function PhotoPicker({ coupleId, label, value, onChange, limitReached = false, limitReachedHint }: Props) {
   const { t } = useTranslation('common')
   const { data: previewUrl } = usePhotoUrl(value)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const blockNewUpload = limitReached && !value
+
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     e.target.value = '' // permite reelegir el mismo archivo después
-    if (!file) return
+    if (!file || blockNewUpload) return
     setError(null)
     setBusy(true)
     try {
@@ -88,7 +94,7 @@ export function PhotoPicker({ coupleId, label, value, onChange }: Props) {
         <Button
           type="button"
           variant="ghost"
-          disabled={busy}
+          disabled={busy || blockNewUpload}
           onClick={() => inputRef.current?.click()}
         >
           {busy ? t('photo.uploading') : t('photo.choose')}
@@ -100,6 +106,9 @@ export function PhotoPicker({ coupleId, label, value, onChange }: Props) {
         )}
       </div>
       {error && <p className="text-sm font-medium text-[var(--color-danger)]">{error}</p>}
+      {blockNewUpload && limitReachedHint && (
+        <p className="text-sm text-[var(--color-muted)]">{limitReachedHint}</p>
+      )}
     </div>
   )
 }

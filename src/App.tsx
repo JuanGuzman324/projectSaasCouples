@@ -15,6 +15,7 @@ import { TimeCapsulesPage } from './features/timecapsules/TimeCapsulesPage'
 import { YearReviewPage } from './features/yearreview/YearReviewPage'
 import { CulturalDatesPage } from './features/culturaldates/CulturalDatesPage'
 import { TemplatesPage } from './features/momenttemplates/TemplatesPage'
+import { PremiumPage } from './features/premium/PremiumPage'
 import { SettingsPage } from './features/couple/SettingsPage'
 import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
@@ -109,6 +110,7 @@ function CoupleRoutes({ couple }: { couple: CoupleWithMembers }) {
         <Route path="/year-review" element={<YearReviewPage couple={couple} />} />
         <Route path="/cultural-dates" element={<CulturalDatesPage couple={couple} />} />
         <Route path="/templates" element={<TemplatesPage couple={couple} />} />
+        <Route path="/premium" element={<PremiumPage couple={couple} />} />
         <Route path="/settings" element={<SettingsPage couple={couple} />} />
       </Routes>
     </Shell>

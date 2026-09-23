@@ -32,9 +32,19 @@ interface Props {
   onCancel: () => void
   onSave: (design: MomentDesign) => Promise<void>
   saving: boolean
+  photoLimitReached?: boolean
+  photoLimitHint?: string
 }
 
-export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Props) {
+export function MomentStudio({
+  coupleId,
+  initial,
+  onCancel,
+  onSave,
+  saving,
+  photoLimitReached = false,
+  photoLimitHint,
+}: Props) {
   const { t } = useTranslation('moments')
   const [design, setDesign] = useState<MomentDesign>(initial ?? BLANK)
   const [planText, setPlanText] = useState('')
@@ -215,6 +225,8 @@ export function MomentStudio({ coupleId, initial, onCancel, onSave, saving }: Pr
           label={t('field.photo')}
           value={design.photoPath}
           onChange={(p) => patch('photoPath', p)}
+          limitReached={photoLimitReached}
+          limitReachedHint={photoLimitHint}
         />
 
         <div>

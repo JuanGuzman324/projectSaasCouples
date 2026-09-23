@@ -3,6 +3,7 @@ import {
   createCouple,
   fetchMyCouple,
   joinCouple,
+  setPlan,
   updateCouple,
   updateMyMember,
   type CoupleUpdate,
@@ -37,6 +38,14 @@ export function useUpdateCouple() {
   return useMutation({
     mutationFn: ({ coupleId, patch }: { coupleId: string; patch: CoupleUpdate }) =>
       updateCouple(coupleId, patch),
+    onSuccess: () => qc.invalidateQueries({ queryKey: COUPLE_QUERY_KEY }),
+  })
+}
+
+export function useSetPlan() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ coupleId, plan }: { coupleId: string; plan: 'free' | 'premium' }) => setPlan(coupleId, plan),
     onSuccess: () => qc.invalidateQueries({ queryKey: COUPLE_QUERY_KEY }),
   })
 }

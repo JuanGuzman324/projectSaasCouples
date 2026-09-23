@@ -5,6 +5,7 @@ export interface CoupleWithMembers {
   start_date: string | null
   invite_code: string
   locale: string
+  plan: 'free' | 'premium'
   members: {
     user_id: string
     display_name: string | null
@@ -64,6 +65,16 @@ export async function updateCouple(coupleId: string, patch: CoupleUpdate) {
     .from('couples')
     .update({ start_date: patch.startDate })
     .eq('id', coupleId)
+  if (error) throw error
+}
+
+// Toggle manual, solo mientras no exista una integración real de pagos
+// (Stripe/RevenueCat, BACKLOG P3 "Plan Premium"). Cuando esa integración
+// exista, el plan debe pasar a fijarse desde un webhook server-side, nunca
+// desde el cliente: cualquier miembro de la pareja puede llamar esto hoy
+// porque la política couples_update ya le permite editar su propia fila.
+export async function setPlan(coupleId: string, plan: 'free' | 'premium') {
+  const { error } = await supabase.from('couples').update({ plan }).eq('id', coupleId)
   if (error) throw error
 }
 

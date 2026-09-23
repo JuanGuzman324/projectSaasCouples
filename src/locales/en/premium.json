@@ -1,0 +1,22 @@
+{
+  "title": "Our Story Premium",
+  "currentPlan": "Current plan",
+  "plan.free": "Free",
+  "plan.premium": "Premium",
+  "feature.moments": "Saved moments",
+  "feature.timeCapsules": "Time capsules",
+  "feature.photos": "Photos (memories + moments)",
+  "feature.freeLimit_one": "{{count}} on the free plan",
+  "feature.freeLimit_other": "{{count}} on the free plan",
+  "feature.unlimited": "unlimited on Premium",
+  "billing.hint": "Card payments aren't connected yet. While that's being set up, you can turn on Premium manually below to try it out.",
+  "devToggle.activate": "Activate Premium (test mode)",
+  "devToggle.deactivate": "Back to the free plan",
+  "upsell.cta": "See Premium",
+  "limit.moments_one": "You've hit the free plan's limit of {{count}} moment. Go Premium for unlimited moments.",
+  "limit.moments_other": "You've hit the free plan's limit of {{count}} moments. Go Premium for unlimited moments.",
+  "limit.timeCapsules_one": "You've hit the free plan's limit of {{count}} time capsule. Go Premium for unlimited capsules.",
+  "limit.timeCapsules_other": "You've hit the free plan's limit of {{count}} time capsules. Go Premium for unlimited capsules.",
+  "limit.photos_one": "You've hit the free plan's limit of {{count}} photo. Go Premium for unlimited photos.",
+  "limit.photos_other": "You've hit the free plan's limit of {{count}} photos. Go Premium for unlimited photos."
+}

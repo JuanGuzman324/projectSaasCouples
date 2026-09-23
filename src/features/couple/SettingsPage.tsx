@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { useAuthStore } from '../../lib/auth-store'
 import { useUpdateCouple, useUpdateMyMember } from './useCouple'
 import { Button } from '../../ui/Button'
@@ -8,6 +9,7 @@ import { TextField } from '../../ui/TextField'
 import { Select } from '../../ui/Select'
 import { Alert } from '../../ui/Alert'
 import { BackupCard } from '../backup/BackupCard'
+import { isPremium } from '../premium/limits'
 import type { CoupleWithMembers } from './api'
 
 const TIMEZONES: string[] =
@@ -159,6 +161,18 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
       </form>
 
       <BackupCard coupleId={couple.id} />
+
+      <Card className="flex items-center justify-between gap-3">
+        <div>
+          <p className="text-sm text-[var(--color-muted)]">{t('settings.plan.label')}</p>
+          <p className="[font-family:var(--font-display)] text-xl">
+            {isPremium(couple) ? t('settings.plan.premium') : t('settings.plan.free')}
+          </p>
+        </div>
+        <Link to="/premium">
+          <Button variant="ghost">{t('settings.plan.manage')}</Button>
+        </Link>
+      </Card>
     </div>
   )
 }

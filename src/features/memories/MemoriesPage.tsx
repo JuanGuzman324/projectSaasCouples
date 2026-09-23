@@ -9,16 +9,22 @@ import { PhotoPicker } from '../../ui/PhotoPicker'
 import { Photo } from '../../ui/Photo'
 import { Alert } from '../../ui/Alert'
 import { useCreateMemory, useDeleteMemory, useMemories, useToggleFavorite } from './useMemories'
+import { useMyCouple } from '../couple/useCouple'
+import { isPremium, FREE_LIMITS } from '../premium/limits'
+import { usePhotoUsage } from '../premium/usePhotoUsage'
 import type { MemoryTag } from './api'
 
 const TAGS: MemoryTag[] = ['cita', 'viaje', 'detalle', 'charla', 'logro', 'otro']
 
 export function MemoriesPage({ coupleId }: { coupleId: string }) {
-  const { t, i18n } = useTranslation('memories')
+  const { t, i18n } = useTranslation(['memories', 'premium'])
   const { data: memories, isLoading } = useMemories()
+  const { data: couple } = useMyCouple()
   const createMemory = useCreateMemory()
   const toggleFavorite = useToggleFavorite()
   const deleteMemory = useDeleteMemory()
+  const photoUsage = usePhotoUsage()
+  const photoLimitReached = !isPremium(couple) && photoUsage >= FREE_LIMITS.photos
 
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')
@@ -109,6 +115,8 @@ export function MemoriesPage({ coupleId }: { coupleId: string }) {
               label={t('field.photo')}
               value={photoPath}
               onChange={setPhotoPath}
+              limitReached={photoLimitReached}
+              limitReachedHint={t('limit.photos', { ns: 'premium', count: FREE_LIMITS.photos })}
             />
             {error && <Alert className="sm:col-span-2">{error}</Alert>}
             <Button type="submit" disabled={createMemory.isPending} className="sm:col-span-2">

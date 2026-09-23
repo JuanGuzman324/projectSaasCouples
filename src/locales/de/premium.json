@@ -1,0 +1,22 @@
+{
+  "title": "Unsere Geschichte Premium",
+  "currentPlan": "Aktueller Plan",
+  "plan.free": "Kostenlos",
+  "plan.premium": "Premium",
+  "feature.moments": "Gespeicherte Momente",
+  "feature.timeCapsules": "Zeitkapseln",
+  "feature.photos": "Fotos (Erinnerungen + Momente)",
+  "feature.freeLimit_one": "{{count}} im kostenlosen Plan",
+  "feature.freeLimit_other": "{{count}} im kostenlosen Plan",
+  "feature.unlimited": "unbegrenzt mit Premium",
+  "billing.hint": "Kartenzahlungen sind noch nicht angebunden. Solange das eingerichtet wird, kannst du Premium unten manuell aktivieren, um es auszuprobieren.",
+  "devToggle.activate": "Premium aktivieren (Testmodus)",
+  "devToggle.deactivate": "Zurück zum kostenlosen Plan",
+  "upsell.cta": "Premium ansehen",
+  "limit.moments_one": "Du hast das Limit von {{count}} Moment im kostenlosen Plan erreicht. Hol dir Premium für unbegrenzte Momente.",
+  "limit.moments_other": "Du hast das Limit von {{count}} Momenten im kostenlosen Plan erreicht. Hol dir Premium für unbegrenzte Momente.",
+  "limit.timeCapsules_one": "Du hast das Limit von {{count}} Zeitkapsel im kostenlosen Plan erreicht. Hol dir Premium für unbegrenzte Kapseln.",
+  "limit.timeCapsules_other": "Du hast das Limit von {{count}} Zeitkapseln im kostenlosen Plan erreicht. Hol dir Premium für unbegrenzte Kapseln.",
+  "limit.photos_one": "Du hast das Limit von {{count}} Foto im kostenlosen Plan erreicht. Hol dir Premium für unbegrenzte Fotos.",
+  "limit.photos_other": "Du hast das Limit von {{count}} Fotos im kostenlosen Plan erreicht. Hol dir Premium für unbegrenzte Fotos."
+}

@@ -7,6 +7,9 @@ import { Textarea } from '../../ui/Textarea'
 import { Alert } from '../../ui/Alert'
 import { useAuthStore } from '../../lib/auth-store'
 import { useCreateTimeCapsule, useDeleteTimeCapsule, useTimeCapsules } from './useTimeCapsules'
+import { useMyCouple } from '../couple/useCouple'
+import { isPremium, FREE_LIMITS } from '../premium/limits'
+import { UpsellCard } from '../premium/UpsellCard'
 
 function todayISO(): string {
   const d = new Date()
@@ -30,11 +33,13 @@ function formatDateSafe(iso: string, locale: string | undefined): string {
 }
 
 export function TimeCapsulesPage({ coupleId }: { coupleId: string }) {
-  const { t, i18n } = useTranslation('timecapsules')
+  const { t, i18n } = useTranslation(['timecapsules', 'premium'])
   const userId = useAuthStore((s) => s.session?.user.id)
   const { data: capsules, isLoading } = useTimeCapsules()
+  const { data: couple } = useMyCouple()
   const createCapsule = useCreateTimeCapsule()
   const deleteCapsule = useDeleteTimeCapsule()
+  const limitReached = !isPremium(couple) && (capsules?.length ?? 0) >= FREE_LIMITS.timeCapsules
 
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')
@@ -64,11 +69,17 @@ export function TimeCapsulesPage({ coupleId }: { coupleId: string }) {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('nav')}</h1>
-        <Button onClick={() => setShowForm((s) => !s)}>{t('action.new')}</Button>
+        <Button onClick={() => setShowForm((s) => !s)} disabled={limitReached}>
+          {t('action.new')}
+        </Button>
       </div>
       <p className="text-sm text-[var(--color-muted)]">{t('intro')}</p>
 
-      {showForm && (
+      {limitReached && (
+        <UpsellCard message={t('limit.timeCapsules', { ns: 'premium', count: FREE_LIMITS.timeCapsules })} />
+      )}
+
+      {showForm && !limitReached && (
         <Card>
           <h2 className="mb-4 [font-family:var(--font-display)] text-xl">{t('new.title')}</h2>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">

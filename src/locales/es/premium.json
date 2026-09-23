@@ -1,0 +1,22 @@
+{
+  "title": "Nuestra historia Premium",
+  "currentPlan": "Plan actual",
+  "plan.free": "Gratis",
+  "plan.premium": "Premium",
+  "feature.moments": "Momentos guardados",
+  "feature.timeCapsules": "Cápsulas del tiempo",
+  "feature.photos": "Fotos (recuerdos + momentos)",
+  "feature.freeLimit_one": "{{count}} en el plan gratis",
+  "feature.freeLimit_other": "{{count}} en el plan gratis",
+  "feature.unlimited": "ilimitado en Premium",
+  "billing.hint": "Los pagos con tarjeta todavía no están conectados. Por ahora, mientras se integra, puedes activar Premium manualmente aquí abajo para probarlo.",
+  "devToggle.activate": "Activar Premium (modo de prueba)",
+  "devToggle.deactivate": "Volver al plan gratis",
+  "upsell.cta": "Ver Premium",
+  "limit.moments_one": "Llegaste al límite de {{count}} momento del plan gratis. Hazte Premium para momentos ilimitados.",
+  "limit.moments_other": "Llegaste al límite de {{count}} momentos del plan gratis. Hazte Premium para momentos ilimitados.",
+  "limit.timeCapsules_one": "Llegaste al límite de {{count}} cápsula del tiempo del plan gratis. Hazte Premium para cápsulas ilimitadas.",
+  "limit.timeCapsules_other": "Llegaste al límite de {{count}} cápsulas del tiempo del plan gratis. Hazte Premium para cápsulas ilimitadas.",
+  "limit.photos_one": "Llegaste al límite de {{count}} foto del plan gratis. Hazte Premium para fotos ilimitadas.",
+  "limit.photos_other": "Llegaste al límite de {{count}} fotos del plan gratis. Hazte Premium para fotos ilimitadas."
+}
