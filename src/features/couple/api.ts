@@ -12,6 +12,7 @@ export interface CoupleWithMembers {
     lat: number | null
     lon: number | null
     tz: string | null
+    country: string | null
   }[]
 }
 
@@ -25,7 +26,7 @@ export async function fetchMyCouple(): Promise<CoupleWithMembers | null> {
 
   const { data: members, error: mErr } = await supabase
     .from('couple_members')
-    .select('user_id, display_name, city, lat, lon, tz')
+    .select('user_id, display_name, city, lat, lon, tz, country')
     .eq('couple_id', couple.id)
   if (mErr) throw mErr
 
@@ -72,6 +73,7 @@ export interface MemberUpdate {
   lat: number | null
   lon: number | null
   tz: string | null
+  country: string | null
 }
 
 // Cada miembro solo puede editar su propia fila (lo exige la política RLS
@@ -86,6 +88,7 @@ export async function updateMyMember(coupleId: string, userId: string, patch: Me
       lat: patch.lat,
       lon: patch.lon,
       tz: patch.tz,
+      country: patch.country,
     })
     .eq('couple_id', coupleId)
     .eq('user_id', userId)

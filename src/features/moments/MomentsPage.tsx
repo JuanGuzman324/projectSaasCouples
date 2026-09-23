@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
 import { Modal } from '../../ui/Modal'
@@ -56,6 +57,15 @@ export function MomentsPage({ coupleId }: { coupleId: string }) {
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('nav')}</h1>
         <Button onClick={() => setCreating(true)}>{t('action.new')}</Button>
       </div>
+
+      <p className="text-center">
+        <Link
+          to="/cultural-dates"
+          className="text-sm font-semibold text-[var(--color-rose)] underline-offset-4 hover:underline"
+        >
+          {t('culturalDates.link')}
+        </Link>
+      </p>
 
       {!isLoading && moments?.length === 0 && (
         <Card className="text-center">

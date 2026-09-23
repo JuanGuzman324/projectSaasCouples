@@ -11,6 +11,7 @@ import esDates from '../locales/es/dates.json'
 import esMoments from '../locales/es/moments.json'
 import esTimecapsules from '../locales/es/timecapsules.json'
 import esYearreview from '../locales/es/yearreview.json'
+import esCulturaldates from '../locales/es/culturaldates.json'
 
 import enCommon from '../locales/en/common.json'
 import enAuth from '../locales/en/auth.json'
@@ -21,6 +22,7 @@ import enDates from '../locales/en/dates.json'
 import enMoments from '../locales/en/moments.json'
 import enTimecapsules from '../locales/en/timecapsules.json'
 import enYearreview from '../locales/en/yearreview.json'
+import enCulturaldates from '../locales/en/culturaldates.json'
 
 import deCommon from '../locales/de/common.json'
 import deAuth from '../locales/de/auth.json'
@@ -31,6 +33,7 @@ import deDates from '../locales/de/dates.json'
 import deMoments from '../locales/de/moments.json'
 import deTimecapsules from '../locales/de/timecapsules.json'
 import deYearreview from '../locales/de/yearreview.json'
+import deCulturaldates from '../locales/de/culturaldates.json'
 
 import frCommon from '../locales/fr/common.json'
 import frAuth from '../locales/fr/auth.json'
@@ -41,6 +44,7 @@ import frDates from '../locales/fr/dates.json'
 import frMoments from '../locales/fr/moments.json'
 import frTimecapsules from '../locales/fr/timecapsules.json'
 import frYearreview from '../locales/fr/yearreview.json'
+import frCulturaldates from '../locales/fr/culturaldates.json'
 
 // Idiomas de lanzamiento, en el orden del plan de producto.
 export const SUPPORTED_LANGS = ['es', 'en', 'de', 'fr'] as const
@@ -54,27 +58,30 @@ i18n
       es: {
         common: esCommon, auth: esAuth, couple: esCouple, home: esHome,
         memories: esMemories, dates: esDates, moments: esMoments, timecapsules: esTimecapsules,
-        yearreview: esYearreview,
+        yearreview: esYearreview, culturaldates: esCulturaldates,
       },
       en: {
         common: enCommon, auth: enAuth, couple: enCouple, home: enHome,
         memories: enMemories, dates: enDates, moments: enMoments, timecapsules: enTimecapsules,
-        yearreview: enYearreview,
+        yearreview: enYearreview, culturaldates: enCulturaldates,
       },
       de: {
         common: deCommon, auth: deAuth, couple: deCouple, home: deHome,
         memories: deMemories, dates: deDates, moments: deMoments, timecapsules: deTimecapsules,
-        yearreview: deYearreview,
+        yearreview: deYearreview, culturaldates: deCulturaldates,
       },
       fr: {
         common: frCommon, auth: frAuth, couple: frCouple, home: frHome,
         memories: frMemories, dates: frDates, moments: frMoments, timecapsules: frTimecapsules,
-        yearreview: frYearreview,
+        yearreview: frYearreview, culturaldates: frCulturaldates,
       },
     },
     supportedLngs: SUPPORTED_LANGS as unknown as string[],
     fallbackLng: 'es',
-    ns: ['common', 'auth', 'couple', 'home', 'memories', 'dates', 'moments', 'timecapsules', 'yearreview'],
+    ns: [
+      'common', 'auth', 'couple', 'home', 'memories', 'dates', 'moments',
+      'timecapsules', 'yearreview', 'culturaldates',
+    ],
     defaultNS: 'common',
     interpolation: { escapeValue: false }, // React ya escapa por su cuenta
     detection: {

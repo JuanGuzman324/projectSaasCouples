@@ -38,6 +38,7 @@ export interface Database {
           lat: number | null
           lon: number | null
           tz: string | null
+          country: string | null
           locale: string | null
           joined_at: string
         }

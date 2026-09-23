@@ -13,8 +13,18 @@ import type { CoupleWithMembers } from './api'
 const TIMEZONES: string[] =
   typeof Intl.supportedValuesOf === 'function' ? Intl.supportedValuesOf('timeZone') : []
 
+// A diferencia de 'timeZone', Intl.supportedValuesOf no tiene una key
+// 'region': no hay forma de pedirle al runtime la lista de países ISO
+// 3166-1 alfa-2, así que se guarda a mano (nombres via Intl.DisplayNames).
+const COUNTRIES = [
+  'AR', 'BO', 'BR', 'CA', 'CL', 'CN', 'CO', 'CR', 'CU', 'DE', 'DO', 'EC', 'ES', 'FR', 'GB',
+  'GT', 'HK', 'HN', 'IN', 'IT', 'JP', 'KR', 'MX', 'NI', 'PA', 'PE', 'PR', 'PT', 'PY', 'SV',
+  'TW', 'US', 'UY', 'VE',
+] as const
+
 export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
-  const { t } = useTranslation('couple')
+  const { t, i18n } = useTranslation('couple')
+  const countryNames = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(i18n.resolvedLanguage, { type: 'region' }) : null
   const userId = useAuthStore((s) => s.session?.user.id)
   const me = couple.members.find((m) => m.user_id === userId)
 
@@ -26,6 +36,7 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
   const [lat, setLat] = useState(me?.lat != null ? String(me.lat) : '')
   const [lon, setLon] = useState(me?.lon != null ? String(me.lon) : '')
   const [tz, setTz] = useState(me?.tz ?? Intl.DateTimeFormat().resolvedOptions().timeZone)
+  const [country, setCountry] = useState(me?.country ?? '')
   const [startDate, setStartDate] = useState(couple.start_date ?? '')
 
   const [saved, setSaved] = useState(false)
@@ -56,6 +67,7 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
             lat: parseCoord(lat),
             lon: parseCoord(lon),
             tz: tz || null,
+            country: country || null,
           },
         }),
       ])
@@ -115,6 +127,17 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
               </option>
             ))}
           </Select>
+          <Select label={t('settings.field.country')} value={country} onChange={(e) => setCountry(e.target.value)}>
+            <option value="">{t('settings.field.countryNone')}</option>
+            {[...COUNTRIES]
+              .sort((a, b) => (countryNames?.of(a) ?? a).localeCompare(countryNames?.of(b) ?? b))
+              .map((c) => (
+                <option key={c} value={c}>
+                  {countryNames?.of(c) ?? c}
+                </option>
+              ))}
+          </Select>
+          <p className="text-xs text-[var(--color-muted)] sm:col-span-2">{t('settings.field.countryHint')}</p>
         </Card>
 
         <Card className="flex flex-col gap-4">
