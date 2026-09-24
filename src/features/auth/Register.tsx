@@ -12,6 +12,7 @@ export function Register() {
   const { t, i18n } = useTranslation('auth')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [acceptedLegal, setAcceptedLegal] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -78,8 +79,27 @@ export function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <label className="flex items-start gap-2 text-sm text-[var(--color-muted)]">
+            <input
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-ink)]"
+              checked={acceptedLegal}
+              onChange={(e) => setAcceptedLegal(e.target.checked)}
+              required
+            />
+            <span>
+              {t('register.acceptLegal.prefix')}{' '}
+              <Link to="/legal/privacy" target="_blank" className="font-semibold text-[var(--color-ink)] underline">
+                {t('register.acceptLegal.privacy')}
+              </Link>{' '}
+              {t('register.acceptLegal.and')}{' '}
+              <Link to="/legal/terms" target="_blank" className="font-semibold text-[var(--color-ink)] underline">
+                {t('register.acceptLegal.terms')}
+              </Link>
+            </span>
+          </label>
           {error && <Alert>{error}</Alert>}
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading || !acceptedLegal}>
             {t('register.submit')}
           </Button>
         </form>

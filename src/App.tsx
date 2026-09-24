@@ -5,6 +5,8 @@ import { useAuthStore } from './lib/auth-store'
 import { useMyCouple } from './features/couple/useCouple'
 import { Login } from './features/auth/Login'
 import { Register } from './features/auth/Register'
+import { PrivacyPage } from './features/legal/PrivacyPage'
+import { TermsPage } from './features/legal/TermsPage'
 import { Onboarding } from './features/couple/Onboarding'
 import { InviteScreen } from './features/couple/InviteScreen'
 import { Home } from './features/home/Home'
@@ -162,6 +164,10 @@ export default function App() {
     <Routes>
       <Route path="/login" element={session ? <Navigate to="/" replace /> : <Login />} />
       <Route path="/register" element={session ? <Navigate to="/" replace /> : <Register />} />
+      {/* Páginas legales: públicas siempre, con o sin sesión, porque hay que
+          poder leerlas antes de registrarse. */}
+      <Route path="/legal/privacy" element={<PrivacyPage />} />
+      <Route path="/legal/terms" element={<TermsPage />} />
       <Route
         path="/*"
         element={
