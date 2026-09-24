@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from './lib/auth-store'
@@ -10,19 +10,31 @@ import { InviteScreen } from './features/couple/InviteScreen'
 import { Home } from './features/home/Home'
 import { MemoriesPage } from './features/memories/MemoriesPage'
 import { DatesPage } from './features/dates/DatesPage'
-import { MomentsPage } from './features/moments/MomentsPage'
-import { TimeCapsulesPage } from './features/timecapsules/TimeCapsulesPage'
-import { YearReviewPage } from './features/yearreview/YearReviewPage'
-import { CulturalDatesPage } from './features/culturaldates/CulturalDatesPage'
-import { TemplatesPage } from './features/momenttemplates/TemplatesPage'
-import { PremiumPage } from './features/premium/PremiumPage'
-import { SettingsPage } from './features/couple/SettingsPage'
 import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
 import { ThemeToggle } from './ui/ThemeToggle'
 import { OfflineBanner } from './ui/OfflineBanner'
 import { supabase } from './lib/supabase'
 import type { CoupleWithMembers } from './features/couple/api'
+
+// Rutas pesadas (canvas de partículas + confetti, generación de imagen,
+// listas grandes de traducciones) separadas del bundle inicial: no hace
+// falta cargarlas para lo primero que ve cualquiera, que es Inicio.
+const MomentsPage = lazy(() => import('./features/moments/MomentsPage').then((m) => ({ default: m.MomentsPage })))
+const TimeCapsulesPage = lazy(() =>
+  import('./features/timecapsules/TimeCapsulesPage').then((m) => ({ default: m.TimeCapsulesPage }))
+)
+const YearReviewPage = lazy(() =>
+  import('./features/yearreview/YearReviewPage').then((m) => ({ default: m.YearReviewPage }))
+)
+const CulturalDatesPage = lazy(() =>
+  import('./features/culturaldates/CulturalDatesPage').then((m) => ({ default: m.CulturalDatesPage }))
+)
+const TemplatesPage = lazy(() =>
+  import('./features/momenttemplates/TemplatesPage').then((m) => ({ default: m.TemplatesPage }))
+)
+const PremiumPage = lazy(() => import('./features/premium/PremiumPage').then((m) => ({ default: m.PremiumPage })))
+const SettingsPage = lazy(() => import('./features/couple/SettingsPage').then((m) => ({ default: m.SettingsPage })))
 
 const TABS = [
   { to: '/', end: true, key: 'home' as const },
@@ -101,18 +113,20 @@ function Shell({ children }: { children: React.ReactNode }) {
 function CoupleRoutes({ couple }: { couple: CoupleWithMembers }) {
   return (
     <Shell>
-      <Routes>
-        <Route path="/" element={<Home couple={couple} />} />
-        <Route path="/memories" element={<MemoriesPage coupleId={couple.id} />} />
-        <Route path="/dates" element={<DatesPage coupleId={couple.id} />} />
-        <Route path="/moments" element={<MomentsPage coupleId={couple.id} />} />
-        <Route path="/capsules" element={<TimeCapsulesPage coupleId={couple.id} />} />
-        <Route path="/year-review" element={<YearReviewPage couple={couple} />} />
-        <Route path="/cultural-dates" element={<CulturalDatesPage couple={couple} />} />
-        <Route path="/templates" element={<TemplatesPage couple={couple} />} />
-        <Route path="/premium" element={<PremiumPage couple={couple} />} />
-        <Route path="/settings" element={<SettingsPage couple={couple} />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home couple={couple} />} />
+          <Route path="/memories" element={<MemoriesPage coupleId={couple.id} />} />
+          <Route path="/dates" element={<DatesPage coupleId={couple.id} />} />
+          <Route path="/moments" element={<MomentsPage coupleId={couple.id} />} />
+          <Route path="/capsules" element={<TimeCapsulesPage coupleId={couple.id} />} />
+          <Route path="/year-review" element={<YearReviewPage couple={couple} />} />
+          <Route path="/cultural-dates" element={<CulturalDatesPage couple={couple} />} />
+          <Route path="/templates" element={<TemplatesPage couple={couple} />} />
+          <Route path="/premium" element={<PremiumPage couple={couple} />} />
+          <Route path="/settings" element={<SettingsPage couple={couple} />} />
+        </Routes>
+      </Suspense>
     </Shell>
   )
 }
