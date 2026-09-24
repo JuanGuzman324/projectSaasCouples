@@ -1,52 +1,50 @@
-# Backlog — Nuestra historia (projectSaasCouples)
+# Backlog v2 — Nuestra historia (projectSaasCouples)
 
-Generado a partir de comparar el repositorio real (`main`, revisado el 2026-09-22) contra el prototipo HTML original y el plan de producto. Formato pensado para pasarle esto directo a Claude Code: cada ítem es una tarea concreta y acotada, con su criterio de "terminado".
+Generado tras auditar el repositorio real: se instaló, se compiló (`tsc -b`,
+`vite build`), se corrió `oxlint` y `check:locales`, y se reconstruyeron las
+migraciones + las 24 pruebas pgTAP contra un Postgres real. El backlog v1
+(P0–P3 originales) está prácticamente agotado — este documento reemplaza a
+`BACKLOG.md` como la lista vigente.
 
-Leyenda de esfuerzo: S = menos de medio día, M = medio a un día, L = varios días / una pieza grande de UI o infraestructura.
+Leyenda de esfuerzo: S = menos de medio día, M = medio a un día, L = varios
+días / una pieza grande.
 
-## P0 — Antes de seguir construyendo encima
+## P0 — Arreglos rápidos, antes de sumar nada nuevo
 
-Estas dos rompen el flujo de trabajo si no se resuelven ya: una es un riesgo real de perder trabajo, la otra bloquea que cualquier cambio de esquema futuro se pueda revisar o revertir con confianza.
+Ninguno de estos bloquea el uso de la app, pero los tres son baratos de
+resolver y dejan de acumularse cuanto antes se hagan.
 
-- [x] **Versionar las migraciones SQL en el repo (S)** No existe carpeta `supabase/` en git; el esquema (`couples`, `couple_members`, `memories`, `couple_dates`, `moments`, políticas RLS, funciones `create_couple`/`join_couple`/etc.) solo vive en el proyecto Supabase real. Correr `supabase db pull` contra el proyecto vinculado (o recrear las migraciones a mano) y comitear el resultado. Hecho cuando: `supabase/migrations/*.sql` está en el repo y `supabase db push` contra un proyecto nuevo reproduce el esquema completo sin errores.
-- [x] **Reintroducir las pruebas pgTAP de aislamiento entre parejas (S)** Las 24 pruebas que confirman que una pareja no puede leer/editar/borrar nada de otra no están en el repo. Sin ellas, un cambio futuro a las políticas RLS puede romper el aislamiento sin que nada lo avise. Hecho cuando: `supabase/tests/` existe y corre en CI o al menos documentado cómo correrlas localmente.
+- [x] **Sacar la clave `anon` real de `.env.example` (S)** `.env.example` tiene la URL y la clave `anon` reales del proyecto, no placeholders. No es una fuga grave (la clave `anon` es pública por diseño; RLS es la barrera real), pero rompe la portabilidad: si alguien clona el repo para un proyecto Supabase nuevo, ese archivo lo induce a error, y no tiene sentido que un archivo llamado "example" traiga credenciales de un proyecto real. Hecho cuando: `.env.example` vuelve a tener `https://TU-PROYECTO.supabase.co` y `TU_ANON_KEY` (o equivalente), y las credenciales reales solo viven en `.env.local` (ya ignorado por git).
+- [x] **Sacar la clave `anon` real de la migración de cron (S)** `supabase/migrations/00000000000007_push_reminders_cron.sql` tiene la misma clave hardcodeada en el `net.http_post`. Además de la razón de arriba, esto acopla la migración a un proyecto específico: si alguien clona el repo y aplica las migraciones contra su propio proyecto Supabase, el cron intentará llamar a tu función, no la suya. Hecho cuando: el header `Authorization` se arma desde `vault.create_secret()` de Supabase (o desde una tabla de configuración propia), no desde un literal en el SQL.
+- [x] **Corregir el aviso de lint en `usePush.ts` (S)** `setChecking(false)` dentro de un `useEffect` cuando `!supported` — oxlint marca "avoid calling setState() directly within an effect". Hecho cuando: el estado inicial se calcula directo (`useState(() => !isPushSupported())`) y el `useEffect` deja de setear `checking` en la rama de "no soportado". `npm run lint` da 0 avisos.
 
-## P1 — Paridad con el prototipo (lo que ya existía y se perdió al migrar)
+## P1 — Documentación al día
 
-Ordenado por cuánto se nota su ausencia en el uso diario de la app.
+- [ ] **Reescribir `README.md` (M)** Documenta hasta "Fuentes Young Serif / Hanken Grotesk" pero no tiene ninguna sección sobre Ajustes, hitos, distancia, calendario, modo sin conexión, PWA, backup, push, fechas culturales, plantillas compartibles, resumen anual, cápsulas del tiempo, ni Premium. Alguien que lo lea hoy se lleva una idea muy pobre de qué tan avanzado está el proyecto. Hecho cuando: cada feature de `src/features/` tiene al menos un párrafo — qué hace, dónde vive, con qué tabla/migración se relaciona — y las secciones fechadas tipo "(recién agregado)" se consolidan en una sola narrativa (o se recorta a un CHANGELOG aparte si se prefiere conservar el historial).
+- [ ] **Documentar cómo correr las pruebas pgTAP localmente (S)** El propio archivo de pruebas dice `supabase start` + `supabase test db`, pero eso requiere Docker corriendo. Vale la pena una nota corta en el README (o en un `CONTRIBUTING.md`) con ese requisito explícito, para que no vuelva a aparecer la confusión de "por qué me pide Docker" que ya tuvimos.
 
-- [x] **Pantalla de Ajustes / editar perfil de pareja (S)** Hoy `couple/api.ts` solo tiene crear/unirse/salir — no hay forma de corregir el nombre, la fecha de inicio o la ciudad después del onboarding. Es la carencia más molesta de las que quedan: cualquier error al llenar el onboarding queda fijo para siempre. Hecho cuando: existe una ruta `/settings` con un formulario que llama a un nuevo `updateCouple()` (couple_id, nombre propio, ciudad/lat/lon, fecha de inicio) y refleja el cambio en Home al guardar.
-- [x] **Hitos (día 100, 500, 1000, aniversario de N años) (M)** Portar `milestones()` del prototipo HTML. Tarjeta en Home con las próximas 3-4 fechas redondas. Hecho cuando: aparece en Home, calculado desde `couple.start_date`, con `Intl.DateTimeFormat`/`Intl.NumberFormat` como el resto de la app.
-- [x] **Distancia entre ciudades (M)** Cada `couple_member` ya guarda `city/lat/lon`; falta la tarjeta que calcula la distancia (fórmula haversine, ya escrita en el prototipo) y el mini-mapa SVG. Hecho cuando: tarjeta en Home con km, tiempo de vuelo/carretera aproximado y el mapa, solo si ambos miembros tienen ciudad cargada.
-- [x] **Calendario mensual en Fechas (M)** `DatesPage.tsx` sigue siendo solo una lista. Portar el calendario del prototipo (grilla del mes, puntos de color por tipo de contenido, detalle del día seleccionado). Hecho cuando: vista de calendario junto a la lista de próximas fechas, con recuerdos/fechas/momentos marcados por día.
-- [x] **"Recuerdo al azar" / "un día como hoy" (S)** Tarjeta en Home que muestra un recuerdo aleatorio, o prioriza uno que ocurrió el mismo día-mes en un año anterior. Hecho cuando: aparece en Home cuando hay al menos un recuerdo guardado, con botón para pedir otro al azar.
-- [x] **Hilo visual + contador de segundos en vivo (M)** El hero del prototipo tenía una curva SVG entre las dos ciudades con un punto de progreso hacia el próximo encuentro, y un contador que sube segundo a segundo. Es más decorativo que funcional — dejarlo de último dentro de este grupo. Hecho cuando: Home muestra el hilo (si hay próximo encuentro guardado) y el contador de segundos actualiza sin recargar la página.
+## P2 — Deuda técnica y contenido
 
-## P2 — Resiliencia y distribución
+- [ ] **Revisión nativa de alemán y francés (M)** Sigue pendiente desde el plan original, y con los 7 namespaces nuevos (push, premium, timecapsules, culturaldates, momentTemplates, yearreview, y los campos agregados a los existentes) el volumen de texto sin revisar por un hablante nativo creció bastante. Hecho cuando: un hablante nativo de cada idioma revisó los 11 namespaces completos y el tono (especialmente en Momentos, donde el registro cálido/romántico es fácil de traducir de forma robótica).
+- [ ] **Ampliar el catálogo de fechas culturales (S)** Hoy son 9 fechas semilla (`culturaldates/data.ts`). Vale la pena revisarlas con foco en los mercados de lanzamiento (es/en/de/fr) y sumar las que falten por país (ej. White Day, Qixi, San Valentín en distintas variantes regionales, ya mencionadas en el plan de producto).
+- [ ] **Code-splitting del bundle (S)** El build avisa que el JS pasa los 500 kB (754 kB sin comprimir, ~216 kB gzip). No es grave todavía, pero con Momentos (canvas + confetti), Premium y Year Review ya todos cargando en el mismo bundle inicial, es buen momento para separar rutas pesadas con `import()` dinámico antes de que crezca más. Hecho cuando: `vite build` deja de avisar sobre el tamaño de chunk, usando lazy-loading en rutas como `/moments`, `/year-review` y `/premium`.
 
-Todo esto es "la app deja de sentirse fina" si falta, pero no bloquea usar las funciones principales.
+## P3 — Lo grande que sigue sin arrancar
 
-- [x] **PWA instalable (S)** Falta `manifest.webmanifest` y los íconos (`public/` solo tiene `favicon.svg`/`icons.svg`). El prototipo ya tenía esto resuelto. Hecho cuando: Chrome/Safari ofrecen "Instalar app" y abre a pantalla completa, con ícono propio.
-- [x] **Exportar / importar copia de seguridad en JSON (S)** Botón en Ajustes para descargar todo el contenido de la pareja como JSON, y restaurarlo. Es la red de seguridad más barata de construir mientras no exista backup automático del lado de Supabase. Hecho cuando: el archivo descargado incluye recuerdos, fechas y momentos, y "importar" los vuelve a crear vía las mismas funciones de `api.ts` de cada feature (no un insert directo a la tabla).
-- [x] **Modo sin conexión con cola de sincronización (L)** La app depende 100% de que Supabase responda; sin red no carga nada. Es el ítem más grande de este backlog — requiere una capa de caché local (IndexedDB, por ejemplo con Dexie) y una cola de cambios pendientes que se reintenta al volver la conexión. Hecho cuando: con el wifi apagado, la app sigue mostrando el último estado conocido, y los cambios hechos offline se sincronizan solos al reconectar.
+Nada de esto es urgente; son las fases 3-4 del plan de producto original.
 
-## P3 — Features nuevas (no existían ni en el prototipo)
-
-Aprovechan que ahora es multi-pareja; no tiene sentido antes de que P0/P1 estén resueltos, porque construyen sobre una base que todavía se está estabilizando.
-
-- [x] **Notificaciones push (L)** Recordatorio de fecha próxima, aniversario, o de un momento especial. Es el punto que más sube la retención según el plan de producto original — requiere Edge Functions + un proveedor de push (FCM o Web Push).
-- [x] **Biblioteca de fechas culturales por país (M)** San Valentín, Amor y Amistad (Colombia), Día de las flores amarillas, White Day, Qixi... sugeridas automáticamente según el país de cada miembro, con un botón para agregarlas como Momento.
-- [x] **Plantillas de Momentos compartibles entre parejas (M)** Que una pareja publique el diseño de un Momento (paleta, motivo, mensaje-plantilla sin datos personales) y otras lo usen como punto de partida. Funciona también como gancho de crecimiento.
-- [x] **Resumen anual (M)** Un "resumen del año" de la relación (días juntos, recuerdos guardados, momentos vividos) exportable como imagen o PDF para compartir.
-- [x] **Zonas horarias (S)** Mostrar la hora local del otro miembro en Home — relevante para parejas a distancia real (usa el mismo `city/lat/lon` que ya existe).
-- [x] **Cápsulas del tiempo (M)** Mensajes que se escriben ahora y se revelan en una fecha futura elegida.
-- [x] **Plan Premium (L)** La columna `plan` en `couples` ya existe (`free`/`premium`) pero no se usa todavía. Definir qué queda detrás del muro (más fotos, momentos ilimitados, cifrado extremo a extremo) e integrar Stripe o RevenueCat. *(Alcance de esta sesión: lógica de límites + UI de venta, sin Stripe todavía — ver commit para detalle.)*
-- [ ] **Widget de pantalla de inicio (L)** Solo tiene sentido una vez exista la app empaquetada con Capacitor (fase de publicación en tiendas del plan original, todavía no arrancada).
+- [ ] **Pagos reales (Stripe o RevenueCat) (L)** `premium/limits.ts` ya define los límites del plan gratuito y la UI de venta existe, pero nada cobra todavía — `couple.plan` solo cambia si se edita a mano en la base. Es el paso que falta para que Premium sea un negocio y no solo una interfaz.
+- [ ] **Empaquetado con Capacitor + publicación en tiendas (L)** iOS (App Store) y Android (Play Store). Habilita, de paso, el widget de pantalla de inicio que quedó pendiente del backlog anterior.
+- [ ] **Widget de pantalla de inicio (L)** Depende directamente del ítem anterior — no tiene sentido antes de que exista la app nativa empaquetada.
 
 ## Cómo usar esto con Claude Code
 
-Cada casilla es una unidad de trabajo razonable para una sesión. Sugerencia de mensaje inicial por tarea:
+Igual que la vez pasada: una casilla por sesión, empezando por P0 (son
+rápidas y evitan que seguir sumando cosas encima de una clave filtrada o un
+README mentiroso). Mensaje sugerido:
 
-> Trabajemos en el ítem "[nombre del ítem]" del BACKLOG.md. Lee el contexto del README y el código de la feature más parecida que ya exista (por ejemplo, `couple/api.ts` como patrón) antes de escribir código.
+> Trabajemos en el ítem "[nombre del ítem]" del BACKLOG.md (v2). Antes de
+> tocar código, confirma con `git log`/`git diff` que el estado del repo
+> coincide con lo que describe el ítem.
 
-Marca la casilla y comitea `BACKLOG.md` junto con el cambio, así el archivo queda como historial de qué se decidió y en qué orden.
+Marca la casilla y comitea `BACKLOG.md` junto con el cambio.

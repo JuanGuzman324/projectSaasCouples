@@ -74,9 +74,22 @@ Si cambias cualquier política RLS, corre esto antes de comitear.
 ## Edge Functions
 
 - `supabase/functions/send-reminders/` — revisa a diario (cron `pg_cron`,
-  ver migración `00000000000007`) qué fechas y Momentos caen "mañana" y
+  ver migración `00000000000008`) qué fechas y Momentos caen "mañana" y
   manda un push (Web Push / VAPID) a cada suscripción de la pareja.
   Desplegar con `supabase functions deploy send-reminders`.
+
+  El cron lee la URL de la función y la key con la que la invoca desde
+  **Supabase Vault**, no desde la migración (así el repo no queda atado a
+  un proyecto Supabase específico). Hace falta crear esos dos secretos una
+  sola vez por proyecto, fuera de git:
+
+  ```sql
+  select vault.create_secret('https://TU-PROYECTO.supabase.co/functions/v1/send-reminders', 'send_reminders_url');
+  select vault.create_secret('TU_ANON_KEY', 'send_reminders_bearer');
+  ```
+
+  (`supabase db query --linked "..."` corre esto directo contra el
+  proyecto vinculado, sin pasar por ningún archivo del repo.)
 
 ## Qué hay hecho
 

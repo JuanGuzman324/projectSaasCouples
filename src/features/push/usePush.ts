@@ -8,16 +8,13 @@ import {
 
 export function usePush(coupleId: string, userId: string | undefined) {
   const [subscribed, setSubscribed] = useState(false)
-  const [checking, setChecking] = useState(true)
+  const supported = isPushSupported()
+  const [checking, setChecking] = useState(() => supported)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const supported = isPushSupported()
 
   useEffect(() => {
-    if (!supported) {
-      setChecking(false)
-      return
-    }
+    if (!supported) return
     getExistingSubscription()
       .then((sub) => setSubscribed(!!sub))
       .finally(() => setChecking(false))
