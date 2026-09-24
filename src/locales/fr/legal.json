@@ -46,5 +46,20 @@
   "terms.changes.title": "Modifications de ces Conditions",
   "terms.changes.body": "En cas de changement important, nous mettrons à jour la date ci-dessus et, si le changement est significatif, nous t'en informerons dans l'application.",
   "terms.contact.title": "Contact",
-  "terms.contact.body": "Pour toute question concernant ces Conditions, écris à legal@nuestrahistoria.app (adresse de contact provisoire, en attente de configuration sur le domaine définitif)."
+  "terms.contact.body": "Pour toute question concernant ces Conditions, écris à legal@nuestrahistoria.app (adresse de contact provisoire, en attente de configuration sur le domaine définitif).",
+  "storage.title": "Ce que nous stockons sur ton appareil",
+  "storage.updated": "Dernière mise à jour : 24 septembre 2026",
+  "storage.intro": "Nuestra historia n'utilise pas de cookies. L'application utilise le stockage local du navigateur (localStorage et IndexedDB) pour quelques éléments précis, tous nécessaires au fonctionnement de l'app ou pour mémoriser une de tes préférences — rien de tout cela n'est de l'analytique ni du pistage.",
+  "storage.noCookies.title": "Pourquoi il n'y a pas de bandeau cookies avec \"Accepter\"",
+  "storage.noCookies.body": "Selon le RGPD et la directive ePrivacy, ce bandeau n'est requis que pour des cookies (ou un autre stockage) qui ne sont pas strictement nécessaires, comme ceux d'analytique ou de publicité. Ce que nous stockons aujourd'hui est soit strictement nécessaire (ta session), soit à faible risque et clairement fonctionnel (langue, thème), donc cette exigence ne s'applique pas pour l'instant.",
+  "storage.session.title": "Ta session",
+  "storage.session.body": "Supabase stocke ton jeton de session dans localStorage (une clé qui commence par \"sb-\") pour que tu n'aies pas à te reconnecter à chaque ouverture de l'app. C'est strictement nécessaire : sans cela, tu ne pourrais pas rester connecté(e).",
+  "storage.language.title": "Ta langue",
+  "storage.language.body": "Nous stockons la langue que tu as choisie (clé \"nh_lang\") pour ne pas avoir à la redeviner à chaque visite.",
+  "storage.theme.title": "Ton thème (clair/sombre)",
+  "storage.theme.body": "Nous stockons si tu préfères le thème clair ou sombre (clé \"nh-web-theme\"). Si tu n'en choisis aucun, nous suivons le thème de ton système d'exploitation et ne stockons rien.",
+  "storage.offlineCache.title": "Mode hors ligne",
+  "storage.offlineCache.body": "Pour que tu puisses continuer à voir tes souvenirs, dates et moments sans internet, nous stockons une copie de ces données dans IndexedDB (clé \"nh-query-cache\"), le stockage local du navigateur prévu pour des volumes plus importants qu'un cookie. Il n'est effacé que si tu effaces les données du site depuis ton navigateur.",
+  "storage.future.title": "Si cela change",
+  "storage.future.body": "Si nous ajoutons de l'analytique à l'avenir (par exemple, pour comprendre quelles parties de l'app sont le plus utilisées) ou une passerelle de paiement comme Stripe, cela nécessiterait de te demander ton consentement avant de charger ces scripts, et cette page serait mise à jour en conséquence."
 }

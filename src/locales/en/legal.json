@@ -46,5 +46,20 @@
   "terms.changes.title": "Changes to these Terms",
   "terms.changes.body": "If we make significant changes, we'll update the date above and, if the change is significant, we'll notify you inside the app.",
   "terms.contact.title": "Contact",
-  "terms.contact.body": "For any question about these Terms, write to legal@nuestrahistoria.app (temporary contact address, pending setup on the final domain)."
+  "terms.contact.body": "For any question about these Terms, write to legal@nuestrahistoria.app (temporary contact address, pending setup on the final domain).",
+  "storage.title": "What we store on your device",
+  "storage.updated": "Last updated: September 24, 2026",
+  "storage.intro": "Nuestra historia doesn't use cookies. It uses browser local storage (localStorage and IndexedDB) for a few specific things, all necessary for the app to work or to remember a preference of yours — none of this is analytics or tracking.",
+  "storage.noCookies.title": "Why there's no \"Accept\" cookie banner",
+  "storage.noCookies.body": "Under GDPR and the ePrivacy directive, that banner is only required when using cookies (or other storage) that aren't strictly necessary, like analytics or advertising ones. What we store today is either strictly necessary (your session) or low-risk and clearly functional (language, theme), so that requirement doesn't apply for now.",
+  "storage.session.title": "Your session",
+  "storage.session.body": "Supabase stores your session token in localStorage (a key starting with \"sb-\") so you don't have to log in every time you open the app. It's strictly necessary: without it, you couldn't stay signed in.",
+  "storage.language.title": "Your language",
+  "storage.language.body": "We store the language you chose (key \"nh_lang\") so we don't have to guess it again on every visit.",
+  "storage.theme.title": "Your theme (light/dark)",
+  "storage.theme.body": "We store whether you preferred light or dark theme (key \"nh-web-theme\"). If you don't pick one, we follow your operating system's theme and store nothing.",
+  "storage.offlineCache.title": "Offline mode",
+  "storage.offlineCache.body": "So you can keep seeing your memories, dates and moments without internet, we store a copy of that data in IndexedDB (key \"nh-query-cache\"), the browser's local storage meant for larger volumes than a cookie. It's only cleared if you clear the site's data from your browser.",
+  "storage.future.title": "If this changes",
+  "storage.future.body": "If we add analytics in the future (for example, to understand which parts of the app get used the most) or a payment gateway like Stripe, that would require asking for your consent before loading those scripts, and this page would be updated to reflect it."
 }

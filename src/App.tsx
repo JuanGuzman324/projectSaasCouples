@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from './lib/auth-store'
 import { useMyCouple } from './features/couple/useCouple'
@@ -7,6 +7,7 @@ import { Login } from './features/auth/Login'
 import { Register } from './features/auth/Register'
 import { PrivacyPage } from './features/legal/PrivacyPage'
 import { TermsPage } from './features/legal/TermsPage'
+import { StoragePage } from './features/legal/StoragePage'
 import { Onboarding } from './features/couple/Onboarding'
 import { InviteScreen } from './features/couple/InviteScreen'
 import { Home } from './features/home/Home'
@@ -105,6 +106,17 @@ function Shell({ children }: { children: React.ReactNode }) {
       </header>
       <OfflineBanner />
       <main className="mx-auto max-w-3xl px-6 pb-16">{children}</main>
+      <footer className="mx-auto flex max-w-3xl flex-wrap gap-x-4 gap-y-1 px-6 pb-8 text-xs text-[var(--color-muted)]">
+        <Link to="/legal/privacy" className="hover:text-[var(--color-ink)] hover:underline">
+          {t('footer.privacy')}
+        </Link>
+        <Link to="/legal/terms" className="hover:text-[var(--color-ink)] hover:underline">
+          {t('footer.terms')}
+        </Link>
+        <Link to="/legal/local-storage" className="hover:text-[var(--color-ink)] hover:underline">
+          {t('footer.storage')}
+        </Link>
+      </footer>
     </div>
   )
 }
@@ -168,6 +180,7 @@ export default function App() {
           poder leerlas antes de registrarse. */}
       <Route path="/legal/privacy" element={<PrivacyPage />} />
       <Route path="/legal/terms" element={<TermsPage />} />
+      <Route path="/legal/local-storage" element={<StoragePage />} />
       <Route
         path="/*"
         element={

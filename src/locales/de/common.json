@@ -1,5 +1,8 @@
 {
   "app.name": "Unsere Geschichte",
+  "footer.privacy": "Datenschutz",
+  "footer.terms": "AGB",
+  "footer.storage": "Was wir auf deinem Gerät speichern",
   "action.save": "Speichern",
   "action.cancel": "Abbrechen",
   "action.continue": "Weiter",

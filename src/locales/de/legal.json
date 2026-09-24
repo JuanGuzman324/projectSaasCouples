@@ -46,5 +46,20 @@
   "terms.changes.title": "Änderungen dieser Bedingungen",
   "terms.changes.body": "Bei wesentlichen Änderungen aktualisieren wir das Datum oben und benachrichtigen dich in der App, falls die Änderung bedeutend ist.",
   "terms.contact.title": "Kontakt",
-  "terms.contact.body": "Bei Fragen zu diesen Bedingungen schreib an legal@nuestrahistoria.app (vorläufige Kontaktadresse, die Einrichtung auf der endgültigen Domain steht noch aus)."
+  "terms.contact.body": "Bei Fragen zu diesen Bedingungen schreib an legal@nuestrahistoria.app (vorläufige Kontaktadresse, die Einrichtung auf der endgültigen Domain steht noch aus).",
+  "storage.title": "Was wir auf deinem Gerät speichern",
+  "storage.updated": "Letzte Aktualisierung: 24. September 2026",
+  "storage.intro": "Nuestra historia verwendet keine Cookies. Es nutzt lokalen Browser-Speicher (localStorage und IndexedDB) für einige konkrete Dinge, die alle notwendig sind, damit die App funktioniert, oder um eine deiner Präferenzen zu merken — nichts davon ist Analyse oder Tracking.",
+  "storage.noCookies.title": "Warum es keinen Cookie-Banner mit \"Akzeptieren\" gibt",
+  "storage.noCookies.body": "Nach DSGVO und ePrivacy-Richtlinie ist dieser Hinweis nur erforderlich, wenn Cookies (oder anderer Speicher) verwendet werden, die nicht unbedingt erforderlich sind, wie Analyse- oder Werbe-Cookies. Was wir heute speichern, ist entweder unbedingt erforderlich (deine Sitzung) oder risikoarm und eindeutig funktional (Sprache, Design), sodass diese Anforderung derzeit nicht gilt.",
+  "storage.session.title": "Deine Sitzung",
+  "storage.session.body": "Supabase speichert dein Sitzungs-Token in localStorage (ein Schlüssel, der mit \"sb-\" beginnt), damit du dich nicht jedes Mal neu anmelden musst, wenn du die App öffnest. Es ist unbedingt erforderlich: ohne es könntest du nicht angemeldet bleiben.",
+  "storage.language.title": "Deine Sprache",
+  "storage.language.body": "Wir speichern die von dir gewählte Sprache (Schlüssel \"nh_lang\"), damit wir sie nicht bei jedem Besuch erneut erraten müssen.",
+  "storage.theme.title": "Dein Design (hell/dunkel)",
+  "storage.theme.body": "Wir speichern, ob du das helle oder dunkle Design bevorzugst (Schlüssel \"nh-web-theme\"). Wenn du keines auswählst, folgen wir dem Design deines Betriebssystems und speichern nichts.",
+  "storage.offlineCache.title": "Offline-Modus",
+  "storage.offlineCache.body": "Damit du deine Erinnerungen, Termine und Momente auch ohne Internet weiter sehen kannst, speichern wir eine Kopie dieser Daten in IndexedDB (Schlüssel \"nh-query-cache\"), dem für größere Datenmengen als ein Cookie gedachten lokalen Browser-Speicher. Er wird nur gelöscht, wenn du die Seitendaten in deinem Browser löschst.",
+  "storage.future.title": "Falls sich das ändert",
+  "storage.future.body": "Wenn wir in Zukunft Analysen hinzufügen (zum Beispiel, um zu verstehen, welche Teile der App am meisten genutzt werden) oder ein Zahlungssystem wie Stripe, würde dies deine Einwilligung erfordern, bevor diese Skripte geladen werden, und diese Seite würde entsprechend aktualisiert."
 }
