@@ -1,6 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   createCouple,
+  deleteAccount,
   fetchMyCouple,
   joinCouple,
   setPlan,
@@ -48,6 +49,10 @@ export function useSetPlan() {
     mutationFn: ({ coupleId, plan }: { coupleId: string; plan: 'free' | 'premium' }) => setPlan(coupleId, plan),
     onSuccess: () => qc.invalidateQueries({ queryKey: COUPLE_QUERY_KEY }),
   })
+}
+
+export function useDeleteAccount() {
+  return useMutation({ mutationFn: deleteAccount })
 }
 
 export function useUpdateMyMember() {

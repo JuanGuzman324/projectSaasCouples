@@ -42,5 +42,14 @@
   "settings.backup.confirmImport": "Cela ajoutera {{count}} éléments à votre espace (rien n'est remplacé). Continuer ?",
   "settings.backup.result": "Terminé : {{memories}} souvenirs, {{dates}} dates et {{moments}} moments ajoutés.",
   "settings.backup.error.export": "Impossible de générer la sauvegarde.",
-  "settings.backup.error.import": "Ce fichier n'est pas une sauvegarde valide, ou une erreur est survenue lors de la restauration."
+  "settings.backup.error.import": "Ce fichier n'est pas une sauvegarde valide, ou une erreur est survenue lors de la restauration.",
+  "settings.danger.title": "Supprimer mon compte",
+  "settings.danger.explain": "Supprime définitivement votre compte : votre e-mail et votre mot de passe cessent d'exister dans le système. Si vous êtes le dernier membre de votre espace de couple, tout son contenu (souvenirs, dates, moments, capsules et photos) est également supprimé. Cette action est irréversible.",
+  "settings.danger.action": "Supprimer mon compte",
+  "settings.danger.confirmWord": "SUPPRIMER",
+  "settings.danger.confirmExplain": "C'est définitif : votre compte et, le cas échéant, tout le contenu de votre espace de couple seront supprimés sans possibilité de les récupérer.",
+  "settings.danger.confirmLabel": "Tapez {{word}} pour confirmer",
+  "settings.danger.cancel": "Annuler",
+  "settings.danger.confirm": "Supprimer définitivement le compte",
+  "settings.danger.error": "Impossible de supprimer le compte. Réessayez ou écrivez-nous."
 }

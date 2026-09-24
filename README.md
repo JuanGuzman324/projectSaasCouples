@@ -119,6 +119,24 @@ se rompe, alguna de las 24 pruebas debería fallar.
   supabase db query --linked "select vault.create_secret('TU_ANON_KEY', 'send_reminders_bearer');"
   ```
 
+- `supabase/functions/delete-account/` — borrado de cuenta completo
+  (derecho al olvido, botón "Eliminar mi cuenta" en Ajustes): saca al
+  usuario de `couple_members` (y borra la pareja en cascada si era el
+  último miembro, igual que `leave_couple()`) y después llama a
+  `supabase.auth.admin.deleteUser()`, que solo puede invocarse con
+  `service_role`. Desplegar con `supabase functions deploy delete-account
+  --no-verify-jwt`.
+
+  El flag `--no-verify-jwt` (y `verify_jwt = false` en
+  `supabase/config.toml`, sección `[functions.delete-account]`) es
+  intencional, no un descuido: el gateway de Supabase rechaza con 401 —sin
+  headers CORS— el preflight `OPTIONS` que manda el navegador antes del
+  POST real, porque ese preflight nunca lleva `Authorization`. La función
+  verifica el JWT por su cuenta, contra el header `Authorization` del POST
+  real (con el cliente `anon`, nunca confiando en el body), así que sigue
+  sin poder invocarse sin una sesión válida — el chequeo solo se mueve de
+  dónde ocurre.
+
 ## Qué hay hecho, feature por feature
 
 - **`auth/`** — registro y login por correo/contraseña contra

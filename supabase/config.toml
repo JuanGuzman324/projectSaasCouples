@@ -403,6 +403,15 @@ s3_access_key = "env(S3_ACCESS_KEY)"
 # Configures AWS_SECRET_ACCESS_KEY for S3 bucket
 s3_secret_key = "env(S3_SECRET_KEY)"
 
+[functions.delete-account]
+# El gateway rechaza con 401 (sin headers CORS) el preflight OPTIONS que
+# manda el navegador antes del POST real, porque ese preflight nunca lleva
+# Authorization. La verificación de JWT se hace dentro de la función en su
+# lugar, contra el header Authorization real del POST (ver
+# supabase/functions/delete-account/index.ts) — sigue sin poder invocarse
+# sin una sesión válida, solo se mueve dónde se comprueba.
+verify_jwt = false
+
 # pg-delta is the schema diff engine for db diff / db pull / db remote commit.
 # Set enabled = false to fall back to the legacy migra engine.
 [experimental.pgdelta]

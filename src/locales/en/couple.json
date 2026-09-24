@@ -42,5 +42,14 @@
   "settings.backup.confirmImport": "This will add {{count}} items to your space (it won't replace anything). Continue?",
   "settings.backup.result": "Done: added {{memories}} memories, {{dates}} dates and {{moments}} moments.",
   "settings.backup.error.export": "Couldn't build the backup.",
-  "settings.backup.error.import": "That file isn't a valid backup, or something failed while restoring it."
+  "settings.backup.error.import": "That file isn't a valid backup, or something failed while restoring it.",
+  "settings.danger.title": "Delete my account",
+  "settings.danger.explain": "Permanently deletes your account: your email and password stop existing in the system. If you're the last member of your couple space, all of its content (memories, dates, moments, capsules and photos) is deleted too. This action can't be undone.",
+  "settings.danger.action": "Delete my account",
+  "settings.danger.confirmWord": "DELETE",
+  "settings.danger.confirmExplain": "This is permanent: your account and, if applicable, all your couple space's content will be deleted with no way to recover them.",
+  "settings.danger.confirmLabel": "Type {{word}} to confirm",
+  "settings.danger.cancel": "Cancel",
+  "settings.danger.confirm": "Permanently delete account",
+  "settings.danger.error": "Couldn't delete the account. Try again or write to us."
 }

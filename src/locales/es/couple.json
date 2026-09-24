@@ -42,5 +42,14 @@
   "settings.backup.confirmImport": "Esto va a agregar {{count}} elementos a tu espacio (no reemplaza nada). ¿Continuar?",
   "settings.backup.result": "Listo: {{memories}} recuerdos, {{dates}} fechas y {{moments}} momentos agregados.",
   "settings.backup.error.export": "No se pudo generar la copia de seguridad.",
-  "settings.backup.error.import": "Ese archivo no es una copia de seguridad válida, o algo falló al restaurarla."
+  "settings.backup.error.import": "Ese archivo no es una copia de seguridad válida, o algo falló al restaurarla.",
+  "settings.danger.title": "Eliminar mi cuenta",
+  "settings.danger.explain": "Borra tu cuenta por completo: tu correo y contraseña dejan de existir en el sistema. Si eres el último miembro de tu espacio de pareja, también se borra todo su contenido (recuerdos, fechas, momentos, cápsulas y fotos). Esta acción no se puede deshacer.",
+  "settings.danger.action": "Eliminar mi cuenta",
+  "settings.danger.confirmWord": "ELIMINAR",
+  "settings.danger.confirmExplain": "Esto es permanente: tu cuenta y, si aplica, todo el contenido de tu espacio de pareja se borran sin posibilidad de recuperarlos.",
+  "settings.danger.confirmLabel": "Escribe {{word}} para confirmar",
+  "settings.danger.cancel": "Cancelar",
+  "settings.danger.confirm": "Eliminar cuenta definitivamente",
+  "settings.danger.error": "No se pudo eliminar la cuenta. Intenta de nuevo o escríbenos."
 }

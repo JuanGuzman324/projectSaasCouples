@@ -2,12 +2,14 @@ import { useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../../lib/auth-store'
-import { useUpdateCouple, useUpdateMyMember } from './useCouple'
+import { supabase } from '../../lib/supabase'
+import { useDeleteAccount, useUpdateCouple, useUpdateMyMember } from './useCouple'
 import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
 import { TextField } from '../../ui/TextField'
 import { Select } from '../../ui/Select'
 import { Alert } from '../../ui/Alert'
+import { Modal } from '../../ui/Modal'
 import { BackupCard } from '../backup/BackupCard'
 import { PushToggle } from '../push/PushToggle'
 import { isPremium } from '../premium/limits'
@@ -46,6 +48,11 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
   const [error, setError] = useState<string | null>(null)
   const saving = updateCouple.isPending || updateMember.isPending
 
+  const deleteAccount = useDeleteAccount()
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [deleteConfirmText, setDeleteConfirmText] = useState('')
+  const [deleteError, setDeleteError] = useState<string | null>(null)
+
   function parseCoord(v: string): number | null {
     const trimmed = v.trim()
     if (!trimmed) return null
@@ -77,6 +84,18 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
       setSaved(true)
     } catch {
       setError(t('settings.error.save'))
+    }
+  }
+
+  const confirmWord = t('settings.danger.confirmWord')
+  async function onDeleteAccount() {
+    if (deleteConfirmText.trim().toUpperCase() !== confirmWord.toUpperCase()) return
+    setDeleteError(null)
+    try {
+      await deleteAccount.mutateAsync()
+      await supabase.auth.signOut()
+    } catch {
+      setDeleteError(t('settings.danger.error'))
     }
   }
 
@@ -176,6 +195,51 @@ export function SettingsPage({ couple }: { couple: CoupleWithMembers }) {
           <Button variant="ghost">{t('settings.plan.manage')}</Button>
         </Link>
       </Card>
+
+      <Card className="flex flex-col gap-3 border-[var(--color-danger)]/30">
+        <h2 className="[font-family:var(--font-display)] text-xl text-[var(--color-danger)]">
+          {t('settings.danger.title')}
+        </h2>
+        <p className="text-sm text-[var(--color-muted)]">{t('settings.danger.explain')}</p>
+        <Button
+          variant="ghost"
+          className="self-start border-[var(--color-danger)]/40 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10"
+          onClick={() => {
+            setDeleteConfirmText('')
+            setDeleteError(null)
+            setConfirmingDelete(true)
+          }}
+        >
+          {t('settings.danger.action')}
+        </Button>
+      </Card>
+
+      {confirmingDelete && (
+        <Modal title={t('settings.danger.title')} onClose={() => setConfirmingDelete(false)}>
+          <div className="flex flex-col gap-4">
+            <p className="text-sm">{t('settings.danger.confirmExplain')}</p>
+            <TextField
+              label={t('settings.danger.confirmLabel', { word: confirmWord })}
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              autoComplete="off"
+            />
+            {deleteError && <Alert>{deleteError}</Alert>}
+            <div className="flex justify-end gap-3">
+              <Button variant="ghost" onClick={() => setConfirmingDelete(false)}>
+                {t('settings.danger.cancel')}
+              </Button>
+              <Button
+                className="border-[var(--color-danger)] bg-[var(--color-danger)] text-white hover:brightness-105"
+                disabled={deleteAccount.isPending || deleteConfirmText.trim().toUpperCase() !== confirmWord.toUpperCase()}
+                onClick={onDeleteAccount}
+              >
+                {t('settings.danger.confirm')}
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   )
 }

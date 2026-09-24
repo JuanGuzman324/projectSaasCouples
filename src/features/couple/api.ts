@@ -56,6 +56,19 @@ export async function leaveCouple(coupleId: string) {
   if (error) throw error
 }
 
+// Borrado de cuenta completo (derecho al olvido, BACKLOG P0 legal): borra
+// el contenido de la pareja (si era el último miembro) y la fila de
+// auth.users. Necesita la Edge Function delete-account porque eso último
+// requiere la API de administración de Supabase, nunca disponible en el
+// cliente. No cierra sesión por su cuenta: quien llama debe hacer
+// supabase.auth.signOut() después (el token ya quedó inválido de todas
+// formas, porque el usuario dejó de existir).
+export async function deleteAccount() {
+  const { data, error } = await supabase.functions.invoke('delete-account')
+  if (error) throw error
+  if (data?.error) throw new Error(data.error)
+}
+
 export interface CoupleUpdate {
   startDate: string | null
 }

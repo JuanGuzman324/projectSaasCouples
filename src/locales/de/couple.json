@@ -42,5 +42,14 @@
   "settings.backup.confirmImport": "Dadurch werden {{count}} Einträge zu eurem Bereich hinzugefügt (nichts wird ersetzt). Fortfahren?",
   "settings.backup.result": "Fertig: {{memories}} Erinnerungen, {{dates}} Termine und {{moments}} Momente hinzugefügt.",
   "settings.backup.error.export": "Die Sicherung konnte nicht erstellt werden.",
-  "settings.backup.error.import": "Diese Datei ist keine gültige Sicherung, oder beim Wiederherstellen ist etwas schiefgelaufen."
+  "settings.backup.error.import": "Diese Datei ist keine gültige Sicherung, oder beim Wiederherstellen ist etwas schiefgelaufen.",
+  "settings.danger.title": "Mein Konto löschen",
+  "settings.danger.explain": "Löscht dein Konto vollständig: deine E-Mail-Adresse und dein Passwort existieren danach nicht mehr im System. Wenn du das letzte Mitglied eures Paar-Bereichs bist, wird auch dessen gesamter Inhalt gelöscht (Erinnerungen, Termine, Momente, Zeitkapseln und Fotos). Diese Aktion kann nicht rückgängig gemacht werden.",
+  "settings.danger.action": "Mein Konto löschen",
+  "settings.danger.confirmWord": "LÖSCHEN",
+  "settings.danger.confirmExplain": "Dies ist endgültig: dein Konto und, falls zutreffend, der gesamte Inhalt eures Paar-Bereichs werden ohne Wiederherstellungsmöglichkeit gelöscht.",
+  "settings.danger.confirmLabel": "Gib {{word}} ein, um zu bestätigen",
+  "settings.danger.cancel": "Abbrechen",
+  "settings.danger.confirm": "Konto endgültig löschen",
+  "settings.danger.error": "Konto konnte nicht gelöscht werden. Versuch es erneut oder schreib uns."
 }
