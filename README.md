@@ -261,9 +261,45 @@ claves respecto al español. Español e inglés están completos; alemán y
 francés siguen pendientes de revisión por un hablante nativo (ver
 `BACKLOG.md`).
 
+## Empaquetado con Capacitor (Android)
+
+`capacitor.config.ts` + `android/` empaquetan el mismo build web
+(`dist/`) como app Android — no hay código nativo separado que mantener;
+cualquier cambio en `src/` se refleja con solo repetir el sync de abajo.
+
+**iOS queda sin armar a propósito**: compilar para iOS requiere macOS +
+Xcode, que no existen en este entorno de desarrollo (Windows). El día que
+haya acceso a una Mac, `npx cap add ios` sobre este mismo repo es
+suficiente para arrancarlo — no hace falta ningún otro cambio de código
+primero.
+
+Para compilar/probar la app Android hace falta
+[Android Studio](https://developer.android.com/studio) instalado (trae el
+SDK y un emulador). Con eso:
+
+```bash
+npm run cap:android   # build web + cap sync android + abre Android Studio
+```
+
+o paso a paso:
+
+```bash
+npm run build          # genera dist/
+npx cap sync android   # copia dist/ a android/app/src/main/assets/public
+npx cap open android   # abre el proyecto en Android Studio
+```
+
+Publicar en Play Store (BACKLOG P3, pendiente) necesita una cuenta de
+Google Play Developer (pago único de USD 25) — no es algo que se pueda
+crear por código; hace falta hacerlo desde
+[play.google.com/console](https://play.google.com/console).
+
 ## Scripts
 
 - `npm run dev` — servidor de desarrollo.
 - `npm run build` — build de producción.
 - `npm run lint` — oxlint.
 - `npm run check:locales` — paridad de claves entre los 4 idiomas.
+- `npm run cap:sync` — build web + `cap sync android` (copia `dist/` al
+  proyecto Android).
+- `npm run cap:android` — lo anterior y además abre Android Studio.

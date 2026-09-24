@@ -47,8 +47,8 @@ de datos).
 
 (sin cambios respecto a v3)
 
-- [ ] **Pagos reales (Stripe o RevenueCat) (L)** Los límites del plan gratuito y la página de venta ya existen; `couples.plan` solo cambia a mano hoy.
-- [ ] **Empaquetado con Capacitor + publicación en tiendas (L)** iOS y Android, sobre el mismo build de Vite.
+- [ ] **Pagos reales (L)** Los límites del plan gratuito y la página de venta ya existen; `couples.plan` solo cambia a mano hoy. Revisado en esta sesión: no hay ningún paquete, Edge Function de webhook ni tabla de facturación todavía — es un punto de partida limpio, no deuda a medias. Para Colombia, [Wompi](https://wompi.co) (de Bancolombia: PSE, Nequi, tarjetas, sin cuenta en dólares) es mejor alternativa que Stripe/RevenueCat; se integraría con el mismo patrón que las demás Edge Functions (webhook → función → actualiza `couple.plan`). En pausa hasta que el usuario decida crear la cuenta y pasar las claves.
+- [~] **Empaquetado con Capacitor + publicación en tiendas (L)** iOS y Android, sobre el mismo build de Vite. *(Scaffolding de Android hecho: `@capacitor/core`/`@capacitor/cli`/`@capacitor/android` instalados, `capacitor.config.ts` + carpeta `android/` generados y sincronizados contra `dist/` (ver README, sección "Empaquetado con Capacitor (Android)"). Falta: 1) compilar/probar de verdad, necesita Android Studio instalado (no está en este entorno); 2) publicar en Play Store, necesita una cuenta de Google Play Developer (USD 25 único) que no puedo crear por código. **iOS sin empezar a propósito**: requiere macOS + Xcode, inexistentes en este entorno Windows — `npx cap add ios` alcanza el día que haya acceso a una Mac, sin más cambios de código antes.)*
 
 ## P3 — Depende de P2
 

@@ -8,9 +8,14 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "check:locales": "node scripts/check-locales.mjs"
+    "check:locales": "node scripts/check-locales.mjs",
+    "cap:sync": "npm run build && npx cap sync android",
+    "cap:android": "npm run cap:sync && npx cap open android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
     "@supabase/supabase-js": "^2.116.0",
     "@tanstack/query-async-storage-persister": "^5.103.2",
     "@tanstack/query-persist-client-core": "^5.103.2",
