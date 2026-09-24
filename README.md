@@ -25,6 +25,9 @@ npm run dev
   VAPID_PRIVATE_KEY=... VAPID_PUBLIC_KEY=... VAPID_SUBJECT=mailto:tu@correo`),
   nunca en el cliente. Se generan con `npx web-push generate-vapid-keys`.
 
+`.env.example` solo tiene placeholders a propósito — copialo y pon ahí
+tus datos reales; `.env.local` ya está en `.gitignore`.
+
 ## Generar los tipos reales de la base de datos
 
 `src/types/database.ts` está escrito a mano, con la MISMA forma que produce
@@ -42,7 +45,11 @@ o cópialo desde el panel: **Project Settings → API → Generate types**.
 El esquema completo (tablas, políticas RLS, funciones `create_couple`/
 `join_couple`/etc., bucket `photos`, extensiones `pg_cron`/`pg_net`) está
 versionado en `supabase/migrations/`, en orden. Para levantarlo en local
-(necesita [Docker](https://www.docker.com/) corriendo):
+(necesita [Docker Desktop](https://www.docker.com/) **instalado y
+corriendo** — el CLI de Supabase levanta Postgres y el resto del stack
+como contenedores; sin Docker activo, `supabase start`/`db reset`/`test db`
+fallan con un error de conexión al daemon, no con un mensaje que lo diga
+explícitamente):
 
 ```bash
 supabase start          # levanta Postgres + el resto del stack en Docker
@@ -55,21 +62,24 @@ TU-PROYECTO`):
 ```bash
 supabase db push                      # aplica migraciones nuevas
 supabase db diff --linked             # compara local vs. remoto (necesita Docker)
+supabase db query --linked "SQL..."   # ejecuta SQL suelto contra el proyecto real
 ```
 
 `supabase/tests/database/rls_isolation.sql` son 24 pruebas pgTAP que
 confirman que una pareja no puede leer, insertar, editar ni borrar nada de
 otra (couples, couple_members, couple_dates, memories, moments, fotos).
-Nota: `moment_templates` es la única tabla con SELECT público entre
-parejas a propósito (es una biblioteca compartida de diseños, ver más
-abajo); el resto del aislamiento sigue siendo estricto. Córrelas así,
-contra el stack local:
+`moment_templates` es la única tabla con SELECT público entre parejas a
+propósito (biblioteca compartida de diseños, ver más abajo); el resto del
+aislamiento sigue siendo estricto. Para correrlas (**requiere Docker
+corriendo**, arriba):
 
 ```bash
+supabase start           # si no lo hiciste ya
 supabase test db --local
 ```
 
-Si cambias cualquier política RLS, corre esto antes de comitear.
+Si cambias cualquier política RLS, corre esto antes de comitear — si algo
+se rompe, alguna de las 24 pruebas debería fallar.
 
 ## Edge Functions
 
@@ -83,47 +93,87 @@ Si cambias cualquier política RLS, corre esto antes de comitear.
   un proyecto Supabase específico). Hace falta crear esos dos secretos una
   sola vez por proyecto, fuera de git:
 
-  ```sql
-  select vault.create_secret('https://TU-PROYECTO.supabase.co/functions/v1/send-reminders', 'send_reminders_url');
-  select vault.create_secret('TU_ANON_KEY', 'send_reminders_bearer');
+  ```bash
+  supabase db query --linked "select vault.create_secret('https://TU-PROYECTO.supabase.co/functions/v1/send-reminders', 'send_reminders_url');"
+  supabase db query --linked "select vault.create_secret('TU_ANON_KEY', 'send_reminders_bearer');"
   ```
 
-  (`supabase db query --linked "..."` corre esto directo contra el
-  proyecto vinculado, sin pasar por ningún archivo del repo.)
+## Qué hay hecho, feature por feature
 
-## Qué hay hecho
+- **`auth/`** — registro y login por correo/contraseña contra
+  `supabase.auth`; no tiene tabla propia (usa `auth.users`).
+- **`couple/`** — onboarding (crear un espacio o unirse con código de
+  invitación, funciones SQL `create_couple`/`join_couple`), y Ajustes
+  (nombre, ciudad, coordenadas, zona horaria, país, fecha de inicio,
+  plan). Tablas `couples` y `couple_members` (migración baseline); el
+  límite de 2 integrantes por pareja lo impone un trigger
+  (`couple_members_limit`).
+- **`home/`** — contador de "días juntos", próximos hitos (día 100/500/
+  aniversarios), distancia entre ciudades (haversine + mini-mapa SVG),
+  hora local de cada integrante, hilo visual con cuenta regresiva al
+  próximo encuentro, y recuerdo al azar / "un día como hoy". Todo
+  derivado de `couples`/`couple_members`/`couple_dates`/`memories`, sin
+  tabla propia.
+- **`memories/`** — recuerdos con título, fecha, tipo, lugar, texto,
+  favorito y foto opcional. Tabla `memories` (baseline), borrado lógico
+  (`deleted_at`).
+- **`dates/`** — fechas especiales con repetición (ninguna/mensual/
+  anual) y calendario mensual con puntos de color por tipo de contenido.
+  Tabla `couple_dates` (baseline).
+- **`moments/`** — el estudio visual completo: paleta de colores, 7
+  figuras animadas (canvas 2D + `requestAnimationFrame`, respeta
+  `prefers-reduced-motion`), 3 tipografías, 6 plantillas de arranque,
+  plan del día, foto, y una escena a pantalla completa con confeti. Tabla
+  `moments` (baseline).
+- **`storage/`** — subida/lectura de fotos al bucket `photos` (migración
+  `00000000000001`), con URLs firmadas.
+- **`backup/`** — exportar todo el contenido de la pareja (recuerdos,
+  fechas, momentos) a un archivo JSON descargable, e importarlo de
+  vuelta llamando a las mismas funciones `create*` de cada feature (no
+  un insert directo a la tabla). Sin tabla propia; las fotos no se
+  incluyen.
+- **`timecapsules/`** — mensajes que se escriben hoy y se revelan en una
+  fecha futura elegida; el cuerpo se oculta en la UI para quien no sea
+  el autor hasta que llega la fecha. Tabla `time_capsules` (migración
+  `00000000000003`).
+- **`culturaldates/`** — sugiere fechas como San Valentín, Amor y
+  Amistad (Colombia), White Day, Qixi, etc., según el país de cada
+  integrante (`couple_members.country`, migración `00000000000004`), con
+  un botón para agregarlas como Momento. Sin tabla propia.
+- **`momenttemplates/`** — publicar el diseño de un Momento propio
+  (paleta/motivo/fuente, sin foto ni fecha) como plantilla pública, y
+  usar las de otras parejas como punto de partida. Tabla
+  `moment_templates` (migración `00000000000005`) — la única del
+  esquema con SELECT abierto entre parejas distintas a propósito.
+- **`premium/`** — límites del plan gratuito (3 Momentos, 3 cápsulas del
+  tiempo, 20 fotos) y página de venta. Usa la columna `couples.plan`
+  (ya existía en el baseline); el cobro real con Stripe/RevenueCat
+  todavía no está conectado — ver `BACKLOG.md`.
+- **`push/`** — notificaciones push (Web Push/VAPID): Service Worker
+  (`public/sw.js`), suscripción guardada en `push_subscriptions`
+  (migración `00000000000006`), y la Edge Function/cron de arriba que
+  manda los avisos.
+- **`yearreview/`** — resumen del año (días juntos, recuerdos, momentos,
+  fechas) descargable como imagen PNG (dibujada directo en `<canvas>`,
+  sin dependencias nuevas). Sin tabla propia, todo calculado en el
+  cliente a partir de los datos ya cargados.
 
-**Base (P0/P1):** auth por correo, onboarding de pareja (crear/unirse con
-código), Ajustes (nombre, ciudad, coordenadas, zona horaria, país, fecha
-de inicio), Home (contador de días juntos, hitos, distancia entre
-ciudades, hilo visual con cuenta regresiva en vivo, recuerdo al azar),
-Recuerdos, Fechas (con calendario mensual), Momentos (estudio visual
-completo: paleta, partículas animadas, tipografías, plantillas, plan del
-día, foto).
+**Modo sin conexión:** la caché de React Query se persiste en IndexedDB
+(`src/lib/offline.ts`), así que la app muestra el último estado conocido
+sin red; las mutaciones (crear/editar/borrar) quedan pausadas y se
+reintentan solas al reconectar.
 
-**Resiliencia y distribución (P2):** instalable como PWA, exportar/
-importar copia de seguridad en JSON, modo sin conexión con cola de
-sincronización (React Query persistido en IndexedDB + mutaciones
-pausadas que se reintentan solas al reconectar).
+**PWA:** instalable (`public/manifest.webmanifest` + íconos).
 
-**Features nuevas (P3):** zonas horarias de cada integrante en Home,
-cápsulas del tiempo (mensajes que se revelan en una fecha futura),
-resumen anual descargable como imagen, biblioteca de fechas culturales
-por país (con sugerencias para agregarlas como Momento), plantillas de
-Momentos compartibles entre parejas, plan Premium (límites del plan
-gratis + página de venta; el cobro real con Stripe/RevenueCat queda
-pendiente), notificaciones push.
-
-Pendiente, explícitamente bloqueado hasta que exista la app empaquetada
-con Capacitor: widget de pantalla de inicio.
-
-Ver **`BACKLOG.md`** para el detalle completo, con cada ítem marcado y
-el orden en que se decidió construir todo esto — sirve como historial de
-decisiones, no solo como lista de tareas.
+Ver **`BACKLOG.md`** para el detalle completo de qué falta y en qué orden
+se construyó todo esto — sirve como historial de decisiones, no solo
+como lista de tareas.
 
 **i18n:** 4 idiomas cableados (`src/locales/`), un namespace por feature.
 `npm run check:locales` falla si a algún idioma le faltan o le sobran
-claves respecto al español.
+claves respecto al español. Español e inglés están completos; alemán y
+francés siguen pendientes de revisión por un hablante nativo (ver
+`BACKLOG.md`).
 
 ## Scripts
 
