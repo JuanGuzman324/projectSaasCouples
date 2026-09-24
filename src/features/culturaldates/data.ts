@@ -147,6 +147,45 @@ export const CULTURAL_DATES: CulturalDate[] = [
       palette: { bg1: '#1F1B5C', bg2: '#4B2FA0', ink: '#FFF6E5', accent: '#FFC933' },
     },
   },
+  {
+    id: 'dia-namorados-br',
+    countries: ['BR'],
+    rule: { type: 'fixed', month: 6, day: 12 },
+    design: {
+      motif: 'corazones',
+      emoji: '❤️',
+      font: 'hand',
+      density: 34,
+      speed: 2,
+      palette: { bg1: '#3A0F2A', bg2: '#7A1F4B', ink: '#FFEAF1', accent: '#FF7AA2' },
+    },
+  },
+  {
+    id: 'pepero-day',
+    countries: ['KR'],
+    rule: { type: 'fixed', month: 11, day: 11 },
+    design: {
+      motif: 'destellos',
+      emoji: '🍪',
+      font: 'sans',
+      density: 30,
+      speed: 2,
+      palette: { bg1: '#2A2052', bg2: '#5B3FA8', ink: '#F7F2FF', accent: '#F6B800' },
+    },
+  },
+  {
+    id: 'sweetest-day',
+    countries: ['US', 'CA'],
+    rule: { type: 'nthWeekday', month: 10, weekday: 6, nth: 3 },
+    design: {
+      motif: 'petalos',
+      emoji: '🍬',
+      font: 'serif',
+      density: 36,
+      speed: 2,
+      palette: { bg1: '#0E3B43', bg2: '#1F7A6C', ink: '#F2FFF9', accent: '#FFD27A' },
+    },
+  },
 ]
 
 function nthWeekdayOfMonth(year: number, month: number, weekday: number, nth: number): Date {
