@@ -4,7 +4,7 @@ import { LegalPage } from './LegalPage'
 export function PrivacyPage() {
   const { t } = useTranslation('legal')
   const sectionKeys = [
-    'dataCollected', 'purpose', 'legalBasis', 'retention', 'subprocessors', 'rights', 'deletion', 'security', 'changes', 'contact',
+    'dataCollected', 'purpose', 'legalBasis', 'retention', 'dataLocation', 'subprocessors', 'rights', 'deletion', 'security', 'changes', 'contact',
   ] as const
   return (
     <LegalPage

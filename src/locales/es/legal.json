@@ -10,6 +10,8 @@
   "privacy.legalBasis.body": "Tratamos tus datos porque son necesarios para prestarte el servicio que pediste al crear la cuenta (ejecución de un contrato), y porque diste tu consentimiento explícito al registrarte, marcando la casilla de aceptación.",
   "privacy.retention.title": "Cuánto los conservamos",
   "privacy.retention.body": "Mientras tu cuenta esté activa. Si borras un recuerdo, una fecha, un momento o una cápsula, queda marcado como borrado de inmediato (dejas de verlo) y se elimina de forma definitiva, junto con la foto asociada si tenía una, pasado un tiempo razonable.",
+  "privacy.dataLocation.title": "Dónde se alojan tus datos",
+  "privacy.dataLocation.body": "Tu información vive en la infraestructura de Supabase en Virginia, Estados Unidos (región us-east-1). Si resides en la Unión Europea, esto implica una transferencia internacional de datos, amparada en las salvaguardas contractuales que Supabase ofrece como encargado del tratamiento. No trasladamos tus datos a ningún otro país por nuestra cuenta.",
   "privacy.subprocessors.title": "Con quién compartimos datos (subencargados)",
   "privacy.subprocessors.body": "Supabase aloja la base de datos, la autenticación, el almacenamiento de fotos y las funciones que hacen correr la app. Si activas notificaciones push, el navegador que uses (Google Chrome, Mozilla Firefox, Apple Safari, según el caso) recibe el envío para entregártelo — nosotros no elegimos eso, es cómo funciona el estándar Web Push. Cuando exista un plan de pago, se sumará aquí el proveedor de pagos correspondiente (Stripe o RevenueCat) antes de activarlo.",
   "privacy.rights.title": "Tus derechos",

@@ -28,6 +28,27 @@ npm run dev
 `.env.example` solo tiene placeholders a propósito — copialo y pon ahí
 tus datos reales; `.env.local` ya está en `.gitignore`.
 
+## Región del proyecto Supabase y residencia de datos
+
+El proyecto real (`projectSaas`, ref `vgimknxjdxsjalzscxdx`) está en
+**`us-east-1`** (Virginia, EE. UU.) — confirmado con `npx supabase projects
+list`. La región de un proyecto Supabase no se puede cambiar después de
+creado.
+
+Decisión (2026-09-24): se queda en `us-east-1`. Aunque hay usuarios en
+Alemania y Francia (RGPD), esto no es ilegal en sí — el RGPD permite
+transferencias internacionales de datos cuando el encargado del
+tratamiento (Supabase) ofrece las salvaguardas correctas, que es el
+régimen bajo el que opera por defecto. Migrar a una región UE implicaría
+un proyecto nuevo y mover todos los datos (esquema, Storage, Auth,
+secretos), así que se difiere hasta que haya una razón concreta para
+hacerlo (ej. un cliente/mercado que lo exija explícitamente).
+
+**Esto no es asesoría legal.** Antes de un lanzamiento público real con
+usuarios en la UE, esta decisión conviene confirmarla con un abogado,
+igual que el texto final de la Política de Privacidad y los Términos (ver
+`/legal/privacy` y `/legal/terms` en la app).
+
 ## Generar los tipos reales de la base de datos
 
 `src/types/database.ts` está escrito a mano, con la MISMA forma que produce

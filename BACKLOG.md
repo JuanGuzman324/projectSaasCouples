@@ -25,7 +25,7 @@ de lo que exige la ley en los mercados donde ya se apunta (Alemania y
 Francia son RGPD; Colombia tiene su propia Ley 1581 de 2012 de protección
 de datos).
 
-- [ ] **Confirmar la región del proyecto Supabase (S)** La región de un proyecto Supabase no se puede cambiar después de creado. Si el proyecto quedó en EE. UU. y hay usuarios en la UE, no es ilegal en sí (RGPD permite transferencias internacionales con las salvaguardas correctas), pero si importa la residencia de datos en la UE, hay que decidirlo ahora — migrar después significa un proyecto nuevo y mover todos los datos. Hecho cuando: se sabe con certeza en qué región está el proyecto (Project Settings → General) y, si no es la deseada, está documentada la decisión de quedarse o migrar.
+- [x] **Confirmar la región del proyecto Supabase (S)** La región de un proyecto Supabase no se puede cambiar después de creado. Si el proyecto quedó en EE. UU. y hay usuarios en la UE, no es ilegal en sí (RGPD permite transferencias internacionales con las salvaguardas correctas), pero si importa la residencia de datos en la UE, hay que decidirlo ahora — migrar después significa un proyecto nuevo y mover todos los datos. Hecho cuando: se sabe con certeza en qué región está el proyecto (Project Settings → General) y, si no es la deseada, está documentada la decisión de quedarse o migrar. *(Confirmado vía `npx supabase projects list`: `us-east-1`. Decisión del usuario: quedarse ahí — ver README, sección "Región del proyecto Supabase y residencia de datos", y la Política de Privacidad, sección "Dónde se alojan tus datos".)*
 - [x] **Política de Privacidad (M, más revisión legal externa)** Debe describir, en términos llanos: qué datos se recogen (correo, nombre, ciudad/coordenadas, fotos, contenido de recuerdos/fechas/momentos/cápsulas del tiempo, el endpoint de push del navegador), para qué se usan, con qué base legal, cuánto se conservan, quién los procesa además de la propia app (ver "subencargados" abajo), y cómo ejercer los derechos de acceso/rectificación/portabilidad/supresión. La exportación de datos (`backup/`) ya cubre acceso y portabilidad — falta que la política lo mencione explícitamente y enlazar ahí. Hecho cuando: existe en los 4 idiomas, enlazada desde el footer y desde la pantalla de Registro, y **un abogado la revisó antes de publicarla como definitiva** (pendiente — el texto actual es un primer borrador técnico, no una versión legal definitiva).
 - [x] **Términos y Condiciones de uso (M, más revisión legal externa)** Uso aceptable, responsabilidad de cada cuenta por su contenido, limitación de responsabilidad, ley aplicable y jurisdicción, qué pasa si se incumplen (suspensión/cierre de cuenta). Hecho cuando: existen en los 4 idiomas y el registro exige aceptarlos explícitamente (ver ítem de abajo). Misma salvedad que arriba: pendiente de revisión legal externa antes de considerarse definitivo.
 - [x] **Casilla de aceptación en Registro (S)** Hoy `Register.tsx` no tiene ninguna casilla de "he leído y acepto la Política de Privacidad y los Términos". Sin esto, aunque existan las políticas, no hay evidencia de que el usuario las aceptó. Hecho cuando: el formulario de registro no deja continuar sin marcar la casilla, con enlaces reales a ambos documentos.
@@ -64,8 +64,8 @@ minimiza el riesgo más rápido con menos esfuerzo:
 1. ~~Casilla de aceptación en Registro + Términos/Privacidad~~ (aunque sea
    una primera versión razonable, no perfecta) — es lo que más rápido
    cierra la exposición básica de "recojo datos sin decirlo". **Hecho.**
-2. Confirmar la región del proyecto — una sola consulta al panel, cero
-   código.
+2. ~~Confirmar la región del proyecto~~ — una sola consulta al panel, cero
+   código. **Hecho: `us-east-1`, se queda ahí.**
 3. Borrado de cuenta completo — es la brecha más concreta de las
    encontradas (la cuenta literalmente no se puede borrar hoy).
 4. El resto (purga de borrados lógicos, CAPTCHA, documento de
