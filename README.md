@@ -24,9 +24,39 @@ npm run dev
   privada va como secret de la Edge Function (`supabase secrets set
   VAPID_PRIVATE_KEY=... VAPID_PUBLIC_KEY=... VAPID_SUBJECT=mailto:tu@correo`),
   nunca en el cliente. Se generan con `npx web-push generate-vapid-keys`.
+- `VITE_TURNSTILE_SITE_KEY` — clave de sitio (pública) del captcha en
+  Login/Registro. Ver "CAPTCHA en Login/Registro" más abajo.
 
 `.env.example` solo tiene placeholders a propósito — copialo y pon ahí
 tus datos reales; `.env.local` ya está en `.gitignore`.
+
+## CAPTCHA en Login/Registro
+
+Protección contra registros/inicios de sesión automatizados (BACKLOG P0
+legal). Usa [Cloudflare Turnstile](https://dash.cloudflare.com/?to=/:account/turnstile),
+integrado en `src/ui/Turnstile.tsx` y usado en `Login.tsx` y `Register.tsx`
+(activar captcha en Supabase lo exige en ambos endpoints, no solo en el
+registro).
+
+1. En el panel de Cloudflare, sección Turnstile, crea un **Widget**
+   (modo *Managed*) para el dominio donde corre la app — para desarrollo
+   local, `localhost` funciona como dominio de prueba. Te da dos claves:
+   **Site Key** (pública) y **Secret Key**.
+2. `VITE_TURNSTILE_SITE_KEY=<Site Key>` en `.env.local`. Sin esta
+   variable, el widget no se muestra y el formulario funciona igual
+   (útil en desarrollo local sin claves propias); solo se vuelve
+   obligatorio cuando el proyecto Supabase real lo tiene activado.
+3. Activar el captcha en el proyecto real, sin escribir la Secret Key en
+   ningún archivo versionado — `supabase/config.toml` ya la declara como
+   `env(SUPABASE_AUTH_CAPTCHA_SECRET)` (sección `[auth.captcha]`):
+
+   ```bash
+   SUPABASE_AUTH_CAPTCHA_SECRET=<Secret Key> npx supabase config push
+   ```
+
+   Revisa el diff que te muestra antes de confirmar (`supabase config
+   diff` para previsualizarlo sin aplicar nada). También se puede activar
+   a mano desde el panel: Authentication → Attack Protection.
 
 ## Región del proyecto Supabase y residencia de datos
 

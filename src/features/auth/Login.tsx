@@ -6,12 +6,14 @@ import { Button } from '../../ui/Button'
 import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
 import { ThemeToggle } from '../../ui/ThemeToggle'
+import { isTurnstileConfigured, Turnstile } from '../../ui/Turnstile'
 
 export function Login() {
   const { t } = useTranslation('auth')
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -19,7 +21,11 @@ export function Login() {
     e.preventDefault()
     setError(null)
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+      options: { captchaToken: captchaToken ?? undefined },
+    })
     setLoading(false)
     if (error) {
       setError(t('login.error.invalid'))
@@ -54,8 +60,9 @@ export function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Turnstile onVerify={setCaptchaToken} onExpire={() => setCaptchaToken(null)} />
           {error && <Alert>{error}</Alert>}
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading || (isTurnstileConfigured && !captchaToken)}>
             {t('login.submit')}
           </Button>
         </form>

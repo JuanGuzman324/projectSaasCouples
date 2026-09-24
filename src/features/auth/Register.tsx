@@ -7,12 +7,14 @@ import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
 import { Card } from '../../ui/Card'
 import { ThemeToggle } from '../../ui/ThemeToggle'
+import { isTurnstileConfigured, Turnstile } from '../../ui/Turnstile'
 
 export function Register() {
   const { t, i18n } = useTranslation('auth')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [acceptedLegal, setAcceptedLegal] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -29,6 +31,7 @@ export function Register() {
         // correos transaccionales (fase 2) y el locale por defecto de la
         // pareja arranquen en el idioma correcto.
         data: { locale: i18n.resolvedLanguage },
+        captchaToken: captchaToken ?? undefined,
       },
     })
     setLoading(false)
@@ -98,8 +101,9 @@ export function Register() {
               </Link>
             </span>
           </label>
+          <Turnstile onVerify={setCaptchaToken} onExpire={() => setCaptchaToken(null)} />
           {error && <Alert>{error}</Alert>}
-          <Button type="submit" disabled={loading || !acceptedLegal}>
+          <Button type="submit" disabled={loading || !acceptedLegal || (isTurnstileConfigured && !captchaToken)}>
             {t('register.submit')}
           </Button>
         </form>
