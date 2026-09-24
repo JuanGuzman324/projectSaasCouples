@@ -137,6 +137,23 @@ se rompe, alguna de las 24 pruebas debería fallar.
   sin poder invocarse sin una sesión válida — el chequeo solo se mueve de
   dónde ocurre.
 
+- `supabase/functions/purge-deleted/` — purga en firme (cron semanal
+  `pg_cron`, ver migración `00000000000009`), cada domingo, todo lo que
+  lleve más de 30 días con `deleted_at` no nulo en `memories`, `moments`,
+  `couple_dates`, `time_capsules` y `moment_templates` — incluyendo el
+  archivo en el bucket `photos` cuando tenía `photo_path` (`memories` y
+  `moments`). El borrado lógico (`deleted_at`) se mantiene tal cual para
+  poder deshacer un borrado reciente desde la UI; esto solo evita que
+  "borrado" signifique "oculto para siempre" (BACKLOG P0 legal). Desplegar
+  con `supabase functions deploy purge-deleted`.
+
+  Mismo patrón de Vault que `send-reminders`:
+
+  ```bash
+  supabase db query --linked "select vault.create_secret('https://TU-PROYECTO.supabase.co/functions/v1/purge-deleted', 'purge_deleted_url');"
+  supabase db query --linked "select vault.create_secret('TU_ANON_KEY', 'purge_deleted_bearer');"
+  ```
+
 ## Qué hay hecho, feature por feature
 
 - **`auth/`** — registro y login por correo/contraseña contra
