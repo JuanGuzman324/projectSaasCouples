@@ -7,6 +7,7 @@ import { TextField } from '../../ui/TextField'
 import { Alert } from '../../ui/Alert'
 import { ThemeToggle } from '../../ui/ThemeToggle'
 import { isTurnstileConfigured, Turnstile } from '../../ui/Turnstile'
+import { BackButton } from '../../ui/BackButton'
 
 export function Login() {
   const { t } = useTranslation('auth')
@@ -40,6 +41,7 @@ export function Login() {
         <ThemeToggle />
       </div>
       <div className="mx-auto flex w-full max-w-sm flex-col gap-6">
+        <BackButton to="/" />
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('login.title')}</h1>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <TextField
