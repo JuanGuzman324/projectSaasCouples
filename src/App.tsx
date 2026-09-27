@@ -18,6 +18,7 @@ import { Button } from './ui/Button'
 import { LanguageSwitcher } from './ui/LanguageSwitcher'
 import { ThemeToggle } from './ui/ThemeToggle'
 import { OfflineBanner } from './ui/OfflineBanner'
+import { BackButton } from './ui/BackButton'
 import { supabase } from './lib/supabase'
 import type { CoupleWithMembers } from './features/couple/api'
 
@@ -87,7 +88,10 @@ function Shell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh">
       <header className="flex flex-col gap-3 px-6 py-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <div className="flex items-center justify-between gap-3">
-          <span className="[font-family:var(--font-display)] text-xl">{t('app.name')}</span>
+          <div className="flex items-center gap-2">
+            <BackButton />
+            <span className="[font-family:var(--font-display)] text-xl">{t('app.name')}</span>
+          </div>
           <div className="flex items-center gap-3 sm:hidden">
             <ThemeToggle />
             <LanguageSwitcher />
