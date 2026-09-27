@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { Button } from '../../ui/Button'
 import { TextField } from '../../ui/TextField'
@@ -9,9 +9,11 @@ import { Card } from '../../ui/Card'
 import { ThemeToggle } from '../../ui/ThemeToggle'
 import { isTurnstileConfigured, Turnstile } from '../../ui/Turnstile'
 import { BackButton } from '../../ui/BackButton'
+import { GoogleSignInButton, isGoogleAuthEnabled } from '../../ui/GoogleSignInButton'
 
 export function Register() {
   const { t, i18n } = useTranslation('auth')
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [acceptedLegal, setAcceptedLegal] = useState(false)
@@ -24,7 +26,7 @@ export function Register() {
     e.preventDefault()
     setError(null)
     setLoading(true)
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -38,6 +40,13 @@ export function Register() {
     setLoading(false)
     if (error) {
       setError(t('register.error.generic'))
+      return
+    }
+    // Con enable_confirmations desactivado (BACKLOG: sin infraestructura
+    // de correo propia todavía), signUp() ya devuelve una sesión activa —
+    // no hace falta pantalla de "revisa tu correo", entra directo.
+    if (data.session) {
+      navigate('/', { replace: true })
       return
     }
     setDone(true)
@@ -109,6 +118,14 @@ export function Register() {
             {t('register.submit')}
           </Button>
         </form>
+        {isGoogleAuthEnabled && (
+          <div className="flex items-center gap-3 text-xs text-[var(--color-muted)]">
+            <span className="h-px flex-1 bg-[var(--color-line)]" />
+            {t('login.or')}
+            <span className="h-px flex-1 bg-[var(--color-line)]" />
+          </div>
+        )}
+        <GoogleSignInButton />
         <p className="text-sm text-[var(--color-muted)]">
           {t('register.hasAccount')}{' '}
           <Link to="/login" className="font-semibold text-[var(--color-ink)] underline">

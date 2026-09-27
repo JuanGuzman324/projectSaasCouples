@@ -26,6 +26,8 @@ npm run dev
   nunca en el cliente. Se generan con `npx web-push generate-vapid-keys`.
 - `VITE_TURNSTILE_SITE_KEY` — clave de sitio (pública) del captcha en
   Login/Registro. Ver "CAPTCHA en Login/Registro" más abajo.
+- `VITE_GOOGLE_AUTH_ENABLED` — muestra el botón "Continuar con Google".
+  Ver "Login con Google" más abajo.
 
 `.env.example` solo tiene placeholders a propósito — copialo y pon ahí
 tus datos reales; `.env.local` ya está en `.gitignore`.
@@ -95,6 +97,39 @@ logins hasta revertirlo). Para activarlo de verdad, en un solo paso:
    real es `auth.captcha.*` (ver advertencia arriba). También se puede
    activar a mano desde el panel: Authentication → Attack Protection.
 
+## Login con Google
+
+Alternativa a correo/contraseña, usando `supabase.auth.signInWithOAuth({
+provider: 'google' })` (`src/ui/GoogleSignInButton.tsx`, en `Login.tsx` y
+`Register.tsx` — con Google, "iniciar sesión" y "crear cuenta" son la
+misma acción, Supabase crea la cuenta la primera vez sola).
+
+`supabase/config.toml` ya declara `[auth.external.google]` con
+`enabled = false` a propósito — mismo criterio que CAPTCHA: nunca dejarlo
+en `true` committeado sin el secret real listo para pushear en el mismo
+paso. Para activarlo de verdad:
+
+1. En [Google Cloud Console](https://console.cloud.google.com/apis/credentials),
+   crear un **OAuth 2.0 Client ID** (tipo "Web application"). Como
+   **Authorized redirect URI** poner la URL de callback de Supabase:
+   `https://vgimknxjdxsjalzscxdx.supabase.co/auth/v1/callback`. Da un
+   **Client ID** y un **Client Secret**.
+2. `VITE_GOOGLE_AUTH_ENABLED=true` en `.env.local` — muestra el botón en
+   la UI (no es una credencial, solo un interruptor; sin él, el botón no
+   se muestra aunque el provider ya esté activado en Supabase).
+3. Editar `supabase/config.toml`: `[auth.external.google]` →
+   `enabled = true` y `client_id = "<Client ID>"` (el Client ID no es
+   secreto — aparece en la URL del navegador durante el login — así que
+   va directo en el archivo, a diferencia del Secret).
+4. En el mismo momento (no antes, no en un push separado sin el secret):
+
+   ```bash
+   SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET=<Client Secret> npx supabase config push
+   ```
+
+   Corre `supabase config diff` antes y confirma que la única diferencia
+   real es `auth.external.google.*` (ver advertencia arriba).
+
 ## SMTP para correos de Auth
 
 **Causa real de "no llega/no funciona el correo de verificación al crear
@@ -106,30 +141,26 @@ a partir de ahí `signUp()` devuelve `429 over_email_send_rate_limit` en
 vez de mandar el correo. No es un bug de la app: `Register.tsx` ya llama
 bien a `supabase.auth.signUp()`.
 
-**Ya está activado** (2026-09-27) contra el proyecto real, con
-[Resend](https://resend.com) (plan gratis, 100 correos/día) — verificado
-enviando y recibiendo un correo de confirmación real. `admin_email` usa
-por ahora el remitente de pruebas de Resend, `onboarding@resend.dev`, a
-propósito: el proyecto todavía no tiene un dominio propio (fase de
-despliegue local). Esa dirección **solo puede mandar correo a la propia
-cuenta de Resend** — sirve para verificar el flujo, no para usuarios
-reales.
+**Verificación de correo desactivada por ahora** (2026-09-27,
+`auth.email.enable_confirmations = false`): el proyecto todavía no tiene
+infraestructura propia para sostener el envío real (el remitente de
+pruebas de Resend, `onboarding@resend.dev`, solo puede mandar correo a la
+propia cuenta de Resend, no a usuarios reales) — mientras tanto,
+`signUp()` devuelve sesión activa de inmediato, sin pantalla de "revisa tu
+correo" (`Register.tsx` ya lo maneja así). Reactivarla cuando haya un
+dominio propio verificado:
 
-Cuando haya un dominio real:
-
-1. Verificarlo en Resend (Domains → Add domain, agregar los registros DNS
-   que pide).
+1. Verificar el dominio en Resend (Domains → Add domain, agregar los
+   registros DNS que pide).
 2. Cambiar `admin_email`/`sender_name` en `supabase/config.toml`
    (`[auth.email.smtp]`) a un remitente de ese dominio ya verificado.
-3. `SUPABASE_AUTH_SMTP_PASS=<API key de Resend> npx supabase config push`
+3. Poner `[auth.email] enable_confirmations = true` de vuelta.
+4. `SUPABASE_AUTH_SMTP_PASS=<API key de Resend> npx supabase config push`
    — revisando `config diff` antes (ver advertencia arriba).
 
-Mientras tanto, para seguir probando el registro con otros correos que no
-sean el de la cuenta de Resend: el límite del mailer compartido (si se
-apagara el SMTP) se resetea solo pasado un rato, o se puede confirmar la
-cuenta a mano sin depender del correo — `supabase db query --linked
-"update auth.users set email_confirmed_at = now() where email =
-'correo@de-prueba.com';"`.
+El SMTP de Resend en sí **ya sigue activo** (lo usan password reset y
+otros correos de Auth que no dependen de `enable_confirmations`), solo el
+paso de confirmar el correo al registrarse está apagado.
 
 ## Región del proyecto Supabase y residencia de datos
 

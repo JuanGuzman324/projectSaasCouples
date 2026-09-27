@@ -8,6 +8,7 @@ import { Alert } from '../../ui/Alert'
 import { ThemeToggle } from '../../ui/ThemeToggle'
 import { isTurnstileConfigured, Turnstile } from '../../ui/Turnstile'
 import { BackButton } from '../../ui/BackButton'
+import { GoogleSignInButton, isGoogleAuthEnabled } from '../../ui/GoogleSignInButton'
 
 export function Login() {
   const { t } = useTranslation('auth')
@@ -68,6 +69,14 @@ export function Login() {
             {t('login.submit')}
           </Button>
         </form>
+        {isGoogleAuthEnabled && (
+          <div className="flex items-center gap-3 text-xs text-[var(--color-muted)]">
+            <span className="h-px flex-1 bg-[var(--color-line)]" />
+            {t('login.or')}
+            <span className="h-px flex-1 bg-[var(--color-line)]" />
+          </div>
+        )}
+        <GoogleSignInButton />
         <p className="text-sm text-[var(--color-muted)]">
           {t('login.noAccount')}{' '}
           <Link to="/register" className="font-semibold text-[var(--color-ink)] underline">
