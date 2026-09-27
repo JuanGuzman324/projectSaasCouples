@@ -358,8 +358,8 @@ email_optional = false
 # (ver README, sección "Login con Google", y la advertencia sobre
 # `supabase config push` más arriba en este archivo/en el README).
 [auth.external.google]
-enabled = false
-client_id = ""
+enabled = true
+client_id = "524501380050-mfo2p6famqg7nfnhnk29ei01488p9j0q.apps.googleusercontent.com"
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
 secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
 
