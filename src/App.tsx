@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from './lib/auth-store'
+import { useAndroidBackButton } from './lib/useAndroidBackButton'
 import { useMyCouple } from './features/couple/useCouple'
 import { Login } from './features/auth/Login'
 import { Register } from './features/auth/Register'
@@ -171,6 +172,7 @@ export default function App() {
   useEffect(() => {
     init()
   }, [init])
+  useAndroidBackButton()
 
   return (
     <Routes>
