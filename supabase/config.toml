@@ -241,14 +241,21 @@ otp_expiry = 3600
 # verificación" (ver README, sección "SMTP para correos de Auth"). La
 # clave nunca va en texto plano acá, mismo patrón que los demás secretos
 # de este archivo.
+#
+# admin_email usa el remitente de pruebas de Resend (onboarding@resend.dev)
+# a propósito: todavía no hay un dominio propio (proyecto en fase de
+# despliegue local), y ese remitente no requiere verificar ninguno — la
+# contrapartida es que Resend solo deja mandar a la dirección de la propia
+# cuenta de Resend, no a usuarios reales todavía. Cuando haya un dominio,
+# cambiar esto a un remitente de ese dominio ya verificado en Resend.
 [auth.email.smtp]
 enabled = true
 host = "smtp.resend.com"
 port = 465
 user = "resend"
 pass = "env(SUPABASE_AUTH_SMTP_PASS)"
-admin_email = "no-responder@nuestrahistoria.app"
-sender_name = "Nuestra historia"
+admin_email = "onboarding@resend.dev"
+sender_name = "Nuestra historia (pruebas)"
 # sender_name = "Admin"
 
 # Uncomment to customize email template
