@@ -235,14 +235,20 @@ otp_length = 6
 # Number of seconds before the email OTP expires (defaults to 1 hour).
 otp_expiry = 3600
 
-# Use a production-ready SMTP server
-# [auth.email.smtp]
-# enabled = true
-# host = "smtp.sendgrid.net"
-# port = 587
-# user = "apikey"
-# pass = "env(SENDGRID_API_KEY)"
-# admin_email = "admin@email.com"
+# Sin esto, Auth usa el mailer compartido de Supabase, que tiene un límite
+# de envío muy bajo por proyecto (pensado solo para probar el flujo una o
+# dos veces, no para uso real) — causa real de "no llega el correo de
+# verificación" (ver README, sección "SMTP para correos de Auth"). La
+# clave nunca va en texto plano acá, mismo patrón que los demás secretos
+# de este archivo.
+[auth.email.smtp]
+enabled = true
+host = "smtp.resend.com"
+port = 465
+user = "resend"
+pass = "env(SUPABASE_AUTH_SMTP_PASS)"
+admin_email = "no-responder@nuestrahistoria.app"
+sender_name = "Nuestra historia"
 # sender_name = "Admin"
 
 # Uncomment to customize email template

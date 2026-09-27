@@ -58,6 +58,50 @@ registro).
    diff` para previsualizarlo sin aplicar nada). También se puede activar
    a mano desde el panel: Authentication → Attack Protection.
 
+## SMTP para correos de Auth
+
+**Causa real de "no llega/no funciona el correo de verificación al crear
+una cuenta"**: sin un servidor SMTP propio configurado, Supabase Auth usa
+su mailer compartido, que tiene un límite de envío muy bajo por proyecto
+(pensado solo para probar el flujo una o dos veces durante el desarrollo,
+no para uso real) — se agota rápido con solo un poco de prueba normal, y
+a partir de ahí `signUp()` devuelve `429 over_email_send_rate_limit` en
+vez de mandar el correo. No es un bug de la app: `Register.tsx` ya llama
+bien a `supabase.auth.signUp()`; lo que falta es un proveedor SMTP real.
+
+`supabase/config.toml` ya declara `[auth.email.smtp]` apuntando a
+[Resend](https://resend.com) (tiene plan gratis generoso, 100 correos/día,
+y es fácil de configurar), con la contraseña como
+`env(SUPABASE_AUTH_SMTP_PASS)` — nunca en texto plano, mismo patrón que
+los demás secretos de este archivo. Para activarlo de verdad:
+
+1. Crear cuenta en [resend.com](https://resend.com) y verificar un
+   dominio propio (Resend exige esto para poder mandar correos con un
+   remitente `@tu-dominio`; sin dominio verificado solo deja mandar a la
+   propia cuenta de prueba, lo cual no sirve para usuarios reales).
+2. Generar una API key en Resend y ajustar `admin_email`/`sender_name` en
+   `supabase/config.toml` con el remitente real de ese dominio verificado
+   (hoy tiene un placeholder, `no-responder@nuestrahistoria.app`, que no
+   funcionará hasta que ese dominio esté verificado en Resend).
+3. Aplicar contra el proyecto real:
+
+   ```bash
+   SUPABASE_AUTH_SMTP_PASS=<API key de Resend> npx supabase config push
+   ```
+
+   Revisa el diff primero (`supabase config diff`) — a fecha de este
+   README también hay otras diferencias sin relación (MFA, límites del
+   pooler, Twilio, captcha) entre `config.toml` y el proyecto real que
+   **no** conviene empujar por accidente en el mismo push; confirma que
+   el diff que te muestra el comando antes de aceptar solo toca lo que
+   esperas.
+
+Mientras tanto, para seguir probando el registro sin un proveedor SMTP
+real: el límite del mailer compartido se resetea solo pasado un rato
+(es por hora), o se puede confirmar la cuenta a mano sin depender del
+correo — `supabase db query --linked "update auth.users set
+email_confirmed_at = now() where email = 'correo@de-prueba.com';"`.
+
 ## Región del proyecto Supabase y residencia de datos
 
 El proyecto real (`projectSaas`, ref `vgimknxjdxsjalzscxdx`) está en

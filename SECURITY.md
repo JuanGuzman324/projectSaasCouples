@@ -46,6 +46,16 @@ archivo a un proyecto Supabase específico y rompe la portabilidad del repo
   creados una vez por proyecto con `supabase db query --linked "select
   vault.create_secret(...)"` (ver README, sección "Edge Functions"), nunca
   como valor literal en una migración.
+- **`SUPABASE_AUTH_CAPTCHA_SECRET`** (Cloudflare Turnstile) — solo se pasa
+  como variable de entorno al correr `supabase config push`, nunca en
+  `supabase/config.toml` (que declara `secret = "env(...)"`, ver README,
+  sección "CAPTCHA en Login/Registro"). Si se filtrara, alguien podría
+  resolver retos de Turnstile por API en nombre del sitio.
+- **`SUPABASE_AUTH_SMTP_PASS`** (API key del proveedor SMTP, hoy Resend) —
+  mismo patrón: variable de entorno al correr `config push`, nunca en
+  `config.toml` (ver README, sección "SMTP para correos de Auth"). Si se
+  filtrara, alguien podría mandar correo saliente con el remitente
+  verificado del proyecto.
 
 ## Lo que vendrá (Stripe / RevenueCat)
 
