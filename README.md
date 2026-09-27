@@ -30,6 +30,37 @@ npm run dev
 `.env.example` solo tiene placeholders a propósito — copialo y pon ahí
 tus datos reales; `.env.local` ya está en `.gitignore`.
 
+## ⚠️ Cómo usar `supabase config push` sin romper nada
+
+Aprendido por las malas (2026-09-27): `config push` **no** pide
+confirmar campo por campo pese a listarlos uno por uno. Agrupa todo bajo
+una sola pregunta por servicio (`¿pushear Auth config?`, `¿pushear Storage
+config?`) — responder "Yes" una vez aplica **todos** los campos que se
+listaron arriba de esa pregunta, aunque solo quisieras uno. Como
+`config.toml` trae boilerplate de `supabase init` que nunca se ajustó
+para que coincida con el proyecto real (MFA, límites del pooler, Twilio,
+`site_url`, etc.), casi cualquier push de rutina arrastra esos campos sin
+querer.
+
+Antes de correr `supabase config push` por cualquier motivo:
+
+1. Corre `supabase config diff` primero y lee cada línea del campo
+   `changes`. Si aparece algo que no reconoces o no querías tocar, **no
+   seguir** — pedir ayuda o investigar antes de pushear.
+2. Si hay diferencias que no querés aplicar, la única forma segura de
+   evitarlas es que `config.toml` ya declare, en el momento del push, el
+   mismo valor que tiene el proyecto real para esos campos (así el push
+   no cambia nada ahí). No hay forma de pushear "solo un campo".
+3. El estado de `config.toml` en este repo ya está alineado así con el
+   proyecto real (ver `supabase config diff` — a la fecha solo quedan 3
+   diferencias sin relación e inofensivas: `auth.sms.twilio.enabled`,
+   `db.pooler.*` y `storage.image_transformation.enabled`, ninguna de las
+   cuales `config push` puede aplicar igual — la CLI las marca como "no
+   Management API field"/"could not be encoded" y las salta sola).
+   Si vas a activar CAPTCHA o cambiar el SMTP, edita solo esa sección,
+   corre `config diff` para confirmar que es la única diferencia real, y
+   recién ahí pushea.
+
 ## CAPTCHA en Login/Registro
 
 Protección contra registros/inicios de sesión automatizados (BACKLOG P0
@@ -37,6 +68,13 @@ legal). Usa [Cloudflare Turnstile](https://dash.cloudflare.com/?to=/:account/tur
 integrado en `src/ui/Turnstile.tsx` y usado en `Login.tsx` y `Register.tsx`
 (activar captcha en Supabase lo exige en ambos endpoints, no solo en el
 registro).
+
+`supabase/config.toml` declara `[auth.captcha]` con `enabled = false` a
+propósito — **nunca lo dejes en `true` en el archivo committeado** sin la
+secret real ya lista para pushear en el mismo momento: eso fue exactamente
+la causa del incidente de login roto del 2026-09-27 (se pusheó
+`enabled = true` sin `SUPABASE_AUTH_CAPTCHA_SECRET`, bloqueando todos los
+logins hasta revertirlo). Para activarlo de verdad, en un solo paso:
 
 1. En el panel de Cloudflare, sección Turnstile, crea un **Widget**
    (modo *Managed*) para el dominio donde corre la app — para desarrollo
@@ -46,17 +84,16 @@ registro).
    variable, el widget no se muestra y el formulario funciona igual
    (útil en desarrollo local sin claves propias); solo se vuelve
    obligatorio cuando el proyecto Supabase real lo tiene activado.
-3. Activar el captcha en el proyecto real, sin escribir la Secret Key en
-   ningún archivo versionado — `supabase/config.toml` ya la declara como
-   `env(SUPABASE_AUTH_CAPTCHA_SECRET)` (sección `[auth.captcha]`):
+3. Editar `supabase/config.toml`: `[auth.captcha]` → `enabled = true`.
+4. En el mismo momento (no antes, no en un push separado sin la secret):
 
    ```bash
    SUPABASE_AUTH_CAPTCHA_SECRET=<Secret Key> npx supabase config push
    ```
 
-   Revisa el diff que te muestra antes de confirmar (`supabase config
-   diff` para previsualizarlo sin aplicar nada). También se puede activar
-   a mano desde el panel: Authentication → Attack Protection.
+   Corre `supabase config diff` antes y confirma que la única diferencia
+   real es `auth.captcha.*` (ver advertencia arriba). También se puede
+   activar a mano desde el panel: Authentication → Attack Protection.
 
 ## SMTP para correos de Auth
 
@@ -67,40 +104,32 @@ su mailer compartido, que tiene un límite de envío muy bajo por proyecto
 no para uso real) — se agota rápido con solo un poco de prueba normal, y
 a partir de ahí `signUp()` devuelve `429 over_email_send_rate_limit` en
 vez de mandar el correo. No es un bug de la app: `Register.tsx` ya llama
-bien a `supabase.auth.signUp()`; lo que falta es un proveedor SMTP real.
+bien a `supabase.auth.signUp()`.
 
-`supabase/config.toml` ya declara `[auth.email.smtp]` apuntando a
-[Resend](https://resend.com) (tiene plan gratis generoso, 100 correos/día,
-y es fácil de configurar), con la contraseña como
-`env(SUPABASE_AUTH_SMTP_PASS)` — nunca en texto plano, mismo patrón que
-los demás secretos de este archivo. Para activarlo de verdad:
+**Ya está activado** (2026-09-27) contra el proyecto real, con
+[Resend](https://resend.com) (plan gratis, 100 correos/día) — verificado
+enviando y recibiendo un correo de confirmación real. `admin_email` usa
+por ahora el remitente de pruebas de Resend, `onboarding@resend.dev`, a
+propósito: el proyecto todavía no tiene un dominio propio (fase de
+despliegue local). Esa dirección **solo puede mandar correo a la propia
+cuenta de Resend** — sirve para verificar el flujo, no para usuarios
+reales.
 
-1. Crear cuenta en [resend.com](https://resend.com) y verificar un
-   dominio propio (Resend exige esto para poder mandar correos con un
-   remitente `@tu-dominio`; sin dominio verificado solo deja mandar a la
-   propia cuenta de prueba, lo cual no sirve para usuarios reales).
-2. Generar una API key en Resend y ajustar `admin_email`/`sender_name` en
-   `supabase/config.toml` con el remitente real de ese dominio verificado
-   (hoy tiene un placeholder, `no-responder@nuestrahistoria.app`, que no
-   funcionará hasta que ese dominio esté verificado en Resend).
-3. Aplicar contra el proyecto real:
+Cuando haya un dominio real:
 
-   ```bash
-   SUPABASE_AUTH_SMTP_PASS=<API key de Resend> npx supabase config push
-   ```
+1. Verificarlo en Resend (Domains → Add domain, agregar los registros DNS
+   que pide).
+2. Cambiar `admin_email`/`sender_name` en `supabase/config.toml`
+   (`[auth.email.smtp]`) a un remitente de ese dominio ya verificado.
+3. `SUPABASE_AUTH_SMTP_PASS=<API key de Resend> npx supabase config push`
+   — revisando `config diff` antes (ver advertencia arriba).
 
-   Revisa el diff primero (`supabase config diff`) — a fecha de este
-   README también hay otras diferencias sin relación (MFA, límites del
-   pooler, Twilio, captcha) entre `config.toml` y el proyecto real que
-   **no** conviene empujar por accidente en el mismo push; confirma que
-   el diff que te muestra el comando antes de aceptar solo toca lo que
-   esperas.
-
-Mientras tanto, para seguir probando el registro sin un proveedor SMTP
-real: el límite del mailer compartido se resetea solo pasado un rato
-(es por hora), o se puede confirmar la cuenta a mano sin depender del
-correo — `supabase db query --linked "update auth.users set
-email_confirmed_at = now() where email = 'correo@de-prueba.com';"`.
+Mientras tanto, para seguir probando el registro con otros correos que no
+sean el de la cuenta de Resend: el límite del mailer compartido (si se
+apagara el SMTP) se resetea solo pasado un rato, o se puede confirmar la
+cuenta a mano sin depender del correo — `supabase db query --linked
+"update auth.users set email_confirmed_at = now() where email =
+'correo@de-prueba.com';"`.
 
 ## Región del proyecto Supabase y residencia de datos
 
