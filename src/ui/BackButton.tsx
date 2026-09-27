@@ -11,17 +11,23 @@ import { useLocation, useNavigate } from 'react-router-dom'
 // CoupleRoutes, y "atrás" ahí normalmente significa volver a la pantalla
 // de bienvenida, no al historial del navegador (que puede estar vacío si
 // es la primera pantalla que se abrió).
-export function BackButton({ to }: { to?: string } = {}) {
+//
+// `onClick`: acción personalizada en vez de navegar. Hace falta en
+// InviteScreen (esperando a que la otra persona se una) — esa pantalla no
+// tiene una ruta propia (Gate la muestra según el estado de la pareja, no
+// la URL), así que no hay un destino de navegación real; "atrás" ahí
+// significa deshacer el "crear pareja" y volver a Onboarding.
+export function BackButton({ to, onClick }: { to?: string; onClick?: () => void } = {}) {
   const { t } = useTranslation('common')
   const navigate = useNavigate()
   const location = useLocation()
 
-  if (!to && location.pathname === '/') return null
+  if (!to && !onClick && location.pathname === '/') return null
 
   return (
     <button
       type="button"
-      onClick={() => (to ? navigate(to) : navigate(-1))}
+      onClick={onClick ?? (() => (to ? navigate(to) : navigate(-1)))}
       aria-label={t('action.back')}
       className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)]"
     >

@@ -3,6 +3,7 @@ import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-route
 import { useTranslation } from 'react-i18next'
 import { useAuthStore } from './lib/auth-store'
 import { useAndroidBackButton } from './lib/useAndroidBackButton'
+import { useSignOutOnClose } from './lib/useSignOutOnClose'
 import { useMyCouple } from './features/couple/useCouple'
 import { Login } from './features/auth/Login'
 import { Register } from './features/auth/Register'
@@ -177,6 +178,7 @@ export default function App() {
     init()
   }, [init])
   useAndroidBackButton()
+  useSignOutOnClose()
 
   return (
     <Routes>

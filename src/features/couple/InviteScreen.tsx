@@ -2,11 +2,14 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../ui/Button'
 import { ThemeToggle } from '../../ui/ThemeToggle'
+import { BackButton } from '../../ui/BackButton'
+import { useLeaveCouple } from './useCouple'
 import type { CoupleWithMembers } from './api'
 
 export function InviteScreen({ couple }: { couple: CoupleWithMembers }) {
   const { t } = useTranslation('couple')
   const [copied, setCopied] = useState(false)
+  const leaveCouple = useLeaveCouple()
 
   async function copy() {
     await navigator.clipboard.writeText(couple.invite_code)
@@ -20,6 +23,7 @@ export function InviteScreen({ couple }: { couple: CoupleWithMembers }) {
         <ThemeToggle />
       </div>
       <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6">
+        <BackButton onClick={() => leaveCouple.mutate(couple.id)} />
         <h1 className="[font-family:var(--font-display)] text-3xl">{t('invite.title')}</h1>
         <p className="text-[var(--color-muted)]">{t('invite.explain')}</p>
         <p className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] px-8 py-5 font-mono text-4xl tracking-[0.2em] text-[var(--color-ink)] shadow-sm">

@@ -4,6 +4,7 @@ import {
   deleteAccount,
   fetchMyCouple,
   joinCouple,
+  leaveCouple,
   setPlan,
   updateCouple,
   updateMyMember,
@@ -47,6 +48,14 @@ export function useSetPlan() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ coupleId, plan }: { coupleId: string; plan: 'free' | 'premium' }) => setPlan(coupleId, plan),
+    onSuccess: () => qc.invalidateQueries({ queryKey: COUPLE_QUERY_KEY }),
+  })
+}
+
+export function useLeaveCouple() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (coupleId: string) => leaveCouple(coupleId),
     onSuccess: () => qc.invalidateQueries({ queryKey: COUPLE_QUERY_KEY }),
   })
 }
